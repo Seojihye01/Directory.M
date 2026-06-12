@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { allMovies, type Movie } from "./MovieData"; 
 import './Curation_7.css';
 
