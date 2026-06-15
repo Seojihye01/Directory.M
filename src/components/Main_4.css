@@ -1,5 +1,5 @@
 .genre_container {position: relative; width: 100%; height: 100vh; overflow: hidden; cursor: crosshair; 
-                  background: #121212; touch-action: none;}
+                  background: #121212; touch-action: none; overscroll-behavior: none;}
 
 .hud_overlay {position: absolute; inset: 0; z-index: 100; pointer-events: none; color: #f9f9f9;
               font-family: 'Courier New', Courier, monospace; padding: 40px; display: flex; 
@@ -36,7 +36,7 @@
 .base_white_bg {position: absolute; inset: 0; background-color: #f9f9f9; z-index: 1;}
 
 .text_layer_black, .focus_layer {position: absolute; inset: 0; z-index: 2; display: flex; align-items: center;
-                                 justify-content: center;}
+                                 justify-content: center; touch-action: none;}
 
 .genre_grid {display: grid; grid-template-columns: repeat(5, 1fr); gap: 50px; padding: 100px; width: 100%; height: 100%;   
              align-content: center; justify-items: center;}
@@ -44,7 +44,8 @@
 .genre_item {color: #121212; font-size: 1.2rem; letter-spacing: 0.15em; font-weight: 400; text-align: center;
              text-transform: uppercase;}
 
-.mask_layer_black {position: absolute; inset: 0; background-color: #121212; z-index: 3; pointer-events: none;}
+.mask_layer_black {position: absolute; inset: 0; background-color: #121212; z-index: 3; pointer-events: none;
+                   touch-action: none;}
 
 /* Responsive Design */
 /* 1. 태블릿 (1024px 이하) */

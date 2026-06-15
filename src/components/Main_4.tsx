@@ -14,6 +14,25 @@ const Main_4 = () => {
         "FANTASY", "CRIME", "MYSTERY", "ADVENTURE"
     ];
 
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        // 브라우저의 기본 터치 스크롤 동작을 완전히 무효화함
+        const preventDefaultTouch = (e: TouchEvent) => {
+            if (e.cancelable) e.preventDefault();
+        };
+
+        // passive: false를 주어야만 preventDefault가 완벽하게 동작합니다.
+        container.addEventListener('touchmove', preventDefaultTouch, { passive: false });
+        container.addEventListener('touchstart', preventDefaultTouch, { passive: false });
+
+        return () => {
+            container.removeEventListener('touchmove', preventDefaultTouch);
+            container.removeEventListener('touchstart', preventDefaultTouch);
+        };
+    }, []);
+
     const displayGenres = Array.from({ length: 10 }, () => allGenres).flat();
 
     const handleMouseMove = (e: React.MouseEvent) => {
