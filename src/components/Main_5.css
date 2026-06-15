@@ -116,3 +116,42 @@
     .main5_status_item {font-size: 18px;}
     
 }
+
+/* 3. 소형 모바일 (480px 이하) */
+@media screen and (max-width: 768px) {
+
+    .classic_clock_outer {width: 300px; height: 340px;}
+
+    .classic_clock_inner {width: 140px; height: 140px;}
+
+    .clock_mark::after {height: 9px;}
+
+    .clock_mark:nth-child(3n+1)::after {height: 18px;}
+
+    .main5_step_label {font-size: 12px;}
+
+    .dev {top: -40px;}
+
+    .prod {right: -65px;}
+
+    .post {bottom: -40px;}
+
+    .ready {left: -65px;}
+
+    .h_hour {width: 2px; height: 40px; z-index: 3;}
+
+    .h_min {width: 2px; height: 55px; z-index: 2;}
+
+    .h_sec {width: 1px; height: 65px; z-index: 4;}
+
+    .main5_center_pin {width: 7px; height: 7px;}  
+    
+    .main5_status_item {font-size: 13px;}
+
+    .main5_question {font-size: 16px;}
+
+    .main5_cta_group {margin-top: 20px;}
+
+    .main5_check_label {font-size: 16px;}
+    
+}

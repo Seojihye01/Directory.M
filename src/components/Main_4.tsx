@@ -20,10 +20,15 @@ const Main_4 = () => {
 
         // 브라우저의 기본 터치 스크롤 동작을 완전히 무효화함
         const preventDefaultTouch = (e: TouchEvent) => {
+            const target = e.target as HTMLElement;
+            if (target.closest('.bottom_right.clickable')) {
+                return; 
+            }
+
             if (e.cancelable) e.preventDefault();
         };
 
-        // passive: false를 주어야만 preventDefault가 완벽하게 동작합니다.
+        // passive: false를 주어야만 preventDefault가 완벽하게 동작
         container.addEventListener('touchmove', preventDefaultTouch, { passive: false });
         container.addEventListener('touchstart', preventDefaultTouch, { passive: false });
 
@@ -87,7 +92,11 @@ const Main_4 = () => {
               <div className="hud_title">PROJECT_DIRECTORY.M</div>
             </div>
 
-            <div className="hud_item bottom_right clickable" onClick={handleExploreClick}>
+            <div className="hud_item bottom_right clickable" onClick={handleExploreClick}
+                onTouchEnd={(e) => {
+                    e.stopPropagation(); // 이벤트가 부모 캔버스로 퍼져서 차단되는 걸 막음
+                    handleExploreClick();
+                    }}>
                 <div className="hud_main_cta">MISSION: EXPLORE</div>
             </div>
           </div>

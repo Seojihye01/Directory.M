@@ -20,7 +20,7 @@
 
 .hud_title {font-size: 1.2rem; color: #f9f9f9; letter-spacing: 4px; margin-bottom: 4px;}
 
-.bottom_right {bottom: 40px; right: 40px; text-align: right; pointer-events: auto; cursor: pointer;}
+.bottom_right {bottom: 40px; right: 40px; text-align: right; pointer-events: auto; cursor: pointer; touch-action: auto !important;}
 
 .hud_main_cta {font-size: 1.6rem; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);}
 
