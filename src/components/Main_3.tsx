@@ -127,7 +127,7 @@ const Main_3 = () => {
             <motion.div
               key="draggable-logo"
               layoutId="logo-piece"
-              drag
+              drag={window.innerWidth <= 1024 ? "y" : true}
               dragConstraints={constraintsRef}
               onDragEnd={handleDragEnd}
               exit={{ opacity: 0, transition: { duration: 0.2 } }}

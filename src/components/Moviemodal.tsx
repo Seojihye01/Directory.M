@@ -152,7 +152,7 @@ const MovieModal = ({ movie, onClose, onMovieClick }: MovieModalProps) => {
                         ) : (
                             <div className="trailer_list">
                                 <div className="trailer_item">
-                                    <video src="/media/Dune.mp4" controls controlsList="nodownload"
+                                    <video src="/media/main_.mp4" controls controlsList="nodownload"
                                                 onContextMenu={(e) => e.preventDefault()} poster={movie.img} />
                                     <span>Concept Trailer by Directory.M</span>
                                 </div>

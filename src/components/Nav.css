@@ -40,8 +40,8 @@
 /* 2. 모바일 (768px 이하) */
 @media (max-width: 768px) {
 
-    .elevator_nav {right: 10px; gap: 12px;}
+    .elevator_nav {right: 10px; gap: 20px;}
 
-    .dot {width: 6px; height: 6px;}
+    .dot {width: 10px; height: 10px;}
 
 }

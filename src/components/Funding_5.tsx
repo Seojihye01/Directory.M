@@ -52,6 +52,14 @@ const Funding_5 = () => {
   const festivalSelections = useCountUp(14, 2000, isStatsInView, 400);
   const completionRate = useCountUp(98, 2000, isStatsInView, 600);
 
+  const sortedProjects = [...fundingProjects]
+    .sort((a, b) => {
+      const yearA = parseInt(a.shooting.split(' ').pop() || "0", 10);
+      const yearB = parseInt(b.shooting.split(' ').pop() || "0", 10);
+      return yearB - yearA; // 내림차순
+    })
+    .slice(0, 8);
+
   return (
     <section className="outcomes_section" ref={sectionRef} data-theme="light">
       <motion.h2 
@@ -74,7 +82,7 @@ const Funding_5 = () => {
             </tr>
           </thead>
           <tbody>
-            {fundingProjects.slice(0, 8).map((project) => (
+            {sortedProjects.map((project) => (
               <tr 
                 key={project.id} 
                 className="clickable_row"

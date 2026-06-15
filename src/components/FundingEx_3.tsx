@@ -153,10 +153,11 @@ const FundingEx_3 = () => {
               transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
             >
               {project.images && project.images.length > 0 ? (
-                project.images.map((imgSrc, idx) => (
+                project.images.map((imgObj, idx) => (
                   <div className="fex3_card" key={idx}>
                     <img 
-                      src={imgSrc} 
+                      src={imgObj.src} 
+                      className={imgObj.effectClass || ""}
                       alt={`frame-${idx}`} 
                       onError={(e) => {
                         // 이미지 로드 실패 시 엑박 대신 임시 빈 박스 처리 혹은 에러 로깅
