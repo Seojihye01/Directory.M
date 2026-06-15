@@ -1,6 +1,7 @@
 .main_container {width: 100vw; background-color: #f9f9f9; display: flex; padding: 100px 60px 40px 40px; 
                  box-sizing: border-box; align-items: center; justify-content: center; margin: 0; 
-                 overflow: hidden; position: relative; min-height: 100vh; overscroll-behavior: none;}
+                 overflow: hidden; position: relative; min-height: 100vh; overscroll-behavior: none;
+                 will-change: transform, opacity; transform: translateZ(0); backface-visibility: hidden;}
 
 .grid_wrapper {width: 1200px; display: flex; flex-direction: column; gap: 20px; position: relative;
                z-index: 1; margin: 0 auto; height: auto;}

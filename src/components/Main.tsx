@@ -1,4 +1,5 @@
 import Main_wrapper from "./Main_wrapper";
+import './Main.css';
 
 function Main(){
     return(

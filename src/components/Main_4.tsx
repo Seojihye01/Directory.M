@@ -21,8 +21,8 @@ const Main_4 = () => {
         // 브라우저의 기본 터치 스크롤 동작을 완전히 무효화함
         const preventDefaultTouch = (e: TouchEvent) => {
             const target = e.target as HTMLElement;
-            if (target.closest('.bottom_right.clickable')) {
-                return; 
+            if (target.closest('.bottom_right.clickable')) return; 
+                if (e.touches.length === 1) {
             }
 
             if (e.cancelable) e.preventDefault();

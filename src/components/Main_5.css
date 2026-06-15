@@ -1,5 +1,6 @@
 .main5_container {width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center;
-                  background: #f4f4f4; padding: 100px 40px; box-sizing: border-box;}
+                  background: #f4f4f4; padding: 100px 40px; box-sizing: border-box; will-change: transform, opacity;
+                  transform: translateZ(0); backface-visibility: hidden;}
 
 .main5_inner {display: flex; align-items: center; justify-content: center; gap: 120px; width: 100%; 
               max-width: 1200px; flex-wrap: wrap;}
