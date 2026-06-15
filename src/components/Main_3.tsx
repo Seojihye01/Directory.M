@@ -88,7 +88,7 @@ const Main_3 = () => {
             animate={isMatched ? "show" : "initial"}
           >
             {isMatched && (
-              <video autoPlay muted loop playsInline className="main_video2 color">
+              <video autoPlay muted loop playsInline preload="auto" className="main_video2 color">
                 <source src="/media/main3.mp4" type="video/mp4" />
               </video>
             )}

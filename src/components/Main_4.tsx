@@ -1,68 +1,80 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import './Main_4.css';
 
+// 장르 그리드 컴포넌트 (리렌더링 차단용 Memo)
+const GenreGrid = React.memo(({ genres, isFocus }: { genres: string[], isFocus: boolean }) => {
+  return (
+    <div className="genre_grid">
+      {genres.map((genre, i) => (
+        <span key={`${isFocus ? 'focus' : 'black'}-${i}`} className={`genre_item ${isFocus ? 'focus' : ''}`}>
+          {genre}
+        </span>
+      ))}
+    </div>
+  );
+});
+GenreGrid.displayName = 'GenreGrid';
+
 const Main_4 = () => {
     const navigate = useNavigate(); 
-    const [mousePos, setMousePos] = useState({ x: 150, y: 300 });
     const containerRef = useRef<HTMLDivElement>(null);
+    
+    // 🌟 1. 좌표를 직접 꽂아넣을 돔(DOM) 참조 지점 생성
+    const locRef = useRef<HTMLDivElement>(null);
+    const [currentTime, setCurrentTime] = useState<string>("");
 
-    const allGenres = [
+    const allGenres = useMemo(() => [
         "ACTION", "ROMANCE", "THRILLER", "COMEDY", "DRAMA", 
         "SCI-FI", "HORROR", "DOCUMENTARY", "ANIMATION", "NOIR", 
         "FANTASY", "CRIME", "MYSTERY", "ADVENTURE"
-    ];
+    ], []);
 
+    const displayGenres = useMemo(() => Array.from({ length: 10 }, () => allGenres).flat(), [allGenres]);
+
+    // 🌟 2. 마스크 위치를 바꿀 때, locRef를 이용해 글자도 같이 리렌더링 없이 바꿔줍니다.
+    const updateMaskPosition = (clientX: number, clientY: number) => {
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        
+        // GPU 가속용 CSS 변수 설정 (리렌더링 X)
+        containerRef.current.style.setProperty('--mouse-x', `${x}px`);
+        containerRef.current.style.setProperty('--mouse-y', `${y}px`);
+
+        // 🌟 돔에 직접 텍스트를 밀어 넣어 컴포넌트가 멈칫하는 현상을 원천 차단합니다.
+        if (locRef.current) {
+            locRef.current.textContent = `LOC: [ ${x.toFixed(0)}, ${y.toFixed(0)} ]`;
+        }
+    };
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        updateMaskPosition(e.clientX, e.clientY);
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        if (e.touches.length > 0) {
+            updateMaskPosition(e.touches[0].clientX, e.touches[0].clientY);
+        }
+    };
+
+    // 모바일 터치 스크롤 방지
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
-        // 브라우저의 기본 터치 스크롤 동작을 완전히 무효화함
         const preventDefaultTouch = (e: TouchEvent) => {
             const target = e.target as HTMLElement;
-            if (target.closest('.bottom_right.clickable')) return; 
-                if (e.touches.length === 1) {
-            }
-
+            if (target.closest('.bottom_right.clickable')) return;
             if (e.cancelable) e.preventDefault();
         };
 
-        // passive: false를 주어야만 preventDefault가 완벽하게 동작
         container.addEventListener('touchmove', preventDefaultTouch, { passive: false });
-        container.addEventListener('touchstart', preventDefaultTouch, { passive: false });
-
-        return () => {
-            container.removeEventListener('touchmove', preventDefaultTouch);
-            container.removeEventListener('touchstart', preventDefaultTouch);
-        };
+        return () => container.removeEventListener('touchmove', preventDefaultTouch);
     }, []);
 
-    const displayGenres = Array.from({ length: 10 }, () => allGenres).flat();
-
-    const handleMouseMove = (e: React.MouseEvent) => {
-        if (!containerRef.current) return;
-        const rect = containerRef.current.getBoundingClientRect();
-        setMousePos({
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top
-        });
-    };
-
-    const handleTouchMove = (e: React.TouchEvent) => {
-      if (!containerRef.current) return;
-
-      if (e.cancelable) e.preventDefault();
-      const rect = containerRef.current.getBoundingClientRect();
-      const touch = e.touches[0];
-      setMousePos({
-          x: touch.clientX - rect.left,
-          y: touch.clientY - rect.top
-      });
-    };
-
-    const [currentTime, setCurrentTime] = useState<string>("");
-
+    // 시계 타이머
     useEffect(() => {
         const timer = setInterval(() => {
             const now = new Date();
@@ -73,64 +85,37 @@ const Main_4 = () => {
         return () => clearInterval(timer);
     }, []);
 
-    const handleExploreClick = () => {
-        navigate('/explore'); 
-    };
-
     return (
         <div className="genre_container" ref={containerRef} onMouseMove={handleMouseMove} 
                onTouchMove={handleTouchMove} onTouchStart={handleTouchMove} data-theme="dark">
           <div className="hud_overlay">
             <div className="hud_item top_left">
-                <span className="blink_icon">●</span> SYSTEM: SCANNING DATA
-                <span className="blink_icon"></span> // SOURCE: MOVIEDATA.TS
+                <span className="blink_icon">●</span> SYSTEM: SCANNING DATA // SOURCE: MOVIEDATA.TS
             </div>
-
+            
             <div className="hud_item bottom_left">
-              <div className="loc_data">LOC: [ {mousePos.x.toFixed(0)}, {mousePos.y.toFixed(0)} ]</div>
+              {/* 🌟 3. 초기값을 적어두고 ref를 연결하여 실시간으로 데이터만 쇽쇽 변경되게 만듭니다. */}
+              <div className="loc_data" ref={locRef}>LOC: [ 150, 300 ]</div>
               <div className="time_data">{currentTime}</div>
               <div className="hud_title">PROJECT_DIRECTORY.M</div>
             </div>
-
-            <div className="hud_item bottom_right clickable" onClick={handleExploreClick}
-                onTouchEnd={(e) => {
-                    e.stopPropagation(); // 이벤트가 부모 캔버스로 퍼져서 차단되는 걸 막음
-                    handleExploreClick();
-                    }}>
+            
+            <div className="hud_item bottom_right clickable" onClick={() => navigate('/explore')} onTouchEnd={(e) => { e.stopPropagation(); navigate('/explore'); }}>
                 <div className="hud_main_cta">MISSION: EXPLORE</div>
             </div>
           </div>
-            <div className="base_white_bg" />
+          
+          <div className="base_white_bg" />
 
-            <div className="text_layer_black">
-                <div className="genre_grid">
-                    {displayGenres.map((genre, i) => (
-                        <span key={`black-${i}`} className="genre_item">{genre}</span>
-                    ))}
-                </div>
-            </div>
+          <div className="text_layer_black">
+              <GenreGrid genres={displayGenres} isFocus={false} />
+          </div>
 
-            <motion.div 
-                className="mask_layer_black"
-                style={{
-                    WebkitMaskImage: `radial-gradient(circle 200px at ${mousePos.x}px ${mousePos.y}px, transparent 0%, black 100%)`,
-                    maskImage: `radial-gradient(circle 200px at ${mousePos.x}px ${mousePos.y}px, transparent 0%, black 100%)`
-                }}
-            />
+          <div className="mask_layer_black" />
             
-            <div 
-                className="focus_layer"
-                style={{
-                    WebkitMaskImage: `radial-gradient(circle 200px at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 100%)`,
-                    maskImage: `radial-gradient(circle 200px at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 100%)`
-                }}
-            >
-                <div className="genre_grid">
-                    {displayGenres.map((genre, i) => (
-                        <span key={`focus-${i}`} className="genre_item focus">{genre}</span>
-                    ))}
-                </div>
-            </div>
+          <div className="focus_layer">
+              <GenreGrid genres={displayGenres} isFocus={true} />
+          </div>
         </div>
     );
 };
