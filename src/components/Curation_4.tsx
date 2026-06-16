@@ -15,30 +15,36 @@ const Curation_4: React.FC = () => {
     const navMovies = allMovies.slice(0, 10);
     const renderMovies = navMovies.filter(m => m.id !== 1);
 
-    const navigateMovie = (e: React.MouseEvent, direction: 'prev' | 'next') => {
+    const navigateMovie = (e: React.MouseEvent) => {
         e.stopPropagation();
         if (!selectedMovie) return;
         const currentIndex = navMovies.findIndex(m => m.id === selectedMovie.id);
-        let nextIndex = direction === 'prev' 
-            ? (currentIndex - 1 + navMovies.length) % navMovies.length 
-            : (currentIndex + 1) % navMovies.length;
+        
+        // 단순 원형 네비게이션 구조로 통일 (Curation_4 내부 카드 전환 간소화 혹은 Modal 전용 핸들러 분리)
+        const nextIndex = (currentIndex + 1) % navMovies.length;
         setSelectedMovie(navMovies[nextIndex]);
+    };
+
+    const handleOpenModal = (e: React.MouseEvent, movie: Movie) => {
+        // Swiper 드래그 엔진의 터치 가로채기 방지 핵심
+        e.preventDefault();
+        e.stopPropagation();
+        setSelectedMovie(movie);
+        setIsDetailOpen(false); // 처음엔 1차 요약창 상태
     };
 
     const handleMoreClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        setIsDetailOpen(true);
+        setIsDetailOpen(true); // 2차 상세 모달 open
     };
 
     return (
         <section className="curation_container" data-theme="light">
-            {/* 배경 텍스트 섹션 */}
             <div className="cu4_inner">
                 <p className="cu4_key">INSIDE THE MOMENT</p>
             </div>
 
-            {/* 카드 스택 영역: 정렬을 위해 래퍼 추가 */}
             <div className="mySwiper_wrapper">
                 <Swiper
                     effect={'cards'}
@@ -59,7 +65,14 @@ const Curation_4: React.FC = () => {
                             <div className="m_card_content">
                                 <div className="m_img_area">
                                     <img src={m.img} alt={m.title} />
-                                    <button className="m_view_btn" onClick={() => setSelectedMovie(m)}>
+                                    {/* onTouchEnd에서 터치가 유실되지 않도록 캡처링 조치 */}
+                                    <button 
+                                        className="m_view_btn" 
+                                        onClick={(e) => handleOpenModal(e, m)}
+                                        onTouchEnd={(e) => {
+                                            e.stopPropagation();
+                                        }}
+                                    >
                                         <img src="/media/view_w.svg" className="m_view_w" alt="view" />
                                     </button>
                                 </div>
@@ -81,13 +94,9 @@ const Curation_4: React.FC = () => {
                 </Swiper>
             </div>
 
-            {/* 모달 로직 */}
-            {selectedMovie && (
-                <div className="movie_modal" style={{ 
-                    zIndex: 1000, 
-                    opacity: isDetailOpen ? 0 : 1,
-                    pointerEvents: isDetailOpen ? 'none' : 'auto' 
-                }}>
+            {/* 1차 요약 모달창 (상세 페이지 열릴 땐 조건부 렌더링으로 확실히 분리해 터치 간섭 해제) */}
+            {selectedMovie && !isDetailOpen && (
+                <div className="movie_modal">
                     <div className="modal_bg" style={{ backgroundImage: `url(${selectedMovie.img})` }}></div>
                     <div className="modal_content">                            
                         <div className="modal_header_row">
@@ -103,28 +112,32 @@ const Curation_4: React.FC = () => {
                                 <h3>{selectedMovie.subTitle}</h3>
                                 <p>{selectedMovie.desc}</p>
                             </div>
-                            <div className="m_keywords_list">
-                                {selectedMovie.keywords.map(kw => <p key={kw}>{kw}</p>)}
-                            </div>
                         </div>
                         <div className="m_video_preview">
                             <img src={selectedMovie.img} alt="preview" />
                             <div className="m_control_bar">
-                                <div className="m_arrow">
-                                    <img src="/media/arrow_b.svg" className="m_left" onClick={(e) => navigateMovie(e, 'prev')} alt="prev" />
-                                    <img src="/media/arrow_b.svg" className="m_right" onClick={(e) => navigateMovie(e, 'next')} alt="next" />
+                                <div className="m_arrow" onClick={navigateMovie}>
+                                    <img src="/media/arrow_b.svg" className="m_left" alt="prev" />
+                                    <img src="/media/arrow_b.svg" className="m_right" alt="next" />
                                 </div>
                                 <button className="m_more_btn" onClick={handleMoreClick}>MORE</button>
-                                <span className="m_cancel" onClick={() => { setSelectedMovie(null); setIsDetailOpen(false); }}>✕</span>
+                                <span className="m_cancel" onClick={() => setSelectedMovie(null)}>✕</span>
                             </div>
                         </div>
                     </div>
                 </div>
             )}
 
+            {/* 2차 상세 모달창 */}
             {isDetailOpen && selectedMovie && (
                 <div className="detail_modal_wrapper">
-                    <MovieModal movie={selectedMovie} onClose={() => setIsDetailOpen(false)} onMovieClick={(next) => setSelectedMovie(next)} />
+                    <MovieModal 
+                        movie={selectedMovie} 
+                        onClose={() => {
+                            setIsDetailOpen(false);
+                        }} 
+                        onMovieClick={(next) => setSelectedMovie(next)} 
+                    />
                 </div>
             )}
         </section>

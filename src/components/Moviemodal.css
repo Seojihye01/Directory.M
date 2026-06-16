@@ -1,7 +1,7 @@
 .modal_backdrop {position: fixed; inset: 0; background: rgba(18, 18, 18, 0.4); display: flex;
-                 justify-content: center; align-items: center; z-index: 10001; backdrop-filter: blur(0px);}
+                 justify-content: center; align-items: center; z-index: 10010; backdrop-filter: blur(0px);}
 
-.modal_bg_blur {position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover;
+.modal_bg_blur {position: absolute; top: 0; left: 0; width: 100%; height: 90%; background-size: cover;
                 background-position: center; filter: brightness(0.3) blur(15px);  z-index: -1; 
                 transform: scale(1.1);}
 
@@ -126,6 +126,7 @@ video::-webkit-media-controls-panel {width: calc(100% + 30px);}
     .modal_visual_area, .modal_hero img {width: 90vw; height: auto; aspect-ratio: 16 / 9;}
 
     .related_grid {grid-template-columns: repeat(3, 1fr);}
+
 }
 
 /* 2. 소형 모바일 (480px 이하) */
@@ -154,4 +155,5 @@ video::-webkit-media-controls-panel {width: calc(100% + 30px);}
     .related_grid {grid-template-columns: repeat(2, 1fr); gap: 8px;}
 
     .detail_item .label {width: 65px;}
+    
 }
