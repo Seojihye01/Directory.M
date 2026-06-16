@@ -5,7 +5,7 @@ const About_1 = () => {
     return (
         <section className="about_container">
             <div className="about_inner">
-                <h1 className="about_title">THE CURATOR</h1>
+                <h1 className="about_title">THE CURATOR 임시용</h1>
                 
                 <div className="about_content_grid">
                     <div className="about_left">

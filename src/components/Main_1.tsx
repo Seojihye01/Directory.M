@@ -25,7 +25,7 @@ const Main_1 = () => {
           onContextMenu={(e) => e.preventDefault()}
           className="main1_background_video"
         >
-          <source src="/media/main_.mp4" type="video/mp4" />
+          <source src="/media/Main/main_.mp4" type="video/mp4" />
           브라우저가 비디오를 지원하지 않습니다.
         </video>
       </div>

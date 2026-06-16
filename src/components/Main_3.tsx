@@ -89,7 +89,7 @@ const Main_3 = () => {
           >
             {isMatched && (
               <video autoPlay muted loop playsInline preload="auto" className="main_video2 color">
-                <source src="/media/main3.mp4" type="video/mp4" />
+                <source src="/media/Main/main3.mp4" type="video/mp4" />
               </video>
             )}
             <div className='video_overlay'></div>
