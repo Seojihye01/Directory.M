@@ -78,7 +78,7 @@ const Curation_2 = () => {
           setTimeout(() => {
             isAnimating.current = false; // 락 해제
             // 클래스는 유지하여 다음 휠 동작 때 이 조건문을 통과하고 자연스럽게 내려가도록 함
-          }, 800); // 💡 지연 시간 (0.8초)
+          }, 800); 
 
           return;
         }
@@ -95,6 +95,7 @@ const Curation_2 = () => {
     };
 
     const handleTouchStart = (e: TouchEvent) => {
+      if (!isInside) return;
       touchStartY.current = e.touches[0].clientY;
     };
 
@@ -142,6 +143,7 @@ const Curation_2 = () => {
       onMouseEnter={() => setIsInside(true)} 
       onMouseLeave={() => setIsInside(false)}
       onTouchStart={() => setIsInside(true)} 
+      onTouchMove={() => setIsInside(true)}
       data-theme="light"
     >
       <AnimatePresence mode="wait">
