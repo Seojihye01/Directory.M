@@ -204,9 +204,6 @@ const Curation_3 = () => {
                                     <h3>{selectedMovie.subTitle}</h3>
                                     <p>{selectedMovie.desc}</p>
                                 </div>
-                                <div className="m_keywords_list">
-                                    {selectedMovie.keywords.map((kw: string) => <p key={kw}>{kw}</p>)}
-                                </div>
                             </div>
                             <div className="m_video_preview">
                                 <img src={selectedMovie.img} alt="preview" />
