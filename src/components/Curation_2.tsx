@@ -16,7 +16,6 @@ const Curation_2 = () => {
     stepRef.current = step;
   }, [step]);
 
-  // 2. 클릭으로만 사라짐
   const handleOpen = () => {
     setIsOpened(true);
     setTimeout(() => {
@@ -49,45 +48,40 @@ const Curation_2 = () => {
 
       const scrollingDown = e.deltaY > 0;
 
-      // 1. 커버 상태
+      // 커버 상태일 때는 아래로 내려가려는 첫 동작만 차단하고, 
+      // 마우스가 완전히 다른 섹션으로 스크롤되어 나가는 상행 스크롤 등은 락 x
       if (!isOpened) {
         if (scrollingDown) {
-          e.preventDefault(); // 아래로 못 내려가게 락
-          // 위치가 어긋나지 않게 섹션 시작점에 고정
+          e.preventDefault(); 
           window.scrollTo({ top: sectionRef.current.offsetTop, behavior: 'auto' });
         }
-        return; // 위로 가는 것은 허용
+        return; 
       }
 
       if (scrollingDown && stepRef.current === 3) {
-        // 애니메이션 중이거나 이미 락이 걸려있다면 이벤트 차단
         if (isAnimating.current && !sectionRef.current.classList.contains('delay_ended')) {
           e.preventDefault();
           window.scrollTo({ top: sectionRef.current.offsetTop, behavior: 'auto' });
           return;
         }
 
-        // 지연 완료 상태가 아니라면 첫 휠 동작 시 0.8초간 강력 락
         if (!sectionRef.current.classList.contains('delay_ended')) {
           e.preventDefault();
           window.scrollTo({ top: sectionRef.current.offsetTop, behavior: 'auto' });
           
           isAnimating.current = true;
-          sectionRef.current.classList.add('delay_ended'); // 지연 시작됨을 표시
+          sectionRef.current.classList.add('delay_ended');
 
           setTimeout(() => {
-            isAnimating.current = false; // 락 해제
-            // 클래스는 유지하여 다음 휠 동작 때 이 조건문을 통과하고 자연스럽게 내려가도록 함
+            isAnimating.current = false; 
           }, 800); 
 
           return;
         }
-        
-        // delay_ended 클래스가 붙은 상태에서 들어온 휠은 락을 걸지 않고 자연스럽게 다음 섹션으로 보냄
         return;
       }
 
-      // 3. 마지막 단계 하행을 제외한 나머지 모든 스텝 락 (이동할 때마다 delay_ended 초기화)
+      // 나머지 중간 스텝 진행 중일 때는 스크롤 고정
       e.preventDefault();
       sectionRef.current.classList.remove('delay_ended'); 
       window.scrollTo({ top: sectionRef.current.offsetTop, behavior: 'auto' });
@@ -99,18 +93,23 @@ const Curation_2 = () => {
       touchStartY.current = e.touches[0].clientY;
     };
 
+    // 모바일 터치이동 해결 핵심 로직
     const handleTouchMove = (e: TouchEvent) => {
       if (!isInside || !sectionRef.current) return;
+      
       const deltaY = touchStartY.current - e.touches[0].clientY;
       const scrollingDown = deltaY > 0;
 
+      // 1. 커버가 닫혀있을 때는 터치 무브 스크롤을 아예 건드리지 않음 (다른 섹션으로 자유롭게 이동 가능)
       if (!isOpened) {
-        if (scrollingDown) e.preventDefault();
-        return;
+        return; 
       }
 
+      // 2. 안쪽 콘텐츠가 열렸을 때만 인터랙션 통제
+      // 마지막 3단계에서 아래로 스크롤해서 빠져나가는 상황이 '아닐 때만' 스크롤 락
       if (!(scrollingDown && stepRef.current === 3)) {
-        if (Math.abs(deltaY) > 5) {
+        if (Math.abs(deltaY) > 10) {
+          // 확실하게 이 큐레이션 영역 안에 갇혀서 탭을 넘겨야 하는 상황에서만 prevent와 고정 실행
           e.preventDefault();
           window.scrollTo({ top: sectionRef.current.offsetTop, behavior: 'auto' });
         }
@@ -140,10 +139,16 @@ const Curation_2 = () => {
     <section 
       ref={sectionRef} 
       className="cu2_section" 
+      // 모바일에서 터치가 끝나 바깥 영역을 돌아다닐 때는 확실히 내부 판정을 취소하도록 초기화 추가
       onMouseEnter={() => setIsInside(true)} 
       onMouseLeave={() => setIsInside(false)}
       onTouchStart={() => setIsInside(true)} 
-      onTouchMove={() => setIsInside(true)}
+      onTouchEnd={() => {
+        // 터치가 끝났을 때 스텝이 3번이거나 커버 상태라면 inside 판정을 해제해 다른 구역 스크롤을 보장합니다.
+        if (!isOpened || step === 3) {
+          setIsInside(false);
+        }
+      }}
       data-theme="light"
     >
       <AnimatePresence mode="wait">
@@ -178,8 +183,7 @@ const Curation_2 = () => {
                 <div className="cu2_right_col">
                   <ListItem n={1} curr={step} title="01 시각적 정점의 기록" desc="Dune의 웅장함부터 Whiplash의 날카로운 긴장감까지 영화적 미학이 가장 밀도 있게 응축된 순간을 기록한다" />
                   <ListItem n={2} curr={step} title="02 시간의 공간화" desc="순간의 장면 구도와 빛, 공간감을 마치 전시된 작품처럼 깊이 있게 관찰하는 경험을 제안한다" />
-                  <ListItem n={3} curr={step} title="03 경외감의 본질 탐구" desc="인간이 스크린 앞에서 느끼는 압도적인 경외감은 감독이 설계한 
-                        단 한 프레임에서 시작된다 우리는 그 시작점이 되는 순간을 따라간다" />
+                  <ListItem n={3} curr={step} title="03 경외감의 본질 탐구" desc="인간이 스크린 앞에서 느끼는 압도적인 경외감은 감독이 설계한 단 한 프레임에서 시작된다 우리는 그 시작점이 되는 순간을 따라간다" />
                 </div>
               </div>
               <div className="cu2_bottom_bar">

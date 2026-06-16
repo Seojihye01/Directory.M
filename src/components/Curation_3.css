@@ -154,7 +154,7 @@
 
     .cu3_info_row {padding: 12px 0; font-size: 12px; border-bottom: 0.5px solid rgba(18, 18, 18, 0.05);}
 
-    .equalizer_wrapper {gap: 16px; height: 140px;}
+    .equalizer_wrapper {gap: 18px; height: 140px;}
 
     .cu3_play {width: 80px; height: 36px; margin-top: 150px;}
 
@@ -172,5 +172,5 @@
 
     .key_phrase {font-size: 18px;}
 
-    .equalizer_wrapper {gap: 12px;}
+    .equalizer_wrapper {gap: 16px;}
 }
