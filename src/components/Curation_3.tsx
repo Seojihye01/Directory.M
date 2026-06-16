@@ -1,39 +1,44 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react"; 
 import './Curation_3.css';
 import './Curation_4.css';
 import { allMovies, type Movie } from "./MovieData";
 import MovieModal from "./Moviemodal"; 
 
 const Curation_3 = () => {
-    // 1. 상태 관리
     const [currentMovie] = useState<Movie>(allMovies[0]);
     const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
     const [isDetailOpen, setIsDetailOpen] = useState(false);
     const [isStarted, setIsStarted] = useState(false);
-    const [isPlaying, setIsPlaying] = useState(false); // 영상이 실제 시작되었는지 여부 (배경색 제어용)
+    const [isPlaying, setIsPlaying] = useState(false); 
     const [isEnded, setIsEnded] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
 
-    // 타임아웃 ID 관리를 위한 Ref (컴포넌트 언마운트 시 메모리 누수 방지)
     const startTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const endTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    // 2. 영화 변경 시 비디오 소스 리로드 및 상태 초기화
+    // 🌟 [최적화] 이퀄라이저 바 컴포넌트가 리렌더링될 때마다 DOM 요소를 재생성하지 않도록 메모이제이션
+    const renderedEqualizer = useMemo(() => {
+        return (
+            <div className="equalizer_wrapper">
+                {[...Array(20)].map((_, i) => (
+                    <div key={i} className="eq_bar"></div>
+                ))}
+            </div>
+        );
+    }, []);
+
     useEffect(() => {
         if (videoRef.current) {
             videoRef.current.load();
         }
-        // 영화가 바뀌면 상태 리셋
         setIsStarted(false);
         setIsPlaying(false);
         setIsEnded(false);
 
-        // 기존에 돌고 있던 타이머가 있다면 클리어
         if (startTimeoutRef.current) clearTimeout(startTimeoutRef.current);
         if (endTimeoutRef.current) clearTimeout(endTimeoutRef.current);
     }, [currentMovie]);
 
-    // 컴포넌트 언마운트 시 타이머 클리어
     useEffect(() => {
         return () => {
             if (startTimeoutRef.current) clearTimeout(startTimeoutRef.current);
@@ -41,7 +46,6 @@ const Curation_3 = () => {
         };
     }, []);
 
-    // 3. 내비게이션 로직
     const navigateMovie = (direction: 'prev' | 'next') => {
         const baseMovie = selectedMovie || currentMovie;
         const currentIndex = allMovies.findIndex(m => m.id === baseMovie.id);
@@ -53,13 +57,11 @@ const Curation_3 = () => {
         setSelectedMovie(nextMovie);
     };
 
-    // 4. 재생 시작 및 리플레이 로직
     const handleStart = () => {
         if (videoRef.current) {
-            videoRef.current.currentTime = 0; // 처음부터 재생 보장
+            videoRef.current.currentTime = 0;
             videoRef.current.muted = false;
             
-            // 버튼을 누르면 이퀄라이저 가이드는 즉시 숨김
             setIsStarted(true); 
             setIsEnded(false);
             setIsPlaying(false);
@@ -67,32 +69,26 @@ const Curation_3 = () => {
             startTimeoutRef.current = setTimeout(() => {
                 setIsPlaying(true); 
 
-            const playPromise = videoRef.current?.play();
-            if (playPromise !== undefined) {
-                playPromise
-                    .then(() => {
-                        // 실제 재생 성공 시 추가 액션이 필요하다면 여기에 작성 (현재는 즉시 트리거로 해결)
-                    })
-                    .catch(error => {
-                        console.error("재생 실패:", error);
-                        // 혹시라도 재생이 차단되면 배경을 다시 원래대로 돌려놓음
-                        setIsPlaying(false);
-                        setIsStarted(false);
-                    });
-            }
-        }, 1200);
+                const playPromise = videoRef.current?.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {})
+                        .catch(error => {
+                            console.error("재생 실패:", error);
+                            setIsPlaying(false);
+                            setIsStarted(false);
+                        });
+                }
+            }, 1200);
         }
     };
 
-    // 영상이 끝났을 때 핸들러
     const handleVideoEnd = () => {
-        setIsPlaying(false); // 재생이 끝났으므로 false
-
-        // [요구사항 3] 영상 끝나고 지연 후 ended overlay 나오게 하기
+        setIsPlaying(false);
         endTimeoutRef.current = setTimeout(() => {
             setIsStarted(false);
             setIsEnded(true);
-        }, 800); // 1.2초(1200ms) 지연 후 오버레이 등장. 원하는 대로 시간 조절 가능.
+        }, 800);
     };
 
     const handleReplay = (e: React.MouseEvent) => {
@@ -122,15 +118,12 @@ const Curation_3 = () => {
                         
                         {/* 시작 전 가이드 (이퀄라이저) */}
                         {!isStarted && !isEnded && (
-                            <div className="video_guide" onClick={handleStart} style={{ zIndex: 10 }}>
+                            <div className="video_guide" onClick={handleStart} style={{ zIndex: 10, pointerEvents: 'auto' }}>
                                 <div className="cu3_play">
-                                    <img src="/media/play_b.svg" className="play_btn" />
+                                    <img src="/media/play_b.svg" className="play_btn" alt="play" />
                                 </div>
-                                <div className="equalizer_wrapper">
-                                    {[...Array(20)].map((_, i) => (
-                                        <div key={i} className="eq_bar"></div>
-                                    ))}
-                                </div>
+                                {/* 🌟 메모이제이션된 이퀄라이저 주입 */}
+                                {renderedEqualizer}
                             </div>
                         )}
 
@@ -152,7 +145,6 @@ const Curation_3 = () => {
                             </div>
                         )}
 
-                        {/* 비디오 태그: 이퀄라이저 가이드가 닫히면(isStarted) 서서히 opacity로 등장 */}
                         <video
                             ref={videoRef}
                             className="curation_video"
@@ -162,12 +154,11 @@ const Curation_3 = () => {
                                 opacity: isStarted ? 1 : 0,
                                 pointerEvents: isPlaying ? 'auto' : 'none'
                             }}>
-                            <source src="/media/Dune_ex.mp4" type="video/mp4" />
+                            <source src="/media/Curation/Dune_ex.mp4" type="video/mp4" />
                             브라우저가 비디오를 지원하지 않습니다.
                         </video>
                     </div>
         
-                    {/* 영화 정보 영역 */}
                     <div className="cu3_bot">
                         <div className="cu3_title_row">
                             <p className="issue">ISSUE NO. 01</p>

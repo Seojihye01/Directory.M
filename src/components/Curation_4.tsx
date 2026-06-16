@@ -47,6 +47,8 @@ const Curation_4: React.FC = () => {
                     modules={[EffectCards]}
                     className="mySwiper"
                     watchSlidesProgress={true} 
+                    lazyPreloadPrevNext={1}
+                    updateOnWindowResize={true}
                     cardsEffect={{
                         perSlideOffset: 12, 
                         perSlideRotate: 2,
