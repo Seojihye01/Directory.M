@@ -47,11 +47,10 @@
 
   .cu5_row, .cu5_row.second_row {display: grid; grid-template-columns: repeat(2, 1fr);}
 
-  .cu5_center_title {order: -1; grid-column: span 2; height: 100px;}
+  .cu5_center_title {grid-column: span 2; aspect-ratio: 16 / 5;}
 
-  .cu5_inside_text {font-size: 14px;}
+  .cu5_inside_text, .cu5_engraved_title {font-size: 14px;}
 
-  .cu5_engraved_title {font-size: 14px;}
 }
 
 /* 2. 모바일 (768px 이하) */
@@ -63,11 +62,12 @@
 
   .cu5_row, .cu5_row.second_row {grid-template-columns: 1fr;}
 
-  .cu5_center_title {grid-column: span 1; height: 80px;}
+  .cu5_center_title {grid-column: span 1; aspect-ratio: 16 / 4;}
 
   .cu5_inside_text {font-size: 14px;}
 
   .cu5_engraved_title {font-size: 14px;}
 
   .cu5_bg_metal, .cu5_shutter, .cu5_center_title {background-attachment: scroll;}
+  
 }

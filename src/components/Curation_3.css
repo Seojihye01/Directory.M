@@ -121,20 +121,20 @@
 
     .cu3_top {height: 40vh; margin-top: 60px;}
 
-    .cu3_sound_wave_btn {left: 16px; right: auto; bottom: 16px; width: 40px; height: 40px; padding: 0; display: flex;
+    .cu3_sound_wave_btn {left: 16px; right: auto; bottom: 16px; width: 30px; height: 30px; padding: 0; display: flex;
                          justify-content: center; align-items: center; border-radius: 50%;
                          border: 1px solid rgba(255, 255, 255, 0.2);}
     
-    .cu3_sound_wave_bars {width: 14px; height: 12px; gap: 2px;}
-    
+    .cu3_sound_wave_bars {width: 12px; height: 10px; gap: 2px;}
+
     .cu3_sound_text {display: none;}
 
     .cu3_bot {margin: 30px auto;}
 
-    .issue {font-size: 14px;}
-
-    .key_phrase {font-size: 18px; letter-spacing: 0.05em;}
+    .issue, .key_phrase {font-size: 14px;}
 
     .cu3_info_row {font-size: 12px;}
+
+    .pill_icon_button {box-shadow: 0 4px 15px rgba(18, 18, 18, 0.08), inset 1px 1px 5px rgba(18, 18, 18, 0.08);}
 
 }

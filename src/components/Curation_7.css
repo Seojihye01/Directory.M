@@ -103,6 +103,7 @@
     .c7_issue {left: 30px; top: -30px;}
 
     .c7_view .issue_title {font-size: 25px;}
+
 }
 
 /* 2. 모바일 (768px 이하) */
@@ -126,7 +127,7 @@
     
     .c7_issue {left: 30px; top: -30px;}
 
-    .c7_view .issue_title {font-size: 16px;}
+    .c7_view .issue_title {font-size: 15px;}
 
     .movie_list {gap: 12px; margin-top: 25px;}
 
@@ -134,11 +135,14 @@
 
     .index_tab {width: 40px; right: -40px;}
 
+    .archive_btn span {font-size: 14px;}
+
     .index_label {font-size: 11px;}
 
     .curator_tag {bottom: 40px; flex-direction: row; gap: 5px; font-size: 11px;}
 
     .cu7_team_mem {font-size: 10px;}
+
 }
 
 /* 3. 소형 모바일 (480px 이하) */
@@ -148,9 +152,11 @@
 
     .paper_inner {padding: 30px 20px;}
 
-    .c7_view .issue_title {font-size: 18px; letter-spacing: 2px;}
+    .c7_view .issue_no {font-size: 12px;}
 
-    .archive_btn span {font-size: 13px;}
+    .c7_view .issue_title {font-size: 16px; letter-spacing: 2px;}
+
+    .archive_btn span {font-size: 12px;}
 
     .page_01 .index_tab {top: 20px;}
 

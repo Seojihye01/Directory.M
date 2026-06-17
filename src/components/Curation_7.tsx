@@ -70,12 +70,14 @@ const Curation_7 = () => {
                                     )}
                                 </div>
 
-                                <div className="cu7_curator">
-                                    <div className="curator_tag">
-                                        <span className="cu7_name">SEO JIHYE,</span>
-                                        <span className="cu7_team_mem">Lead Curator at Directory.M</span>
+                                {num === 1 && (
+                                    <div className="cu7_curator">
+                                        <div className="curator_tag">
+                                            <span className="cu7_name">SEO JIHYE,</span>
+                                            <span className="cu7_team_mem">Lead Curator at Directory.M</span>
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         </div>
                     ))}

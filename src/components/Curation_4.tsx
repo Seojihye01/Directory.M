@@ -106,6 +106,7 @@ const Curation_4: React.FC = () => {
                                 <p className="m_direc_name">{selectedMovie.direc}</p>
                                 <p>Running Time : {selectedMovie.runtime}</p>
                                 <p>Release : {selectedMovie.rel}</p>
+                                <p>Genre : {selectedMovie.genre}</p>
                             </div>
                         </div>
                         <div className="modal_body_row">
