@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect, useMemo } from "react"; 
+import React, { useState, useRef, useEffect } from "react"; 
+import { createPortal } from "react-dom"; // 추가된 부분
+import { motion, AnimatePresence } from 'framer-motion';
 import './Curation_3.css';
-import './Curation_4.css';
 import { allMovies, type Movie } from "./MovieData";
 import MovieModal from "./Moviemodal"; 
 
@@ -8,24 +9,16 @@ const Curation_3 = () => {
     const [currentMovie] = useState<Movie>(allMovies[0]);
     const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
     const [isDetailOpen, setIsDetailOpen] = useState(false);
-    const [isStarted, setIsStarted] = useState(false);
-    const [isPlaying, setIsPlaying] = useState(false); 
-    const [isEnded, setIsEnded] = useState(false);
-    const videoRef = useRef<HTMLVideoElement>(null);
+    
+    // 재생 상태 관리
+    const [isStarted, setIsStarted] = useState(false); // 인트로 버튼 클릭 유무
+    const [isPlaying, setIsPlaying] = useState(false); // 실제 비디오 재생 유무
+    const [isEnded, setIsEnded] = useState(false);     // 영상 종료 유무
+    const [isMuted, setIsMuted] = useState(true);      // 사운드 토글 상태 (기본 뮤트)
 
+    const videoRef = useRef<HTMLVideoElement>(null);
     const startTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const endTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-    // 🌟 [최적화] 이퀄라이저 바 컴포넌트가 리렌더링될 때마다 DOM 요소를 재생성하지 않도록 메모이제이션
-    const renderedEqualizer = useMemo(() => {
-        return (
-            <div className="equalizer_wrapper">
-                {[...Array(20)].map((_, i) => (
-                    <div key={i} className="eq_bar"></div>
-                ))}
-            </div>
-        );
-    }, []);
 
     useEffect(() => {
         if (videoRef.current) {
@@ -34,6 +27,7 @@ const Curation_3 = () => {
         setIsStarted(false);
         setIsPlaying(false);
         setIsEnded(false);
+        setIsMuted(true);
 
         if (startTimeoutRef.current) clearTimeout(startTimeoutRef.current);
         if (endTimeoutRef.current) clearTimeout(endTimeoutRef.current);
@@ -46,41 +40,36 @@ const Curation_3 = () => {
         };
     }, []);
 
-    const navigateMovie = (direction: 'prev' | 'next') => {
-        const baseMovie = selectedMovie || currentMovie;
-        const currentIndex = allMovies.findIndex(m => m.id === baseMovie.id);
-        let nextIndex = direction === 'prev' 
-            ? (currentIndex - 1 + limitedData.length) % limitedData.length 
-            : (currentIndex + 1) % limitedData.length;
-    
-        const nextMovie = allMovies[nextIndex];
-        setSelectedMovie(nextMovie);
+    // 사운드 토글 핸들러
+    const handleSoundToggle = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (videoRef.current) {
+            videoRef.current.muted = !videoRef.current.muted;
+            setIsMuted(videoRef.current.muted);
+        }
     };
 
-    const handleStart = () => {
-        if (videoRef.current) {
-            videoRef.current.currentTime = 0;
-            videoRef.current.muted = false;
-            
-            setIsStarted(true); 
-            setIsEnded(false);
-            setIsPlaying(false);
+    // 인트로 클릭 시 시퀀스 시작
+    const handleRoomEnter = () => {
+        setIsStarted(true); 
+        setIsEnded(false);
+        setIsPlaying(false);
 
-            startTimeoutRef.current = setTimeout(() => {
-                setIsPlaying(true); 
-
-                const playPromise = videoRef.current?.play();
+        startTimeoutRef.current = setTimeout(() => {
+            setIsPlaying(true); 
+            if (videoRef.current) {
+                videoRef.current.muted = false;
+                setIsMuted(false);
+                const playPromise = videoRef.current.play();
                 if (playPromise !== undefined) {
-                    playPromise
-                        .then(() => {})
-                        .catch(error => {
-                            console.error("재생 실패:", error);
-                            setIsPlaying(false);
-                            setIsStarted(false);
-                        });
+                    playPromise.catch(error => {
+                        console.error("재생 실패:", error);
+                        setIsPlaying(false);
+                        setIsStarted(false);
+                    });
                 }
-            }, 1200);
-        }
+            }
+        }, 1200);
     };
 
     const handleVideoEnd = () => {
@@ -93,39 +82,63 @@ const Curation_3 = () => {
 
     const handleReplay = (e: React.MouseEvent) => {
         e.stopPropagation();
-        handleStart();
+        handleRoomEnter();
     };
 
     const openModal = (e: React.MouseEvent) => {
         e.stopPropagation();
         setSelectedMovie(currentMovie);
-        setIsDetailOpen(false);
+        setIsDetailOpen(false); // 처음엔 1차 요약창 상태
     };
 
-    const handleMoreClick = (e: React.MouseEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setIsDetailOpen(true);
+    const navigateMovie = (direction: 'prev' | 'next') => {
+        const baseMovie = selectedMovie || currentMovie;
+        const currentIndex = allMovies.findIndex(m => m.id === baseMovie.id);
+        const limitedData = allMovies.filter(movie => Number(movie.id) >= 1 && Number(movie.id) <= 10);
+        
+        let nextIndex = direction === 'prev' 
+            ? (currentIndex - 1 + limitedData.length) % limitedData.length 
+            : (currentIndex + 1) % limitedData.length;
+    
+        setSelectedMovie(allMovies[nextIndex]);
     };
 
-    const limitedData = allMovies.filter(movie => Number(movie.id) >= 1 && Number(movie.id) <= 10);
+    // Framer-motion 애니메이션 배리언트
+    const roomBtnVariants = {
+        start: { scale: 1, opacity: 1, z: 0 },
+        exit: { 
+            scale: 0.15,
+            z: -600, 
+            opacity: [1, 0],
+            filter: 'blur(4px)',
+            transition: { duration: 0.8, ease: [0.7, 0, 0.3, 1] as const } 
+        }
+    };
 
     return (
         <section className="cu3_container" data-theme="light">
             <div className="cu3_inner">    
                 <div className="cu3_cont">
-                    <div className={`cu3_top ${isPlaying ? 'bg_black' : ''}`}>
+                    {/* 상단 뷰포트 */}
+                    <div className={`cu3_top ${isStarted ? 'bg_black' : 'bg_room_init'}`}>
                         
-                        {/* 시작 전 가이드 (이퀄라이저) */}
-                        {!isStarted && !isEnded && (
-                            <div className="video_guide" onClick={handleStart} style={{ zIndex: 10, pointerEvents: 'auto' }}>
-                                <div className="cu3_play">
-                                    <img src="/media/play_b.svg" className="play_btn" alt="play" />
-                                </div>
-                                {/* 🌟 메모이제이션된 이퀄라이저 주입 */}
-                                {renderedEqualizer}
-                            </div>
-                        )}
+                        <AnimatePresence mode="wait">
+                            {!isStarted && !isEnded && (
+                                <motion.div 
+                                    className="room_entry_overlay"
+                                    variants={roomBtnVariants}
+                                    initial="start"
+                                    exit="exit"
+                                    key="entry_button"
+                                >
+                                    <button className="room_entry_btn" onClick={handleRoomEnter}>
+                                        <motion.span exit={{ opacity: 0, transition: { duration: 0.3 } }}>
+                                            Room No.01
+                                        </motion.span>
+                                    </button>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
 
                         {/* 영상 종료 후 오버레이 */}
                         {isEnded && (
@@ -145,20 +158,39 @@ const Curation_3 = () => {
                             </div>
                         )}
 
+                        {/* 비디오 플레이어 */}
                         <video
                             ref={videoRef}
                             className="curation_video"
                             onEnded={handleVideoEnd}
                             playsInline
                             style={{ 
-                                opacity: isStarted ? 1 : 0,
+                                opacity: isPlaying ? 1 : 0,
                                 pointerEvents: isPlaying ? 'auto' : 'none'
-                            }}>
+                            }}
+                        >
                             <source src="/media/Curation/Dune_ex.mp4" type="video/mp4" />
                             브라우저가 비디오를 지원하지 않습니다.
                         </video>
+
+                        {/* 우측 하단 사운드 바 토글 버튼 */}
+                        {isPlaying && (
+                            <button 
+                                className={`cu3_sound_wave_btn ${isMuted ? "muted" : "playing"}`}
+                                onClick={handleSoundToggle}
+                                aria-label="Toggle Sound"
+                            >
+                                <div className="cu3_sound_wave_bars">
+                                    <span className="cu3_sound_bar bar1"></span>
+                                    <span className="cu3_sound_bar bar2"></span>
+                                    <span className="cu3_sound_bar bar3"></span>
+                                </div>
+                                <span className="cu3_sound_text">SOUND</span>
+                            </button>
+                        )}
                     </div>
         
+                    {/* 하단 메타데이터 영역 */}
                     <div className="cu3_bot">
                         <div className="cu3_title_row">
                             <p className="issue">ISSUE NO. 01</p>
@@ -173,24 +205,17 @@ const Curation_3 = () => {
                             <h3 className="cu3_direc">{currentMovie.direc}</h3>
                         </div>
                         <div className="cu3_info_row">
-                            <p className="info_title">RUNNING TIME</p>
-                            <h3 className="cu3_run">{currentMovie.runtime}</h3>
-                        </div>
-                        <div className="cu3_info_row">
-                            <p className="info_title">RELEASE</p>
-                            <h3 className="cu3_rel">{currentMovie.rel}</h3>
+                            <p className="info_title">GENRE</p>
+                            <h3 className="cu3_run">{currentMovie.genre}</h3>
                         </div>
                     </div>
                 </div>
 
-                {selectedMovie && (
-                    <div className="movie_modal" style={{ 
-                        zIndex: 1000, 
-                        opacity: isDetailOpen ? 0 : 1,
-                        pointerEvents: isDetailOpen ? 'none' : 'auto' 
-                    }}>
+                {/* 1차 요약 모달창 (isDetailOpen이 false일 때만 보이도록 차단하여 터치/포커스 겹침 방지) */}
+                {selectedMovie && !isDetailOpen && createPortal(
+                    <div className="movie_modal">
                         <div className="modal_bg" style={{ backgroundImage: `url(${selectedMovie.img})` }}></div>
-                        <div className="modal_content">
+                        <div className="modal_content">                                                    
                             <div className="modal_header_row">
                                 <h1 className="m_title">{selectedMovie.title}</h1>
                                 <div className="m_info_right">
@@ -212,21 +237,27 @@ const Curation_3 = () => {
                                         <img src="/media/arrow_b.svg" className="m_left" onClick={() => navigateMovie('prev')} alt="prev" />
                                         <img src="/media/arrow_b.svg" className="m_right" onClick={() => navigateMovie('next')} alt="next" />
                                     </div>
-                                    <button className="m_more_btn" onClick={handleMoreClick}>MORE</button>
+                                    <button className="m_more_btn" onClick={(e) => { e.stopPropagation(); setIsDetailOpen(true); }}>MORE</button>
                                     <span className="m_cancel" onClick={() => { setSelectedMovie(null); setIsDetailOpen(false); }}>✕</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>,
+                    document.body
                 )}
-                {isDetailOpen && selectedMovie && (
+
+                {/* 2차 상세 모달창 (MORE 버튼 클릭 시 열림) */}
+                {isDetailOpen && selectedMovie && createPortal(
                     <div className="detail_modal_wrapper">
                         <MovieModal 
                             movie={selectedMovie} 
-                            onClose={() => setIsDetailOpen(false)} 
+                            onClose={() => {
+                                setIsDetailOpen(false);
+                            }} 
                             onMovieClick={(next) => setSelectedMovie(next)} 
                         />
-                    </div>
+                    </div>,
+                    document.body
                 )}
             </div>
         </section>

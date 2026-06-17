@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCards } from 'swiper/modules';
 import 'swiper/css';
@@ -95,7 +96,7 @@ const Curation_4: React.FC = () => {
             </div>
 
             {/* 1차 요약 모달창 (상세 페이지 열릴 땐 조건부 렌더링으로 확실히 분리해 터치 간섭 해제) */}
-            {selectedMovie && !isDetailOpen && (
+            {selectedMovie && !isDetailOpen && createPortal(
                 <div className="movie_modal">
                     <div className="modal_bg" style={{ backgroundImage: `url(${selectedMovie.img})` }}></div>
                     <div className="modal_content">                            
@@ -125,11 +126,12 @@ const Curation_4: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body 
             )}
 
             {/* 2차 상세 모달창 */}
-            {isDetailOpen && selectedMovie && (
+            {isDetailOpen && selectedMovie && createPortal(
                 <div className="detail_modal_wrapper">
                     <MovieModal 
                         movie={selectedMovie} 
@@ -138,7 +140,8 @@ const Curation_4: React.FC = () => {
                         }} 
                         onMovieClick={(next) => setSelectedMovie(next)} 
                     />
-                </div>
+                </div>,
+                document.body
             )}
         </section>
     );

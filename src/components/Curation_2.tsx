@@ -138,13 +138,13 @@ const Curation_2 = () => {
   return (
     <section 
       ref={sectionRef} 
-      className="cu2_section" 
+      className={`cu2_section ${isOpened ? 'opened' : ''}`} // opened 클래스 동적 추가
       // 모바일에서 터치가 끝나 바깥 영역을 돌아다닐 때는 확실히 내부 판정을 취소하도록 초기화 추가
       onMouseEnter={() => setIsInside(true)} 
       onMouseLeave={() => setIsInside(false)}
       onTouchStart={() => setIsInside(true)} 
       onTouchEnd={() => {
-        // 터치가 끝났을 때 스텝이 3번이거나 커버 상태라면 inside 판정을 해제해 다른 구역 스크롤을 보장합니다.
+        // 터치가 끝났을 때 스텝이 3번이거나 커버 상태라면 inside 판정을 해제해 다른 구역 스크롤을 보장
         if (!isOpened || step === 3) {
           setIsInside(false);
         }
