@@ -10,21 +10,24 @@ import { allMovies, type Movie } from "./MovieData";
 import MovieModal from "./Moviemodal"; 
 
 const Curation_4: React.FC = () => {
+    const [currentMovie] = useState<Movie>(allMovies[0]);
     const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
     const [isDetailOpen, setIsDetailOpen] = useState(false);
 
     const navMovies = allMovies.slice(0, 10);
     const renderMovies = navMovies.filter(m => m.id !== 1);
 
-    const navigateMovie = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        if (!selectedMovie) return;
-        const currentIndex = navMovies.findIndex(m => m.id === selectedMovie.id);
+    const navigateMovie = (direction: 'prev' | 'next') => {
+            const baseMovie = selectedMovie || currentMovie;
+            const currentIndex = allMovies.findIndex(m => m.id === baseMovie.id);
+            const limitedData = allMovies.filter(movie => Number(movie.id) >= 1 && Number(movie.id) <= 10);
+            
+            let nextIndex = direction === 'prev' 
+                ? (currentIndex - 1 + limitedData.length) % limitedData.length 
+                : (currentIndex + 1) % limitedData.length;
         
-        // 단순 원형 네비게이션 구조로 통일 (Curation_4 내부 카드 전환 간소화 혹은 Modal 전용 핸들러 분리)
-        const nextIndex = (currentIndex + 1) % navMovies.length;
-        setSelectedMovie(navMovies[nextIndex]);
-    };
+            setSelectedMovie(allMovies[nextIndex]);
+        };
 
     const handleOpenModal = (e: React.MouseEvent, movie: Movie) => {
         // Swiper 드래그 엔진의 터치 가로채기 방지 핵심
@@ -41,7 +44,7 @@ const Curation_4: React.FC = () => {
     };
 
     return (
-        <section className="curation_container" data-theme="light">
+        <section className="cu4_container" data-theme="light">
             <div className="cu4_inner">
                 <p className="cu4_key">INSIDE THE MOMENT</p>
             </div>
@@ -100,8 +103,10 @@ const Curation_4: React.FC = () => {
                 <div className="movie_modal">
                     <div className="modal_bg" style={{ backgroundImage: `url(${selectedMovie.img})` }}></div>
                     <div className="modal_content">                            
-                        <div className="modal_header_row">
+                        <div className="modal_header_top">
                             <h1 className="m_title">{selectedMovie.title}</h1>
+                        </div>
+                        <div className="modal_header_bot">
                             <div className="m_info_right">
                                 <p className="m_direc_name">{selectedMovie.direc}</p>
                                 <p>Running Time : {selectedMovie.runtime}</p>
@@ -118,10 +123,10 @@ const Curation_4: React.FC = () => {
                         <div className="m_video_preview">
                             <img src={selectedMovie.img} alt="preview" />
                             <div className="m_control_bar">
-                                <div className="m_arrow" onClick={navigateMovie}>
-                                    <img src="/media/arrow_b.svg" className="m_left" alt="prev" />
-                                    <img src="/media/arrow_b.svg" className="m_right" alt="next" />
-                                </div>
+                                <div className="m_arrow">
+                                        <img src="/media/arrow_b.svg" className="m_left" onClick={() => navigateMovie('prev')} alt="prev" />
+                                        <img src="/media/arrow_b.svg" className="m_right" onClick={() => navigateMovie('next')} alt="next" />
+                                    </div>
                                 <button className="m_more_btn" onClick={handleMoreClick}>MORE</button>
                                 <span className="m_cancel" onClick={() => setSelectedMovie(null)}>✕</span>
                             </div>

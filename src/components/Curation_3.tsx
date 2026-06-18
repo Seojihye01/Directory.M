@@ -216,8 +216,10 @@ const Curation_3 = () => {
                     <div className="movie_modal">
                         <div className="modal_bg" style={{ backgroundImage: `url(${selectedMovie.img})` }}></div>
                         <div className="modal_content">                                                    
-                            <div className="modal_header_row">
+                            <div className="modal_header_top">
                                 <h1 className="m_title">{selectedMovie.title}</h1>
+                            </div>
+                            <div className="modal_header_bot">
                                 <div className="m_info_right">
                                     <p className="m_direc_name">{selectedMovie.direc}</p>
                                     <p>Running Time : {selectedMovie.runtime}</p>

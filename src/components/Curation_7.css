@@ -152,11 +152,11 @@
 
     .paper_inner {padding: 30px 20px;}
 
-    .c7_view .issue_no {font-size: 11px;}
+    .c7_view .issue_no {font-size: 10px;}
 
     .c7_view .issue_title {font-size: 14px; letter-spacing: 2px;}
 
-    .movie_list li {font-size: 11.5px;}
+    .movie_list li {font-size: 11px;}
 
     .archive_btn span {font-size: 12px;}
 
@@ -170,8 +170,8 @@
 
     .locked_msg {font-size: 10px;}
 
-    .curator_tag {font-size: 10.5px;}
+    .curator_tag {font-size: 10px;}
 
-    .cu7_team_mem {font-size: 10px;}
+    .cu7_team_mem {font-size: 9.5px;}
 
 }
