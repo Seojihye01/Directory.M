@@ -11,8 +11,9 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
     const location = useLocation();
     const [isDarkSection, setIsDarkSection] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false); // 모바일 메뉴 상태 추가
+    const [isMenuOpen, setIsMenuOpen] = useState(false); // 모바일 메뉴 상태
     const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
+    const [searchValue, setSearchValue] = useState(""); // 검색어 텍스트를 제어 상태
     
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -25,7 +26,7 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
                     }
                 });
             },
-            { threshold: [0.05] } // 섹션이 10%만 걸쳐도 감지
+            { threshold: [0.05] } // 섹션이 5%만 걸쳐도 감지
         );
         // 모든 섹션이나 어두운 배경이 들어가는 요소를 감시
         const sections = document.querySelectorAll('[data-theme]');
@@ -38,6 +39,12 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
         if (window.innerWidth <= 768) {
             setOpenSubMenu(openSubMenu === menu ? null : menu);
         }
+    };
+
+    // 모달을 닫을 때 검색 키워드를 초기화하는 헬퍼 함수
+    const handleCloseSearch = () => {
+        setIsSearchOpen(false);
+        setSearchValue(""); // 모달 닫힐 때 작성된 내용 초기화
     };
 
     return (
@@ -117,11 +124,12 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
 
                         {isSearchOpen && (
                             <div className={`search_modal_overlay ${isSearchOpen ? 'active' : ''}`}
-                                 onClick={() => setIsSearchOpen(false)}>
+                                 onClick={handleCloseSearch}>
                                 <div className='search_modal_content' onClick={(e) => e.stopPropagation()}>
                                     <div className='search_input_wrapper'>
-                                        <input type='text' autoFocus={isSearchOpen} />
-                                        <p className='he_ph'>Search</p>
+                                        <input type='text' autoFocus={isSearchOpen} value={searchValue}
+                                               onChange={(e) => setSearchValue(e.target.value)} />
+                                        <p className='he_ph' onClick={handleCloseSearch}>Search</p>
                                     </div>
                                 </div>
                             </div>
@@ -130,8 +138,8 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
                 </ul>
 
                 <div className='mobile_search_bar'>
-                        <input type='text' />
-                        <p className='he_ph'>Search</p>
+                        <input type='text' value={searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
+                        <p className='he_ph' onClick={() => setSearchValue("")}>Search</p>
                 </div>
                 </nav>
 

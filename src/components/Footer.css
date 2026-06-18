@@ -54,7 +54,7 @@
 
   .footer_top {flex-direction: column; align-items: flex-start; gap: 20px; margin-bottom: 60px;}
 
-  .catchphrase {font-size: 14px;}
+  .catchphrase {font-size: 13px;}
 
   .sector {flex-wrap: wrap; gap: 40px 0;}
 
@@ -81,4 +81,6 @@
 
   .footer_middle {margin-bottom: 60px;}
 
+  .footer_bottom {font-size: 12px;}
+  
 }

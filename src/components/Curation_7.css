@@ -152,11 +152,11 @@
 
     .paper_inner {padding: 30px 20px;}
 
-    .c7_view .issue_no {font-size: 9px;}
+    .c7_view .issue_no {font-size: 8px;}
 
     .c7_view .issue_title {font-size: 14px; letter-spacing: 2px;}
 
-    .movie_list {gap: 15px;}
+    .movie_list {gap: 12px;}
 
     .movie_list li {font-size: 10.5px;}
 

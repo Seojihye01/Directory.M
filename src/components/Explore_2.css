@@ -13,9 +13,9 @@
                  transition: transform 3.5s cubic-bezier(0.25, 1, 0.5, 1); animation: pulseBlink 1s infinite ease-in-out;}
 
 @keyframes pulseBlink {
-  0% { opacity: 0.01; text-shadow: 0 0 2px rgba(249, 249, 249, 0.01); }
-  50% { opacity: 1; text-shadow: 0 0 12px rgba(249, 249, 249, 1); }
-  100% { opacity: 0.01; text-shadow: 0 0 2px rgba(249, 249, 249, 0.01); }
+  0% { transform: translate(-50%, -50%) scale(0.1); text-shadow: 10px 10px 10px rgba(249, 249, 249, 0.01); }
+  50% { transform: translate(-50%, -50%) scale(1.1); text-shadow: 10px 10px 20px rgba(249, 249, 249, 1); }
+  100% { transform: translate(-50%, -50%) scale(0.1); text-shadow: 10px 10px 10px rgba(249, 249, 249, 0.01); }
 }
 
 .bg_lunar_layer::after {content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease;

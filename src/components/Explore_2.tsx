@@ -72,7 +72,7 @@ const Explore_2 = () => {
                         transition: progress === 1 
                             ? 'transform 2.5s cubic-bezier(0.7, 0, 0.3, 1)' 
                             : 'transform 0.8s ease-out',
-                        animation: progress === 1 ? 'none' : 'pulseBlink 2s infinite ease-in-out'
+                        animation: progress === 1 ? 'none' : 'pulseBlink 1.5s infinite ease-in-out'
                     }}
                 />
                 
