@@ -1,13 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import './Explore_2.css';
 
-interface ExploreProps {
-    isModalOpen: boolean;
-}
-
-const Explore_2 = ({ isModalOpen }: ExploreProps) => {
+const Explore_2 = () => {
     const [progress, setProgress] = useState(0);
-    const [isInside, setIsInside] = useState(false);
     const [isIntersecting, setIsIntersecting] = useState(false);
     
     const sectionRef = useRef<HTMLElement>(null);
@@ -26,14 +21,13 @@ const Explore_2 = ({ isModalOpen }: ExploreProps) => {
             (entries) => {
                 const [entry] = entries;
                 setIsIntersecting(entry.isIntersecting);
-                setIsInside(entry.isIntersecting);
                 // 섹션을 벗어나면 진행도 초기화 (다시 들어왔을 때 재클릭 가능하게)
                 if (!entry.isIntersecting) {
                     setProgress(0);
                     progressRef.current = 0;
                 }
             },
-            { threshold: 0.5 }
+            { threshold: 0.2 }
         );
         if (sectionRef.current) observer.observe(sectionRef.current);
         return () => observer.disconnect();
@@ -66,7 +60,7 @@ const Explore_2 = ({ isModalOpen }: ExploreProps) => {
 
     return (
         <section ref={sectionRef} data-theme="dark" className="explore_2_wrapper">
-            <div className="ex2_sticky_box">
+            <div className="ex2_sticky_box" data-intersecting={isIntersecting}>
                 <div className="bg_stars_fixed" />
                 <div 
                     className="bg_lunar_layer" 
