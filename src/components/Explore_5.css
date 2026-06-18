@@ -48,7 +48,7 @@
 .step_1 .ex5_sub_title {left: 100.5%; top: 40%; transform: translate(-100%, 0); font-size: 20px; color: #666;
                         text-shadow: none; animation: none;}
 
-.step_1 .ex5_sub_title:hover {animation: none; color: rgba(249, 249, 249, 0.8);}
+.step_1 .ex5_sub_title:hover {animation: none;}
 
 .ex5_tabs {position: absolute; right: 0; top: 70%; transform: translateY(-50%); display: flex; flex-direction: column;
            align-items: flex-end; opacity: 0; transition: all 0.6s ease 0.4s; pointer-events: none;}
@@ -90,6 +90,7 @@
     .ex5_tabs h2 {margin: 5px 0; font-size: 16px; color: #555;}
 
     .ex5_date {position: relative; right: auto; bottom: auto; text-align: center; font-size: 20px;}
+
 }
 
 /* 2. 모바일 (768px 이하) */
@@ -108,4 +109,5 @@
     .ex5_tabs h2 {font-size: 14px; color: #555;}
 
     .ex5_date {font-size: 18px;}
+
 }

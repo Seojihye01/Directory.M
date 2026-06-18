@@ -20,99 +20,49 @@ const Explore_2 = ({ isModalOpen }: ExploreProps) => {
         return `${monthNames[now.getMonth()]} ${now.getFullYear()} ISSUE`;
     };
 
-    // 1. 관찰자 설정
+    // 1. 관찰자 설정 (진입 감지)
     useEffect(() => {
         const observer = new IntersectionObserver(
-            (entries: IntersectionObserverEntry[]) => { // 타입을 명시적으로 지정
+            (entries) => {
                 const [entry] = entries;
                 setIsIntersecting(entry.isIntersecting);
-                // 모바일 터치 대응을 위해 IntersectionObserver로 진입 판정 일치화
-                if (entry.isIntersecting) {
-                    setIsInside(true);
-                } else {
-                    setIsInside(false);
+                setIsInside(entry.isIntersecting);
+                // 섹션을 벗어나면 진행도 초기화 (다시 들어왔을 때 재클릭 가능하게)
+                if (!entry.isIntersecting) {
+                    setProgress(0);
+                    progressRef.current = 0;
                 }
             },
-            { threshold: 0.8 }
+            { threshold: 0.5 }
         );
-
-        const currentSection = sectionRef.current;
-        if (currentSection) observer.observe(currentSection);
+        if (sectionRef.current) observer.observe(sectionRef.current);
         return () => observer.disconnect();
     }, []);
 
-    // 2. 휠 이벤트 핸들러
-    useEffect(() => {
-        const handleGlobalWheel = (e: WheelEvent) => {
-            // [방어 1] 모달 상태 체크 (props와 DOM 상태 둘 다 확인)
-            const isModalActive = isModalOpen || document.body.style.overflow === 'hidden' || !!document.querySelector('.modal_backdrop');
-            if (isModalActive) return;
+    // 2. 클릭 시 줌인 핵심 함수
+    const handleLunarZoom = () => {
+        if (isAnimating.current || progressRef.current === 1) return;
 
-            // [방어 2] 물리적 위치 체크
-            if (!sectionRef.current) return; // Null 체크 먼저 수행
-            
-            const rect = sectionRef.current.getBoundingClientRect();
-            if (Math.abs(rect.top) > 250) return; 
+        isAnimating.current = true;
+        setProgress(1); // 진행도를 1로 즉시 변경 (CSS에서 확대됨)
+        progressRef.current = 1;
 
-            // 상태 체크
-            if (!isInside || !isIntersecting) return;
-
-            const scrollingDown = e.deltaY > 0;
-            const scrollingUp = e.deltaY < 0;
-
-            if (scrollingUp && progressRef.current <= 0) return;
-            
-
-            if (scrollingDown && progressRef.current >= 1) {
-                if (!isAnimating.current) {return;
+        // 1.2초 동안 Lunar가 화면을 덮는 연출 후 다음 섹션으로 이동
+        setTimeout(() => {
+            const nextSection = document.getElementById('explore_3_section');
+            if (nextSection) {
+                nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-        }
-
-            if (isAnimating.current) {
-                e.preventDefault();
-                return;
-            }
-
-            // [핵심] 스크롤 고정 시도
-            e.preventDefault();
-            sectionRef.current.scrollIntoView({ behavior: 'auto', block: 'center' });
-
-            isAnimating.current = true;
-            const step = 0.125;
-            let nextProgress = scrollingDown 
-                ? Math.min(progressRef.current + step, 1) 
-                : Math.max(progressRef.current - step, 0);
-
-            setProgress(nextProgress);
-            progressRef.current = nextProgress;
-
-            if (nextProgress === 1 && scrollingDown) {
-            const extraDelay = (nextProgress === 1 && scrollingDown) ? 300 : 0;
+            
+            // 이동 후 애니메이션 상태 해제
             setTimeout(() => {
-                setIsInside(false);
-                if (nextProgress === 1 && scrollingDown) setIsInside(false);
-                setTimeout(() => {
-                    const nextSection = document.getElementById('explore_3_section');
-                    if (nextSection) {
-                        // behavior: 'smooth'를 주면 클릭했을 때처럼 부드럽게 넘어갑니다.
-                        nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    } isAnimating.current = false;
-                }, 100);
-            }, 400 + extraDelay); 
-            } else {
-                setTimeout(() => {
-            isAnimating.current = false;
-        }, 600);
-            }
-        };
+                isAnimating.current = false;
+            }, 1000);
+        }, 1500); // CSS transition 시간(1.5s)보다 약간 짧게 설정하여 몰입감 조절
+    };
 
-        window.addEventListener('wheel', handleGlobalWheel, { passive: false });
-        return () => window.removeEventListener('wheel', handleGlobalWheel);
-        
-    }, [isInside, isIntersecting, isModalOpen]); // 의존성 배열에 모두 포함
-
-    const activeProgress = Math.max(0, (progress - 0.3) / 0.7);
-    const moonScale = 1 + (activeProgress * 14);
+    // 스케일 계산: progress가 1이 되면 35배까지 커지며 암전 효과
+    const moonScale = 1 + (progress * 34);
 
     return (
         <section ref={sectionRef} data-theme="dark" className="explore_2_wrapper">
@@ -120,13 +70,23 @@ const Explore_2 = ({ isModalOpen }: ExploreProps) => {
                 <div className="bg_stars_fixed" />
                 <div 
                     className="bg_lunar_layer" 
+                    onClick={handleLunarZoom}
                     style={{ 
                         transform: `translate(-50%, -50%) scale(${moonScale})`,
                         opacity: 1,
-                        transition: 'transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease'
+                        // 확대 시 가속도를 붙여 빨려 들어가는 느낌 극대화
+                        transition: progress === 1 
+                            ? 'transform 2.5s cubic-bezier(0.7, 0, 0.3, 1)' 
+                            : 'transform 0.8s ease-out',
+                        animation: progress === 1 ? 'none' : 'pulseBlink 2s infinite ease-in-out'
                     }}
                 />
-                <div className="ex2_text_layer" style={{ opacity: 1 - progress }}>
+                
+                {/* 텍스트는 줌이 시작되면 빠르게 사라지게 설정 */}
+                <div className="ex2_text_layer" style={{ 
+                    opacity: progress === 1 ? 0 : 1,
+                    transition: 'opacity 0.4s ease'
+                }}>
                     <h2 className="ex2_float t1">
                         {getFormattedDate()}
                         <span><br/>: BEYOND THE SPACE</span>

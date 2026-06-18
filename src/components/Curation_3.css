@@ -25,7 +25,7 @@
 
 .room_entry_btn:hover, .room_entry_btn:active {transform: scale(0.98);}
 
-.room_entry_btn span {font-size: 18px; letter-spacing: 0.18em; font-weight: 700; color: #444; display: block;
+.room_entry_btn span {font-size: 18px; letter-spacing: 0.18em; font-weight: 700; color: #505050; display: block;
                       text-shadow: 1px 1px 0px rgba(249, 249, 249, 0.15), -0.5px -0.5px 1px rgba(18, 18, 18, 0.5);
                       margin-top: 2px;}
 
