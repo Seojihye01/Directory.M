@@ -10,12 +10,12 @@
 .bg_lunar_layer {position: absolute; top: 50%; left: 50%; width: 50vh; height: 50vh; z-index: 2; 
                  background-image: url('/media/Explore/universe5.jpg'); background-size: contain; will-change: transform;
                  background-repeat: no-repeat; background-position: center; cursor: pointer; 
-                 transition: transform 3.5s cubic-bezier(0.25, 1, 0.5, 1); animation: pulseBlink 2s infinite ease-in-out;}
+                 transition: transform 3.5s cubic-bezier(0.25, 1, 0.5, 1); animation: pulseBlink 1s infinite ease-in-out;}
 
 @keyframes pulseBlink {
-  0% { opacity: 0.1; text-shadow: 0 0 2px rgba(249, 249, 249, 0.2); }
+  0% { opacity: 0.01; text-shadow: 0 0 2px rgba(249, 249, 249, 0.01); }
   50% { opacity: 1; text-shadow: 0 0 12px rgba(249, 249, 249, 1); }
-  100% { opacity: 0.1; text-shadow: 0 0 2px rgba(249, 249, 249, 0.2); }
+  100% { opacity: 0.01; text-shadow: 0 0 2px rgba(249, 249, 249, 0.01); }
 }
 
 .bg_lunar_layer::after {content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease;
