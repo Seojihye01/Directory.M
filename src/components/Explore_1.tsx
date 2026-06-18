@@ -31,7 +31,7 @@ const Explore_1 = () => {
                     onContextMenu={(e) => e.preventDefault()}
                     className="background_video"
                 >
-                    <source src="/media/explore_.mp4" type="video/mp4" />
+                    <source src="/media/Explore/explore_.mp4" type="video/mp4" />
                     브라우저가 비디오를 지원하지 않습니다.
                 </video>
             </div>

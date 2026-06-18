@@ -30,14 +30,25 @@
 .ex5_sub_title {font-size: 32px; letter-spacing: 0.12em; font-weight: 500; color: #666; position: absolute;
                 white-space: nowrap; cursor: pointer; z-index: 100; transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
                 left: calc(50% - (100vw / 2) + 200%); top: 50%; transform: translate(-50%, -50%); 
-                text-shadow: 1px 1px 5px rgba(18, 18, 18, 0.1), -1px -1px 5px rgba(18, 18, 18, 0.1);}
+                text-shadow: 1px 1px 5px rgba(18, 18, 18, 0.1), -1px -1px 5px rgba(18, 18, 18, 0.1);
+                animation: pulseBlink 2s infinite ease-in-out;}
+
+@keyframes pulseBlink {
+  0% { opacity: 0.6; text-shadow: 0 0 2px rgba(249, 249, 249, 0.2); }
+  50% { opacity: 1; text-shadow: 0 0 12px rgba(249, 249, 249, 0.8); }
+  100% { opacity: 0.6; text-shadow: 0 0 2px rgba(249, 249, 249, 0.2); }
+}
 
 .ex5_container:not(.step_1) .ex5_sub_title:hover {text-shadow: 1px 1px 5px rgba(18, 18, 18, 0.2), 
                                                                -1px -1px 5px rgba(18, 18, 18, 0.2);
-                                                  color: rgba(249, 249, 249, 0.6);}
+                                                  color: rgba(249, 249, 249, 0.6); animation: none;}
+
+.ex5_container:not(.step_1) .ex5_sub_title:active {animation: none;}
 
 .step_1 .ex5_sub_title {left: 100.5%; top: 40%; transform: translate(-100%, 0); font-size: 20px; color: #666;
-                        text-shadow: none;}
+                        text-shadow: none; animation: none;}
+
+.step_1 .ex5_sub_title:hover {animation: none; color: rgba(249, 249, 249, 0.8);}
 
 .ex5_tabs {position: absolute; right: 0; top: 70%; transform: translateY(-50%); display: flex; flex-direction: column;
            align-items: flex-end; opacity: 0; transition: all 0.6s ease 0.4s; pointer-events: none;}

@@ -26,7 +26,12 @@ const Explore_2 = ({ isModalOpen }: ExploreProps) => {
             (entries: IntersectionObserverEntry[]) => { // 타입을 명시적으로 지정
                 const [entry] = entries;
                 setIsIntersecting(entry.isIntersecting);
-                if (!entry.isIntersecting) setIsInside(false);
+                // 모바일 터치 대응을 위해 IntersectionObserver로 진입 판정 일치화
+                if (entry.isIntersecting) {
+                    setIsInside(true);
+                } else {
+                    setIsInside(false);
+                }
             },
             { threshold: 0.8 }
         );
@@ -110,17 +115,7 @@ const Explore_2 = ({ isModalOpen }: ExploreProps) => {
     const moonScale = 1 + (activeProgress * 14);
 
     return (
-        <section 
-            ref={sectionRef} data-theme="dark"
-            className="explore_2_wrapper"
-            onMouseEnter={() => {
-                const isModalActive = isModalOpen || document.body.style.overflow === 'hidden' || !!document.querySelector('.modal_backdrop');
-                if (!isModalActive) {
-                    setIsInside(true);
-                }
-            }}
-            onMouseLeave={() => setIsInside(false)}
-        >
+        <section ref={sectionRef} data-theme="dark" className="explore_2_wrapper">
             <div className="ex2_sticky_box">
                 <div className="bg_stars_fixed" />
                 <div 

@@ -152,13 +152,15 @@
 
     .paper_inner {padding: 30px 20px;}
 
-    .c7_view .issue_no {font-size: 10px;}
+    .c7_view .issue_no {font-size: 9px;}
 
     .c7_view .issue_title {font-size: 14px; letter-spacing: 2px;}
 
-    .movie_list li {font-size: 11px;}
+    .movie_list {gap: 15px;}
 
-    .archive_btn span {font-size: 12px;}
+    .movie_list li {font-size: 10.5px;}
+
+    .archive_btn span {font-size: 11px;}
 
     .page_01 .index_tab {top: 20px;}
 
@@ -170,8 +172,8 @@
 
     .locked_msg {font-size: 10px;}
 
-    .curator_tag {font-size: 10px;}
+    .curator_tag {font-size: 9.5px;}
 
-    .cu7_team_mem {font-size: 9.5px;}
+    .cu7_team_mem {font-size: 9px;}
 
 }

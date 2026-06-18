@@ -4,11 +4,11 @@
                  align-items: center;}
 
 .bg_stars_fixed {position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
-                 background-image: url('/media/universe7.jpg'); background-size: cover; padding: 0;
+                 background-image: url('/media/Explore/universe7.jpg'); background-size: cover; padding: 0;
                  background-position: center; filter: grayscale(1) brightness(55%);}
 
 .bg_lunar_layer {position: absolute; top: 50%; left: 50%; width: 50vh; height: 50vh; z-index: 2;
-                 background-image: url('/media/universe5.jpg'); background-size: contain; will-change: transform;
+                 background-image: url('/media/Explore/universe5.jpg'); background-size: contain; will-change: transform;
                  background-repeat: no-repeat; background-position: center; pointer-events: none;
                  transition: transform 3.5s cubic-bezier(0.25, 1, 0.5, 1);}
 

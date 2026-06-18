@@ -53,7 +53,7 @@ const Explore_3 = ({ onMovieClick, isModalOpen }: ExploreProps) => { // 3. props
         <section className="explore_b_container" data-theme="dark">
             <div className="ex3_video">
                 <video autoPlay muted loop playsInline>
-                    <source src="/media/ex_bg.mp4" type="video/mp4" />
+                    <source src="/media/Explore/ex_bg.mp4" type="video/mp4" />
                 </video>
             </div>
             <div className="explore_inner">
