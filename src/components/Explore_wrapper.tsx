@@ -67,7 +67,7 @@ const Explore_wrapper = ({ onMovieClick }: ExploreProps) => {
             <div id="explore_1_section"><Explore_1 /></div>
             {/* Explore_2는 이제 내부에서 자체적으로 다음 섹션 아이디를 찾아 이동함 */}
             <div id="explore_2_section">
-                <Explore_2 isModalOpen={isModalOpen} />
+                <Explore_2 />
             </div>
             <div id="explore_3_section">
                 <Explore_3 onMovieClick={handleMovieSelect} isModalOpen={isModalOpen} />
