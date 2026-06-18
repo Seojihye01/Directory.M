@@ -206,7 +206,7 @@ const Curation_3 = () => {
                         </div>
                         <div className="cu3_info_row">
                             <p className="info_title">GENRE</p>
-                            <h3 className="cu3_run">{currentMovie.genre}</h3>
+                            <h3 className="cu3_gen">{currentMovie.genre}</h3>
                         </div>
                     </div>
                 </div>
@@ -222,6 +222,7 @@ const Curation_3 = () => {
                                     <p className="m_direc_name">{selectedMovie.direc}</p>
                                     <p>Running Time : {selectedMovie.runtime}</p>
                                     <p>Release : {selectedMovie.rel}</p>
+                                    <p>Genre : {selectedMovie.genre}</p>
                                 </div>
                             </div>
                             <div className="modal_body_row">

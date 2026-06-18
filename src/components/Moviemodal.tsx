@@ -99,6 +99,7 @@ const MovieModal = ({ movie, onClose, onMovieClick }: MovieModalProps) => {
 
                     <div className="modal_meta_row">
                         <span className="meta_txt">{movie.rel}</span>
+                        <span className="meta_txt">{movie.genre}</span>
                         <span className="meta_txt">{movie.runtime}</span>
                         <div className="tech_icons">
                             <img src="/media/dolby.svg" alt="Dolby" className="dolby" />
