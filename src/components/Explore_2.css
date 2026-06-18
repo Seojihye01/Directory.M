@@ -14,7 +14,7 @@
 
 @keyframes pulseBlink {
   0% { transform: translate(-50%, -50%) scale(0.1); text-shadow: 10px 10px 10px rgba(249, 249, 249, 0.01); }
-  50% { transform: translate(-50%, -50%) scale(1.1); text-shadow: 10px 10px 20px rgba(249, 249, 249, 1); }
+  50% { transform: translate(-50%, -50%) scale(1.1); text-shadow: 10px 10px 20px rgba(16, 144, 191, 0.6); }
   100% { transform: translate(-50%, -50%) scale(0.1); text-shadow: 10px 10px 10px rgba(249, 249, 249, 0.01); }
 }
 

@@ -62,10 +62,10 @@
 
   .background_video {object-fit: contain; background: #000;}
 
-  .sound_wave_btn {bottom: 100px; right: 24px;}
+  .sound_wave_btn {bottom: 150px; right: 24px;}
   
   .wave_btn_text {color: #f9f9f9;}
   
   .ex1_bar {background-color: #f9f9f9;}
-  
+
 }

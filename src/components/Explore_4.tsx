@@ -63,14 +63,17 @@ const Explore_4 = ({ onMovieClick }: ExploreProps) => {
             <div className="explore_inner_flex">
                 <aside className="side_nav_section">
                     <div className="side_filter_container">
-                        {Object.keys(filterOptions).map((category) => (
-                            <div key={category} className="filter_group">
+                        {Object.keys(filterOptions).map((category) => {
+                            const isOpen = activeFilter === category; // 현재 드롭다운이 열려있는지 확인
+                            
+                            return (
+                            <div key={category} className={`filter_group ${isOpen ? 'is-active' : ''}`}>
                                 <span className="filter_label">{category}</span>
-                                <div className="neu_input_box" onClick={() => setActiveFilter(activeFilter === category ? null : category)}>
+                                <div className="neu_input_box" onClick={() => setActiveFilter(isOpen ? null : category)}>
                                     <span className="selected_value">
-                                        {activeFilter === category ? "" : selectedFilters[category as keyof typeof selectedFilters]}
+                                        {selectedFilters[category as keyof typeof selectedFilters]}
                                     </span>
-                                    {activeFilter === category && (
+                                    {isOpen && (
                                         <ul className="neu_dropdown_list">
                                             {filterOptions[category].map(opt => (
                                                 <li key={opt} onClick={(e) => {
@@ -84,7 +87,8 @@ const Explore_4 = ({ onMovieClick }: ExploreProps) => {
                                     )}
                                 </div>
                             </div>
-                        ))}
+                        );
+                    })}
                     </div>
 
                     <div className="ex4_pagination">

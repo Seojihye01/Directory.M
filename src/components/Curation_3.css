@@ -141,9 +141,11 @@
 
     .cu3_bot {margin: 30px auto;}
 
+    .cu3_title_row {padding: 0 10px 14px 10px;}
+
     .issue, .key_phrase {font-size: 13px;}
 
-    .cu3_info_row {font-size: 12px;}
+    .cu3_info_row {font-size: 12px; padding: 10px;}
 
     .pill_icon_button {box-shadow: 0 4px 15px rgba(18, 18, 18, 0.08), inset 1px 1px 5px rgba(18, 18, 18, 0.08);}
 
