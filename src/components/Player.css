@@ -156,7 +156,7 @@
 }
 
 /* 2. 모바일 (768px 이하) */
-@media (max-width: 768px) and (orientation: landscape) {
+@media (max-width: 768px) {
 
     .player_overlay {padding: 20px;}
 
@@ -184,7 +184,8 @@
 
     .ctrl_left {width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;}
 
-    .volume_wrapper {grid-column: span 2; margin-left: 0; width: 100%;}
+    .volume_wrapper {grid-column: span 2; margin-left: 0; width: 100%; max-width: 200px; display: flex;
+                     align-items: center; gap: 10px;}
 
     .volume_slider {flex: 1; width: auto;}
 
@@ -195,7 +196,7 @@
 }
 
 /* 3. 소형 모바일 (480px 이하) */
-@media (max-width: 480px) and (orientation: landscape) {
+@media (max-width: 480px) {
 
     .movie_title {max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 

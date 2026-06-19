@@ -27,6 +27,8 @@ const Player = () => {
     const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
     const [rating, setRating] = useState(0);
     const [currentLanguage, setCurrentLanguage] = useState("English");
+    
+    const [isFullscreen, setIsFullscreen] = useState(false);
 
     const movieData = allMovies.find((m) => String(m.id) === movieId);
 
@@ -40,16 +42,20 @@ const Player = () => {
 
     useEffect(() => {
     if (!videoRef.current) return;
-
     if (isModalOpen) {
         videoRef.current.pause(); // 모달 열리면 정지
         setIsPlaying(false);
-    } else {
-        // 모달 닫힐 때 다시 재생하고 싶다면 아래 주석 해제
-        // videoRef.current.play();
-        // setIsPlaying(true);
-    }
+        } 
     }, [isModalOpen]);
+
+    // 전체화면 감지 이벤트 리스너 (ESC나 제스처로 탈출 시 동기화)
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            setIsFullscreen(!!document.fullscreenElement);
+        };
+        document.addEventListener("fullscreenchange", handleFullscreenChange);
+        return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    }, []);
 
     // 광고 종료 후 3초 대기 로직
     const handleVideoEnd = () => {
@@ -72,28 +78,38 @@ const Player = () => {
     // 2. 이용자가 플레이 버튼을 누르는 순간 가로 모드 및 전체화면 강제 활성화
     const togglePlay = async () => {
         if (!videoRef.current) return;
-    
-        // 재생이 시작될 때 화면을 가로 전체화면으로 전환 시도
-        if (!isPlaying) {
-            try {
-                // 플레이어 컨테이너 요소 전체를 전체화면으로 전환
-                const container = document.querySelector('.player_container');
-                if (container && container.requestFullscreen) {
-                    await container.requestFullscreen();
-                
-                    // 전체화면 진입 성공 후 가로 모드로 화면 방향 잠금
-                    if (window.screen.orientation && (window.screen.orientation as any).lock) {
-                        await (window.screen.orientation as any).lock("landscape");
-                    }
-                }
-            } catch (err) {
-                console.log("전체화면 및 가로모드 전환 실패 (모바일 기기 및 환경에 따라 제한될 수 있음):", err);
-            }
-        }
-
         // 기존 재생/일시정지 토글 로직
         isPlaying ? videoRef.current.pause() : videoRef.current.play();
         setIsPlaying(!isPlaying);
+    };
+
+    // 브라우저 UI 주소창 파괴용 수동 전체화면 및 가로 잠금 함수
+    const toggleFullscreen = async () => {
+        const container = document.querySelector(".player_container");
+        if (!container) return;
+
+        try {
+            if (!document.fullscreenElement) {
+                // 전체화면 진입
+                if (container.requestFullscreen) {
+                    await container.requestFullscreen();
+                    setIsFullscreen(true);
+                    
+                    // 가로 모드 강제 전환 시도 (지원 기기만)
+                    if (window.screen.orientation && (window.screen.orientation as any).lock) {
+                        await (window.screen.orientation as any).lock("landscape").catch(() => {});
+                    }
+                }
+            } else {
+                // 전체화면 탈출
+                if (document.exitFullscreen) {
+                    await document.exitFullscreen();
+                    setIsFullscreen(false);
+                }
+            }
+        } catch (err) {
+            console.error("전체화면 제어 중 에러 발생:", err);
+        }
     };
 
     const skipTime = (amount: number) => {
@@ -256,8 +272,10 @@ const Player = () => {
                                 />
                             </div>
                         </div>
-                        <div className="ctrl_right">
-                            <img src="/media/lock_b.svg" alt="lock" />
+                        <div className="ctrl_right" onClick={toggleFullscreen}>
+                            <img src={isFullscreen ? "/media/fullscreen_exit.svg" : "/media/fullscreen.svg"} 
+                                 alt="fullscreen" 
+                                 style={{ transform: "scale(1.2)" }} />
                         </div>
                     </div>
                 </div>
