@@ -49,7 +49,7 @@ const Funding_2 = () => {
     if (step < 6) setCount(5);
   }, [step]);
 
-  // ⭐️ [핵심 교정] 스크롤 가둠 및 영상 재생 연동 타워
+  // 스크롤 가둠 및 영상 재생 연동 타워
   useEffect(() => {
     const target = sectionRef.current;
     if (!target) return;
@@ -84,7 +84,7 @@ const Funding_2 = () => {
         return;
       }
       
-      // ⭐️ [교정] 6단계 카운트다운 중이거나 아직 영상이 나오기 전이면 아래/위 스크롤 모두 락(가둠)
+      // 6단계 카운트다운 중이거나 아직 영상이 나오기 전이면 아래/위 스크롤 모두 락(가둠)
       if (currentStep === 6 && !isVideoActive) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'auto', block: 'center' });
@@ -100,6 +100,7 @@ const Funding_2 = () => {
       // 인터랙션 내부 스텝 전환 가둠
       e.preventDefault();
       target.scrollIntoView({ behavior: 'auto', block: 'center' });
+      if (isAnimating.current) return;
       changeStep(scrollingDown ? 'next' : 'prev');
     };
 
@@ -122,28 +123,26 @@ const Funding_2 = () => {
         return; 
       }
       
-      // ⭐️ [교정] 모바일도 동일하게 영상 재생 전(카운트다운 포함)에는 페이지가 움직이지 못하도록 하이재킹 차단
+      // 모바일도 동일하게 영상 재생 전(카운트다운 포함)에는 페이지가 움직이지 못하도록 하이재킹 차단
       if (currentStep === 6 && !isVideoActive) {
-        if (Math.abs(deltaY) > 10) {
-          if (e.cancelable) e.preventDefault();
-          target.scrollIntoView({ behavior: 'auto', block: 'center' });
+        if (e.cancelable) e.preventDefault();
+        target.scrollIntoView({ behavior: 'auto', block: 'center' });
           
           // 위로 쓸어내려 5단계로 가고 싶다면 주석 해제
           // if (scrollingUp && !isAnimating.current) changeStep('prev');
-        }
         return;
       }
 
       if (isVideoActive) return;
 
-      if (Math.abs(deltaY) > 10) {
-        if (e.cancelable) e.preventDefault();
-        target.scrollIntoView({ behavior: 'auto', block: 'center' });
+      if (e.cancelable) e.preventDefault();
+      target.scrollIntoView({ behavior: 'auto', block: 'center' });
         
-        if (!isAnimating.current) {
-          changeStep(scrollingDown ? 'next' : 'prev');
-        }
-      }
+      if (isAnimating.current) return;
+
+      // 기준점을 현재 터치 위치로 갱신하여 슬라이딩 속도 보정
+      touchStartY.current = e.touches[0].clientY;
+      changeStep(scrollingDown ? 'next' : 'prev');
     };
 
     window.addEventListener('wheel', handleGlobalWheel, { passive: false });
@@ -245,7 +244,7 @@ const Funding_2 = () => {
       {/* 모바일/태블릿 전용 액션 힌트 */}
       {isResponsive && step === 6 && !isVideoActive && (
         <div className="responsive_action_hint">
-          <span key={count} className='hint_text'>{count > 0 ? `${count}` : 'TAB TO ACTION'}</span>
+          <span key={count} className='hint_text'>{count > 0 ? `${count}` : 'ACTION'}</span>
         </div>
       )}
 

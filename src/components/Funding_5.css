@@ -4,11 +4,23 @@
 .main_headline {width: 100%; max-width: 1200px; font-size: 50px; font-weight: 800; margin-bottom: 100px;
                 padding: 0 40px;}
 
-.table_container {width: 100%; max-width: 1000px; margin-bottom: 120px; padding: 0 40px;}
+.table_container {width: 100%; max-width: 1000px; margin-bottom: 120px; padding: 0 40px; box-sizing: border-box;
+                  overflow-x: auto; -webkit-overflow-scrolling: touch;}
+
+.table_container::-webkit-scrollbar {height: 4px;}
+
+.table_container::-webkit-scrollbar-thumb {background: rgba(18, 18, 18, 0.1); border-radius: 2px;}
 
 .table_sub {font-size: 13px; color: #86868b; margin: 0 0 25px 15px; letter-spacing: 0.02em;}
 
-.outcomes_table {width: 100%; border-collapse: collapse; border-bottom: 1px solid #121212;}
+.outcomes_table {width: 100%; min-width: 500px; border-collapse: collapse; border-bottom: 1px solid #121212;
+                 table-layout: fixed;}
+
+.outcomes_table th:nth-child(1), .outcomes_table td:nth-child(1) {width: 20%;}
+
+.outcomes_table th:nth-child(2), .outcomes_table td:nth-child(2) {width: 55%;}
+
+.outcomes_table th:nth-child(3), .outcomes_table td:nth-child(3) {width: 25%;}
 
 .outcomes_table th {padding: 20px 0; font-size: 14px; font-weight: 400; color: #86868b; border-top: 1px solid rgba(18, 18, 18, 0.6);
                     border-bottom: 1px solid rgba(18, 18, 18, 0.6); text-align: left;}
@@ -17,7 +29,9 @@
 
 .outcomes_table th:last-child, .outcomes_table td:last-child {padding-right: 15px;}
 
-.outcomes_table td {padding: 25px 0; font-size: 15px; color: #121212; border-bottom: 1px solid #e5e5e5;}
+.outcomes_table td {padding: 25px 0; font-size: 15px; color: #121212; border-bottom: 1px solid #e5e5e5; white-space: nowrap;}
+
+.project_title_cell {overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 
 .txt_right {text-align: right !important;}
 
@@ -74,8 +88,8 @@
 /* 3. 소형 모바일 (480px 이하) */
 @media (max-width: 480px) {
 
-  .outcomes_table th:last-child, .outcomes_table td:last-child {display: none;}
-
+  .table_container {padding: 0 20px;}
+  
   .project_title_cell {max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 
 }

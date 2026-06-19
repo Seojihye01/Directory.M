@@ -143,6 +143,7 @@
 /* 2. 모바일 (768px 이하) */
 @media (max-width: 768px) {
 
+  .fu2_sound_wave_btn {right: 38%;}
   .funding_3_section.step_6 {cursor: default;}
 
   .image_frame {width: 260px;}

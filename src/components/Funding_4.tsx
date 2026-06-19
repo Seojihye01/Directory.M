@@ -19,7 +19,7 @@ const GRID_LETTERS = [
 
 const TARGET_COORDS = [
   { r: 0, c: 0 }, { r: 0, c: 1 }, { r: 0, c: 2 }, 
-  { r: 2, c: 1 }, { r: 2, c: 2 },                 
+  { r: 2, c: 1 }, { r: 2, c: 2 },                  
   { r: 4, c: 1 }, { r: 4, c: 2 }, { r: 4, c: 3 }, { r: 4, c: 4 } 
 ];
 
@@ -31,7 +31,11 @@ const Funding_4 = () => {
   const isAnimating = useRef(false);
   const indexRef = useRef(-3);
   const sectionRef = useRef<HTMLElement>(null);
-  const touchStartY = useRef(0); // ⭐️ 모바일 터치 시작점 트래킹용
+  const touchStartY = useRef(0);
+
+  useEffect(() => {
+    indexRef.current = index;
+  }, [index]);
 
   useEffect(() => {
     if (isInside && index === -3) {
@@ -43,12 +47,11 @@ const Funding_4 = () => {
     }
   }, [isInside]);
 
-  // ⭐️ [핵심 교정] PC 휠 및 모바일 터치 스크롤 통합 제어 타워
+  // ⭐️ [핵심 교정] 모바일 터치 및 휠 제어 최적화 타워
   useEffect(() => {
     const targetSection = sectionRef.current;
     if (!targetSection) return;
 
-    // 공통 스텝 변환 로직 함수화
     const changeStepFlow = (scrollingDown: boolean) => {
       setIndex(prev => {
         let next: number;
@@ -64,7 +67,7 @@ const Funding_4 = () => {
       });
 
       const isLastDown = indexRef.current === 4 && scrollingDown;
-      const delayTime = isLastDown ? 800 : 600;
+      const delayTime = isLastDown ? 700 : 500; // ⭐️ 빠른 반응형 인터랙션을 위해 딜레이 약간 단축
 
       setTimeout(() => { 
         if (isLastDown) {
@@ -75,25 +78,27 @@ const Funding_4 = () => {
               nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
             isAnimating.current = false;
-          }, 100);
+          }, 50);
         } else {
           isAnimating.current = false;
         }
       }, delayTime);
     };
 
-    // 1. 데스크톱 휠 스크롤 감지 및 차단
+    // 1. 데스크톱 휠 스크롤 제어
     const handleGlobalWheel = (e: WheelEvent) => {
       if (!isInside) return;
 
       const scrollingDown = e.deltaY > 0;
       const scrollingUp = e.deltaY < 0;
 
+      // 상단 경계선 탈출 (첫 단계에서 위로 스크롤할 때)
       if (indexRef.current === -3 && scrollingUp) {
         setIsInside(false);
         return;
       }
 
+      // 하단 경계선 탈출 (마지막 단계에서 아래로 스크롤할 때)
       if (indexRef.current === 4 && scrollingDown) {
         if (!isAnimating.current) {
           setIsInside(false);
@@ -101,12 +106,10 @@ const Funding_4 = () => {
         }
       }
 
+      // 내부 단계 전환 구간 스크롤 락 및 가둠
       if ((scrollingDown && indexRef.current < 4) || (scrollingUp && indexRef.current > -3)) {
         e.preventDefault();
         targetSection.scrollIntoView({ behavior: 'auto', block: 'center' });
-      } else {
-        if (isAnimating.current) e.preventDefault();
-        return;
       }
 
       if (isAnimating.current) return;
@@ -115,31 +118,32 @@ const Funding_4 = () => {
       changeStepFlow(scrollingDown);
     };
 
-    // 2. 모바일 터치 스타트 (현재 섹션 내부에서 동작 시 터치 위치 확보)
+    // 2. 모바일 터치 스타트
     const handleTouchStart = (e: TouchEvent) => {
       if (!isInside) return;
       touchStartY.current = e.touches[0].clientY;
     };
 
-    // 3. 모바일 터치 무브 알고리즘 및 가둠 고정
+    // 3. 모바일 터치 무브 (핵심 교정부)
     const handleTouchMove = (e: TouchEvent) => {
       if (!isInside) return;
 
       const touchEndY = e.touches[0].clientY;
       const diffY = touchStartY.current - touchEndY;
 
-      // 미세 터치 흔들림 오작동 가드라인 (30px 이상 명확히 제스처를 취했을 때만 작동)
-      if (Math.abs(diffY) < 30) return;
+      // ⭐️ 터치 감도 임계값 조절 (35px 이상 쓸어올리거나 내렸을 때 움직임으로 인정)
+      if (Math.abs(diffY) < 35) return;
 
-      const scrollingDown = diffY > 0; // 쓸어올림 -> 다운스크롤 효과
-      const scrollingUp = diffY < 0;   // 쓸어내림 -> 업스크롤 효과
+      const scrollingDown = diffY > 0; 
+      const scrollingUp = diffY < 0;   
 
-      // 첫 단계에서 위로 탈출하거나, 마지막 단계에서 아래로 탈출 처리 보장
+      // ⭐️ [교정] 첫 스텝에서 위로 스크롤(쓸어내림) 시 패스를 열어주어 이전 섹션으로 이동 허용
       if (indexRef.current === -3 && scrollingUp) {
         setIsInside(false);
         return;
       }
 
+      // ⭐️ [교정] 마지막 스텝에서 아래로 스크롤(쓸어올림) 시 패스를 열어주어 다음 섹션으로 이동 허용
       if (indexRef.current === 4 && scrollingDown) {
         if (!isAnimating.current) {
           setIsInside(false);
@@ -147,27 +151,24 @@ const Funding_4 = () => {
         }
       }
 
-      // 가둠 조건 충족 시 네이티브 스크롤 하이재킹 차단
+      // ⭐️ 가둠 상태 내부 전환 시에만 네이티브 스크롤을 막아 튕김 현상 방지
       if ((scrollingDown && indexRef.current < 4) || (scrollingUp && indexRef.current > -3)) {
         if (e.cancelable) e.preventDefault();
         targetSection.scrollIntoView({ behavior: 'auto', block: 'center' });
-      } else {
-        return;
       }
 
-      // 애니메이션 도중 연속 트리거 인터셉트 방지
       if (isAnimating.current) return;
       isAnimating.current = true;
 
+      // 새 터치 시작 기준점 갱신으로 연속 팅김 제어
+      touchStartY.current = touchEndY; 
       changeStepFlow(scrollingDown);
     };
 
-    // 윈도우 마우스 이동 트래킹
     const handleMouseMove = (e: MouseEvent) => {
       setCursorPos({ x: e.clientX, y: e.clientY });
     };
 
-    // 타겟 요소에 직접 패시브 무력화 리스너 추가하여 스크롤 완전 통제
     window.addEventListener('wheel', handleGlobalWheel, { passive: false });
     targetSection.addEventListener('touchstart', handleTouchStart, { passive: true });
     targetSection.addEventListener('touchmove', handleTouchMove, { passive: false });
@@ -196,7 +197,7 @@ const Funding_4 = () => {
       className="funding_section funding_full_page" 
       onMouseEnter={() => setIsInside(true)} 
       onMouseLeave={() => setIsInside(false)}
-      onTouchStart={() => setIsInside(true)} // ⭐️ 모바일 터치 시작 시 스크롤 인터랙션 락 강제 활성화
+      onTouchStart={() => setIsInside(true)} 
     >
       <div className={`custom_cursor_wrapper ${isInside ? 'active' : ''}`} style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}>
         <div className="custom_cursor_visual"><img src='/media/cursor_b.svg' alt="scroll" /></div>
