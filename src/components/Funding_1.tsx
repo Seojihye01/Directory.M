@@ -12,7 +12,6 @@ const JOBS = [
 ];
 
 const Funding_1 = () => {
-
   const [progress, setProgress] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -23,41 +22,66 @@ const Funding_1 = () => {
     const isTablet = window.innerWidth < 1024;
 
     return JOBS.map((_, idx) => {
-    // 1. 글자들을 3그룹으로 나눔 (안쪽, 중간, 바깥쪽 레일)
-    const layer = idx % 3; 
-    let radiusX = [300, 500, 800][layer]; // 가로 반지름 (가로로 길게)
-    let radiusY = [150, 250, 350][layer]; // 세로 반지름 (좁게)
+      const layer = idx % 3; 
+      let radiusX = [300, 500, 800][layer]; 
+      let radiusY = [150, 250, 350][layer]; 
 
-    if (isMobile) {
-      radiusX = [120, 220, 350][layer]; 
-      radiusY = [80, 150, 250][layer];
-    } else if (isTablet) {
-      radiusX = [200, 350, 550][layer]; 
-      radiusY = [120, 200, 300][layer];
-    }
-
-    // 2. 각 레이어 안에서 글자들을 고르게 분산시키되 약간의 랜덤값 추가
-    const angle = (idx / (JOBS.length / 3)) * Math.PI * 2 + (Math.random() * 0.5);
-
-    return {
-      initialX: Math.cos(angle) * radiusX + (Math.random() - 0.5) * 100,
-      initialY: Math.sin(angle) * radiusY + (Math.random() - 0.5) * 50,
-    };
-  });
-}, []);
-
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      // 프로그레스가 0~100 사이일 때만 브라우저 스크롤 방지
-      if (progress >= 0 && progress < 100) {
-        if (e.cancelable) e.preventDefault();
+      if (isMobile) {
+        radiusX = [120, 220, 350][layer]; 
+        radiusY = [80, 150, 250][layer];
+      } else if (isTablet) {
+        radiusX = [200, 350, 550][layer]; 
+        radiusY = [120, 200, 300][layer];
       }
 
-      const sensitivity = 0.08;
-      setProgress((prev) => {
-        const next = prev + e.deltaY * sensitivity;
-        return Math.min(Math.max(next, 0), 100);
-      });
+      const angle = (idx / (JOBS.length / 3)) * Math.PI * 2 + (Math.random() * 0.5);
+
+      return {
+        initialX: Math.cos(angle) * radiusX + (Math.random() - 0.5) * 100,
+        initialY: Math.sin(angle) * radiusY + (Math.random() - 0.5) * 50,
+      };
+    });
+  }, []);
+
+  // ⭐️ 괄호 구조 및 휠 스크롤 고정 로직 정밀 수정
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      const target = containerRef.current;
+      if (!target) return;
+
+      // [상황 1] 프로그레스가 0 ~ 99.99일 때: 무조건 스크롤을 막고 줌인 애니메이션 진행
+      if (progress < 100) {
+        if (e.cancelable) e.preventDefault();
+
+        const sensitivity = 0.08;
+        setProgress((prev) => {
+          const next = prev + e.deltaY * sensitivity;
+          return Math.min(Math.max(next, 0), 100);
+        });
+
+        window.scrollTo({ top: target.offsetTop, behavior: 'auto' });
+      } 
+      // [상황 2] 프로그레스가 100에 완전히 도달했을 때
+      else if (progress === 100) {
+        const scrollingDown = e.deltaY > 0;
+        const scrollingUp = e.deltaY < 0;
+
+        if (scrollingUp) {
+          if (e.cancelable) e.preventDefault();
+          setProgress(99); // 위로 올리면 즉시 다시 스크롤 락을 걸고 연출 복구
+          return;
+        }
+
+        // 아래로 스크롤할 때: delay_ended 클래스가 없으면 한 번 홀딩 후 강제 부여
+        if (scrollingDown && !target.classList.contains('delay_ended')) {
+          if (e.cancelable) e.preventDefault();
+          window.scrollTo({ top: target.offsetTop, behavior: 'auto' });
+          target.classList.add('delay_ended');
+          return;
+        }
+        
+        // delay_ended가 추가된 상태에서 한 번 더 아래로 휠을 굴리면 락 해제되어 다음 섹션으로 이동함
+      }
     };
 
     const target = containerRef.current;
@@ -77,9 +101,8 @@ const Funding_1 = () => {
     });
   };
 
-  // 2. 확대 지연 계산 (0~30까지는 가만히 있다가 그 이후부터 커짐)
   const getScaleProgress = () => {
-    const threshold = 30; // 30% 지점부터 확대 시작
+    const threshold = 30; 
     if (progress < threshold) return 0;
     return (progress - threshold) / (100 - threshold);
   };
@@ -91,8 +114,8 @@ const Funding_1 = () => {
       <div className="interaction_wrapper">
         {JOBS.map((job, idx) => {
           const pos = jobPositions[idx];
+          if (!pos) return null; // 안전장치 추가
           
-          // 드래그(스크롤) 시 흩어짐 (이건 처음부터 서서히 발생)
           const scatterFactor = window.innerWidth < 768 ? 0.015 : 0.03;
           let tx = pos.initialX * (1 + progress * scatterFactor);
           let ty = pos.initialY * (1 + progress * scatterFactor);
@@ -111,7 +134,6 @@ const Funding_1 = () => {
               className="job_tag"
               style={{
                 transform: `translate(${tx}px, ${ty}px)`,
-                // 글씨는 드래그 초반부터 서서히 투명해지기 시작
                 opacity: 1 - progress / 90,
                 fontSize: window.innerWidth < 768 ? '10px' : '14px',
                 transition: 'transform 0.4s ease-out'
@@ -125,7 +147,6 @@ const Funding_1 = () => {
         <h1 
           className="center_supporter"
           style={{
-            // 지연된 scaleProgress 적용
             transform: `scale(${1 + scaleProgress * (window.innerWidth < 768 ? 4 : 8)})`,
             fontWeight: 300 + Math.floor(scaleProgress * 500),
             letterSpacing: `${scaleProgress * 10}%`,

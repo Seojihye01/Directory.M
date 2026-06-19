@@ -126,7 +126,7 @@
 
     .cu3_top {height: 40vh; margin-top: 60px;}
 
-    .room_entry_btn {padding: 14px 55px; box-shadow: inset 4px 4px 5px rgba(15, 8, 8, 0.22), 
+    .room_entry_btn {padding: 12px 50px; box-shadow: inset 4px 4px 5px rgba(15, 8, 8, 0.22), 
                                                      inset -5px -5px 10px rgba(18, 18, 18, 0.1), 2px 2px 10px rgba(18, 18, 18, 0.22);}
 
     .room_entry_btn span {font-size: 11px;}

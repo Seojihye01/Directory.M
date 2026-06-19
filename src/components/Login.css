@@ -40,7 +40,7 @@
 
 .login_btn_box:hover {background: #121212; color: #f9f9f9;}
 
-.login_btn_box:active {transform: scale(0.9);}
+.login_btn_box:active {transform: scale(0.95);}
 
 .floor_2 {display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;}
 
@@ -54,14 +54,13 @@
 .forgot, .not {font-size: 14px; letter-spacing: 5%; font-weight: 400; 
                text-decoration: underline; padding-bottom: 10px;}
 
-.social_media {display: flex; justify-content: space-between; gap: 15px; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);}
+.social_media {display: flex; justify-content: space-between; gap: 15px;}
 
-.social_media:active {transform: scale(0.9);}
+.google, .naver {width: 220px; height: 35px; border-radius: 6px; flex: 1; border: 1px solid #121212; 
+                 font-size: 14px; letter-spacing: 5%; font-weight: 400; display: flex; align-items: center;
+                 justify-content: center; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);}
 
-.google, .naver {width: 220px; height: 35px; border-radius: 6px; flex: 1;
-                 border: 1px solid #121212; font-size: 14px; letter-spacing: 5%;
-                 font-weight: 400; display: flex; align-items: center;
-                 justify-content: center;}
+.google:active, .naver:active {transform: scale(0.95);}
 
 /* Responsive Design */
 /* 1. 태블릿 (1024px 이하) */

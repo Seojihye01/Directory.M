@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Funding_2.css';
 
 const MOVING_IMAGES = [
-  { src: '/media/camera.jpg', pos: { top: '14%', left: '10%' } }, 
-  { src: '/media/camera_set.jpg', pos: { top: '45%', left: '55%' } },
-  { src: '/media/director.jpg', pos: { top: '50%', left: '15%' } },
+  { src: '/media/Funding/camera.jpg', pos: { top: '14%', left: '10%' } }, 
+  { src: '/media/Funding/camera_set.jpg', pos: { top: '45%', left: '55%' } },
+  { src: '/media/Funding/director.jpg', pos: { top: '50%', left: '15%' } },
 ];
 
 const SLATE_DATA = {
@@ -27,16 +27,20 @@ const Funding_2 = () => {
   const stepRef = useRef(0);
   const isAnimating = useRef(false);
 
+  useEffect(() => {
+    stepRef.current = step;
+  }, [step]);
+
   // 카운트다운 타이머 로직
   useEffect(() => {
     let timer: number;
     if (step === 6 && !isVideoActive && count > 0) {
-      timer = setInterval(() => {
+      timer = window.setInterval(() => {
         setCount((prev) => prev - 1);
       }, 1000);
     }
     return () => clearInterval(timer);
-  }, [step, count, isVideoActive]);
+  }, [step, isVideoActive, count]);
 
   // 스텝이 바뀌면 카운트다운 초기화
   useEffect(() => {
@@ -74,12 +78,10 @@ const Funding_2 = () => {
       if (scrollingDown && stepRef.current < 6) {
         const nextStep = stepRef.current + 1;
         setStep(nextStep);
-        stepRef.current = nextStep;
         setTimeout(() => { isAnimating.current = false; }, 800);
       } else if (scrollingUp && stepRef.current > 0) {
         const nextStep = stepRef.current - 1;
         setStep(nextStep);
-        stepRef.current = nextStep;
         setTimeout(() => { isAnimating.current = false; }, 800);
       }
     };
@@ -88,19 +90,16 @@ const Funding_2 = () => {
     return () => window.removeEventListener('wheel', handleGlobalWheel);
   }, [isInside, isVideoActive]);
 
-  // 클릭 시 액션 영화 스타트
-  const handleStartVideo = (e: React.MouseEvent) => {
-    if ((e.target as HTMLElement).closest('.fu2_sound_wave_btn')) return;
-    if (step !== 6 || isVideoActive) return;
-    
-    // ⭐️ [수정] 카운트다운 진행 중(5 ~ 1초)일 때는 클릭이 작동하지 않도록 차단
-    if (count > 0) return;
+  // 비디오 스타트 통합 핸들러 (PC 클릭 & 모바일 터치 공용)
+  const triggerStartVideo = () => {
+    if (step !== 6 || isVideoActive || count > 0) return;
     
     setIsVideoActive(true);
     if (videoRef.current) {
       videoRef.current.muted = false;
       setIsMuted(false);
       videoRef.current.play().catch(() => {
+        // 자동재생 정책 대응 브레이크
         videoRef.current!.muted = true;
         setIsMuted(true);
         videoRef.current!.play();
@@ -108,7 +107,18 @@ const Funding_2 = () => {
     }
   };
 
-  const handleSoundToggle = () => {
+  const handleStartVideo = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest('.fu2_sound_wave_btn')) return;
+    triggerStartVideo();
+  };
+
+  const handleTouchStartVideo = (e: React.TouchEvent) => {
+    if ((e.target as HTMLElement).closest('.fu2_sound_wave_btn')) return;
+    triggerStartVideo();
+  };
+
+  const handleSoundToggle = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation(); // 부모 클릭/터치 이벤트 전파 방지
     if (videoRef.current && isVideoActive) {
       videoRef.current.muted = !videoRef.current.muted;
       setIsMuted(videoRef.current.muted);
@@ -122,7 +132,13 @@ const Funding_2 = () => {
 
   const [isResponsive, setIsResponsive] = useState(false);
   useEffect(() => {
-    const checkDevice = () => setIsResponsive(window.innerWidth <= 1024);
+    const checkDevice = () => {
+      const responsive = window.innerWidth <= 1024;
+      setIsResponsive(responsive);
+      if (responsive) {
+        setXY({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+      }
+    };
     checkDevice();
     window.addEventListener('resize', checkDevice);
     return () => window.removeEventListener('resize', checkDevice);
@@ -134,12 +150,6 @@ const Funding_2 = () => {
     }
   };
 
-  useEffect(() => {
-    if (isResponsive && step === 6) {
-      setXY({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
-    }
-  }, [isResponsive, step]);
-
   return (
     <section 
       ref={sectionRef} data-theme="dark" id="funding_2_section"
@@ -148,9 +158,10 @@ const Funding_2 = () => {
       onMouseLeave={() => setIsInside(false)}
       onMouseMove={handleMouseMove} 
       onClick={handleStartVideo}
-      // ⭐️ [수정] 카운트다운 중일 때는 기본 커서(default)를 유지하고, ACTION 상태가 되었을 때만 원래 의도대로 커서를 숨김(none)
+      onTouchEnd={handleTouchStartVideo} 
       style={{ cursor: step === 6 && !isVideoActive && !isResponsive ? 'none' : 'default' }}
     >
+      {/* PC 전용 커스텀 커서 */}
       {step === 6 && !isVideoActive && !isResponsive && (
         <div 
           className="fu2_custom_cursor" 
@@ -164,16 +175,17 @@ const Funding_2 = () => {
         </div>
       )}
 
+      {/* 모바일/태블릿 전용 액션 힌트 및 타겟 영역 */}
       {isResponsive && step === 6 && !isVideoActive && (
         <div className="responsive_action_hint">
-          <span key={count} className='hint_text'>{count > 0 ? `${count}` : 'ACTION'}</span>
+          <span key={count} className='hint_text'>{count > 0 ? `${count}` : 'TAB TO ACTION'}</span>
         </div>
       )}
 
       <video
         ref={videoRef}
         className={`overlay_video ${isVideoActive ? 'active' : ''}`}
-        src="/media/funding_.mp4"
+        src="/media/Funding/funding_.mp4"
         loop
         playsInline
       />
@@ -181,6 +193,7 @@ const Funding_2 = () => {
       <button 
         className={`fu2_sound_wave_btn ${isVideoActive ? 'visible' : ''} ${isMuted ? "muted" : "playing"}`}
         onClick={handleSoundToggle}
+        onTouchEnd={(e) => handleSoundToggle(e)} 
         aria-label="Toggle Sound"
       >
         <div className="fu2_wave_container">
@@ -223,6 +236,7 @@ const Funding_2 = () => {
           <div className="image_frame_wrapper" />
         </div>
 
+        {/* 슬레이트 보드 */}
         <div className={`glass_slate_fixed ${step === 6 ? 'active_click' : ''} ${isVideoActive ? 'fade_out' : ''}`}>
           <div className="glass_slate_board">
             <div className="slate_header">
