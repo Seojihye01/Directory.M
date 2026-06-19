@@ -14,9 +14,17 @@ const JOBS = [
 const Funding_1 = () => {
   const [progress, setProgress] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  
   const containerRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef(0);
+  const touchStartY = useRef(0);
 
-  // 1. 가로로 더 넓게 흩어지도록 배치
+  // 실시간 progress 값을 이벤트 리스너 안에서 최신으로 참조하기 위한 래핑
+  useEffect(() => {
+    progressRef.current = progress;
+  }, [progress]);
+
+  // 가로로 더 넓게 흩어지도록 배치
   const jobPositions = useMemo(() => {
     const isMobile = window.innerWidth < 768;
     const isTablet = window.innerWidth < 1024;
@@ -43,55 +51,100 @@ const Funding_1 = () => {
     });
   }, []);
 
-  // ⭐️ 괄호 구조 및 휠 스크롤 고정 로직 정밀 수정
+  // ⭐️ [핵심 교정] PC 휠 스크롤 및 모바일 터치 무브 스크롤 통합 락 로직
   useEffect(() => {
+    const target = containerRef.current;
+    if (!target) return;
+
+    // 공통 프로그레스 변경 함수
+    const updateProgress = (deltaY: number, factor: number) => {
+      setProgress((prev) => {
+        const next = prev + deltaY * factor;
+        return Math.min(Math.max(next, 0), 100);
+      });
+    };
+
+    // 1. 데스크톱 마우스 휠 제어
     const handleWheel = (e: WheelEvent) => {
-      const target = containerRef.current;
-      if (!target) return;
+      const currentProgress = progressRef.current;
 
-      // [상황 1] 프로그레스가 0 ~ 99.99일 때: 무조건 스크롤을 막고 줌인 애니메이션 진행
-      if (progress < 100) {
+      if (currentProgress < 100) {
         if (e.cancelable) e.preventDefault();
-
-        const sensitivity = 0.08;
-        setProgress((prev) => {
-          const next = prev + e.deltaY * sensitivity;
-          return Math.min(Math.max(next, 0), 100);
-        });
-
+        updateProgress(e.deltaY, 0.08);
         window.scrollTo({ top: target.offsetTop, behavior: 'auto' });
       } 
-      // [상황 2] 프로그레스가 100에 완전히 도달했을 때
-      else if (progress === 100) {
-        const scrollingDown = e.deltaY > 0;
+      else if (currentProgress === 100) {
         const scrollingUp = e.deltaY < 0;
+        const scrollingDown = e.deltaY > 0;
 
         if (scrollingUp) {
           if (e.cancelable) e.preventDefault();
-          setProgress(99); // 위로 올리면 즉시 다시 스크롤 락을 걸고 연출 복구
+          setProgress(99); 
           return;
         }
 
-        // 아래로 스크롤할 때: delay_ended 클래스가 없으면 한 번 홀딩 후 강제 부여
         if (scrollingDown && !target.classList.contains('delay_ended')) {
           if (e.cancelable) e.preventDefault();
           window.scrollTo({ top: target.offsetTop, behavior: 'auto' });
           target.classList.add('delay_ended');
           return;
         }
-        
-        // delay_ended가 추가된 상태에서 한 번 더 아래로 휠을 굴리면 락 해제되어 다음 섹션으로 이동함
       }
     };
 
-    const target = containerRef.current;
-    if (target) {
-      target.addEventListener('wheel', handleWheel, { passive: false });
-    }
-    return () => {
-      if (target) target.removeEventListener('wheel', handleWheel);
+    // 2. 모바일 터치 스타트 (처음 터치한 지점 저장)
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY.current = e.touches[0].clientY;
     };
-  }, [progress]);
+
+    // 3. 모바일 터치 무브 (드래그 스크롤 제어 및 수치 변환)
+    const handleTouchMove = (e: TouchEvent) => {
+      const currentProgress = progressRef.current;
+      const currentY = e.touches[0].clientY;
+      const deltaY = touchStartY.current - currentY; // 쓸어올리면 양수(다운스크롤), 내리면 음수(업스크롤)
+
+      if (currentProgress < 100) {
+        // 프로그레스가 다 차기 전에는 모바일 기본 브라우저 스크롤 강제 차단
+        if (e.cancelable) e.preventDefault();
+        
+        // 터치 감도를 조절하여 자연스럽게 프로그레스가 쌓이도록 설정 (0.4)
+        updateProgress(deltaY, 0.4); 
+        touchStartY.current = currentY; // 연속적인 드래그 계산을 위해 터치 시작점 갱신
+        
+        window.scrollTo({ top: target.offsetTop, behavior: 'auto' });
+      } 
+      else if (currentProgress === 100) {
+        const scrollingUp = deltaY < 0;
+        const scrollingDown = deltaY > 0;
+
+        if (scrollingUp) {
+          if (e.cancelable) e.preventDefault();
+          setProgress(99);
+          target.classList.remove('delay_ended');
+          return;
+        }
+
+        // 마지막 홀딩 연출 처리
+        if (scrollingDown && !target.classList.contains('delay_ended')) {
+          if (e.cancelable) e.preventDefault();
+          window.scrollTo({ top: target.offsetTop, behavior: 'auto' });
+          target.classList.add('delay_ended');
+          return;
+        }
+      }
+    };
+
+    // 글로벌 이벤트 바인딩
+    target.addEventListener('wheel', handleWheel, { passive: false });
+    target.addEventListener('touchstart', handleTouchStart, { passive: true });
+    target.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      target.removeEventListener('wheel', handleWheel);
+      target.removeEventListener('touchstart', handleTouchStart);
+      target.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []); // 의존성 배열을 비워 리스너가 중복 중첩 생성되는 현상을 차단합니다.
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -114,7 +167,7 @@ const Funding_1 = () => {
       <div className="interaction_wrapper">
         {JOBS.map((job, idx) => {
           const pos = jobPositions[idx];
-          if (!pos) return null; // 안전장치 추가
+          if (!pos) return null;
           
           const scatterFactor = window.innerWidth < 768 ? 0.015 : 0.03;
           let tx = pos.initialX * (1 + progress * scatterFactor);
@@ -147,7 +200,7 @@ const Funding_1 = () => {
         <h1 
           className="center_supporter"
           style={{
-            transform: `scale(${1 + scaleProgress * (window.innerWidth < 768 ? 4 : 8)})`,
+            transform: `scale(${1 + scaleProgress * (window.innerWidth < 768 ? 3 : 8)})`, // ⭐️ 모바일 scale 배율 최적화 (터짐 방지)
             fontWeight: 300 + Math.floor(scaleProgress * 500),
             letterSpacing: `${scaleProgress * 10}%`,
           }}
