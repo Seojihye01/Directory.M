@@ -156,7 +156,7 @@
 }
 
 /* 2. 모바일 (768px 이하) */
-@media (max-width: 768px) {
+@media (max-width: 768px) and (orientation: landscape) {
 
     .player_overlay {padding: 20px;}
 
@@ -195,7 +195,7 @@
 }
 
 /* 3. 소형 모바일 (480px 이하) */
-@media (max-width: 480px) {
+@media (max-width: 480px) and (orientation: landscape) {
 
     .movie_title {max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 

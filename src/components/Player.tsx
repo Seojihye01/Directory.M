@@ -36,6 +36,32 @@ const Player = () => {
         const randomIndex = Math.floor(Math.random() * adVideos.length);
         setCurrentVideoSrc(adVideos[randomIndex]);
         setIsAdPlaying(true);
+
+        // 모바일 기기에서 진입 시 모던 브라우저 API를 이용해 가로 화면 잠금 시도
+        const lockLandscape = async () => {
+            try {
+                if (document.documentElement.requestFullscreen) {
+                    await document.documentElement.requestFullscreen();
+                    if (window.screen.orientation && (window.screen.orientation as any).lock) {
+                        await (window.screen.orientation as any).lock("landscape");
+                    }
+                }
+            } catch (err) {
+                console.log("Play:", err);
+            }
+        };
+
+        lockLandscape();
+
+        // 컴포넌트 나갈 때 전체화면 및 회전 잠금 해제
+        return () => {
+            if (document.exitFullscreen && document.fullscreenElement) {
+                document.exitFullscreen().catch(() => {});
+            }
+            if (window.screen.orientation && (window.screen.orientation as any).unlock) {
+                (window.screen.orientation as any).unlock();
+            }
+        };
     }, [movieId]);
 
     useEffect(() => {
