@@ -103,7 +103,7 @@
 /* 3. 초소형 모바일 (max-width: 480px) */
 @media (max-width: 480px) {
 
-    .fex_container {padding: 80px 16px;}
+    .fex_container {padding: 100px 16px;}
 
     .fex1_title {font-size: 24px;}
 

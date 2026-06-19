@@ -11,7 +11,7 @@ const Player = () => {
     const timerRef = useRef<any>(null);
 
     // 광고 및 상태 관리
-    const adVideos = ["/media/APPLE.mp4"];
+    const adVideos = ["/media/etc/APPLE.mp4"];
     const [isAdPlaying, setIsAdPlaying] = useState(true);
     const [currentVideoSrc, setCurrentVideoSrc] = useState("");
     const [isTransitioning, setIsTransitioning] = useState(false);
@@ -84,7 +84,7 @@ const Player = () => {
             setTimeout(() => {
                 setIsAdPlaying(false);
                 setIsTransitioning(false);
-                setCurrentVideoSrc(movieData?.videoUrl || "/media/main_.mp4");
+                setCurrentVideoSrc(movieData?.videoUrl || "/media/Main/main_.mp4");
             }, 3000);
         }
     };
