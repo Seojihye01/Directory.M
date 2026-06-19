@@ -7,10 +7,6 @@
 .table_container {width: 100%; max-width: 1000px; margin-bottom: 120px; padding: 0 40px; box-sizing: border-box;
                   overflow-x: auto; -webkit-overflow-scrolling: touch; position: relative;}
 
-.table_container::-webkit-scrollbar {height: 4px;}
-
-.table_container::-webkit-scrollbar-thumb {background: rgba(18, 18, 18, 0.1); border-radius: 2px;}
-
 .table_sub {font-size: 13px; color: #86868b; margin: 0 0 25px 15px; letter-spacing: 0.02em;}
 
 .outcomes_table {width: 100%; min-width: 500px; border-collapse: collapse; border-bottom: 1px solid #121212;
@@ -41,9 +37,8 @@
 
 .clickable_row:active {background-color: #e2e2e2;}
 
-.stats_container {width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(3, 1fr);
-                  gap: 60px; padding: 0 40px; margin: 0 auto; box-sizing: border-box; 
-                  font-variant-numeric: tabular-nums;}
+.stats_container {width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px;
+                  padding: 0 40px; margin: 0 auto; box-sizing: border-box; font-variant-numeric: tabular-nums;}
 
 .stat_item {text-align: center; font-variant-numeric: tabular-nums;}
 
@@ -69,7 +64,7 @@
 
   .outcomes_section {padding: 80px 20px;}
 
-  .main_headline {font-size: 24px; margin-bottom: 40px;}
+  .main_headline {font-size: 20px; margin-bottom: 40px;}
   
   .table_container {margin-bottom: 80px;}
   
@@ -79,9 +74,9 @@
 
   .outcomes_table td {font-size: 14px; padding: 15px 8px;}
 
-  .stats_container {grid-template-rows: 1fr; gap: 50px;}
-  
-  .stat_num {font-size: 40px;}
+  .stats_container {max-width: 200px; grid-template-rows: 1fr; gap: 50px;}
+
+  .stat_num {font-size: 35px;}
 
   .stat_label {font-size: 12px;}
 
@@ -90,13 +85,9 @@
 /* 3. 소형 모바일 (480px 이하) */
 @media (max-width: 480px) {
 
+  .main_headline {font-size: 18px;}
+
   .table_container {padding: 0 20px;}
-
-  .table_container::-webkit-scrollbar {height: 3px; display: block;}
-
-  .table_container::-webkit-scrollbar-track {background: rgba(18, 18, 18, 0.03);}
-
-  .table_container::-webkit-scrollbar-thumb {background: rgba(18, 18, 18, 0.2); border-radius: 2px;}
 
   .project_title_cell {max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 
