@@ -62,19 +62,30 @@ const Explore_2 = () => {
         <section ref={sectionRef} data-theme="dark" className="explore_2_wrapper">
             <div className="ex2_sticky_box" data-intersecting={isIntersecting}>
                 <div className="bg_stars_fixed" />
-                <div 
-                    className="bg_lunar_layer" 
-                    onClick={handleLunarZoom}
-                    style={{ 
-                        transform: `translate(-50%, -50%) scale(${moonScale})`,
-                        opacity: 1,
-                        // 확대 시 가속도를 붙여 빨려 들어가는 느낌 극대화
-                        transition: progress === 1 
-                            ? 'transform 2.5s cubic-bezier(0.7, 0, 0.3, 1)' 
-                            : 'transform 0.8s ease-out',
-                        animation: progress === 1 ? 'none' : 'pulseBlink 1.5s infinite ease-in-out'
-                    }}
-                />
+                <div className="lunar_action_group" onClick={handleLunarZoom}>
+                    <div 
+                        className="bg_lunar_layer" 
+                        onClick={handleLunarZoom}
+                        style={{ 
+                            transform: `translate(-50%, -50%) scale(${moonScale})`,
+                            opacity: 1,
+                            // 확대 시 가속도를 붙여 빨려 들어가는 느낌 극대화
+                            transition: progress === 1 
+                                ? 'transform 2.5s cubic-bezier(0.7, 0, 0.3, 1)' 
+                                : 'transform 0.8s ease-out',
+                            animation: progress === 1 ? 'none' : 'pulseBlink 1.5s infinite ease-in-out'
+                        }}
+                    />
+                    <span 
+                        className="lunar_to_text"
+                        style={{
+                            opacity: progress === 1 ? 0 : 1,
+                            transition: 'opacity 0.1s ease', // 행성이 커지기 전에 빠르게 사라지도록 설정
+                        }}
+                    >
+                        TO
+                    </span>
+                </div>
                 
                 {/* 텍스트는 줌이 시작되면 빠르게 사라지게 설정 */}
                 <div className="ex2_text_layer" style={{ 

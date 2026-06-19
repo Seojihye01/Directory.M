@@ -34,9 +34,10 @@
 
 .link_btn {width: 100%; display: flex; justify-content: space-between; align-items: center;}
 
-.before, a.next {display: flex; align-items: center; justify-content: center; gap: 20px; cursor: pointer; 
-                 padding: 10px 0; transition: opacity 0.3s; text-decoration: none; font-size: 18px; 
-                 font-weight: 300; letter-spacing: 0.05em; color: #121212;}
+.before, .next {display: flex; align-items: center; justify-content: center; gap: 20px; cursor: pointer; 
+                padding: 10px 0; transition: opacity 0.3s; text-decoration: none; font-size: 18px; 
+                font-weight: 300; letter-spacing: 0.05em; color: #121212; background: none;
+                border: none; font-family: inherit;}
 
 .before:hover, .next:hover {opacity: 0.6;}
 
@@ -81,7 +82,7 @@
 
     .link_btn {margin-top: 20px;}
 
-    a.before, a.next {font-size: 16px; gap: 10px;}
+    .before, .next {font-size: 16px; gap: 10px;}
 
     .before .be, .next .ar {width: 18px; height: 18px;}
 

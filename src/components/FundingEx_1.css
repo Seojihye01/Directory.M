@@ -80,7 +80,7 @@
 /* 2. 모바일 (max-width: 768px) */
 @media (max-width: 768px) {
 
-    .fex_container {padding: 60px 20px; align-items: flex-start;}
+    .fex_container {padding: 110px 20px; align-items: flex-start;}
 
     .fex1_cont {grid-template-columns: 1fr; gap: 30px;}
 
