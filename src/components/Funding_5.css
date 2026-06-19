@@ -89,7 +89,48 @@
 @media (max-width: 480px) {
 
   .table_container {padding: 0 20px;}
-  
+
   .project_title_cell {max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 
+}
+
+
+/* 컨테이너에 relative 기준점 설정 */
+.table_container {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 480px 이하 모바일에서만 그라데이션 힌트 노출 */
+@media (max-width: 480px) {
+  .table_container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px; /* 그라데이션 너비 */
+    height: 100%;
+    /* 배경색(#f9f9f9)과 투명도가 매치되는 그라데이션 */
+    background: linear-gradient(to right, rgba(249, 249, 249, 0) 0%, rgba(249, 249, 249, 0.9) 100%);
+    pointer-events: none; /* 클릭 방해 금지 */
+    z-index: 5;
+  }
+}
+
+
+@media (max-width: 480px) {
+  /* 모바일 스크롤바 커스텀 및 상시 노출 */
+  .table_container::-webkit-scrollbar {
+    height: 3px; /* 얇고 심플하게 */
+    display: block;
+  }
+  .table_container::-webkit-scrollbar-track {
+    background: rgba(18, 18, 18, 0.03); /* 아주 투명한 트랙 */
+  }
+  .table_container::-webkit-scrollbar-thumb {
+    background: rgba(18, 18, 18, 0.2); /* 은은한 바 색상 */
+    border-radius: 2px;
+  }
 }

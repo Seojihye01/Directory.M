@@ -76,7 +76,6 @@
 
 .btn_play:active, .btn_save:active {transform: scale(0.95);}
 
-
 .modal_details {border-top: 1px solid rgba(18, 18, 18, 0.3); padding: 40px 0; text-align: left;}
 
 .detail_item {font-size: 14px; margin-bottom: 11px; display: flex; align-items: flex-start;}

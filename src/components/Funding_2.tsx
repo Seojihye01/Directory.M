@@ -56,7 +56,6 @@ const Funding_2 = () => {
 
     const changeStep = (direction: 'next' | 'prev') => {
       if (isAnimating.current || isVideoActive) return;
-
       const currentStep = stepRef.current;
 
       if (direction === 'next' && currentStep < 6) {
@@ -84,12 +83,12 @@ const Funding_2 = () => {
         return;
       }
       
-      // 6단계 카운트다운 중이거나 아직 영상이 나오기 전이면 아래/위 스크롤 모두 락(가둠)
+      // 6단계 카운트다운 중이거나 아직 영상이 나오기 전이면 아래/위 스크롤 모두 락
       if (currentStep === 6 && !isVideoActive) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'auto', block: 'center' });
         
-        // 6단계에서 위로 휠을 굴렸을 때 5단계로 돌아가고 싶다면 아래 주석을 해제하세요.
+        // 6단계에서 위로 휠을 굴렸을 때 5단계로 돌아가고 싶다면 아래 주석을 해제
         // if (scrollingUp) changeStep('prev');
         return;
       }
@@ -115,17 +114,24 @@ const Funding_2 = () => {
       if (!isInside) return;
 
       const currentStep = stepRef.current;
+      
+      if (!isVideoActive) {
+        if (e.cancelable) e.preventDefault();
+      }
+
       const deltaY = touchStartY.current - e.touches[0].clientY; 
       const scrollingDown = deltaY > 0;
       const scrollingUp = deltaY < 0;
 
+      if (Math.abs(deltaY) < 30) return;
+
       if (currentStep === 0 && scrollingUp) {
+        setIsInside(false);
         return; 
       }
       
       // 모바일도 동일하게 영상 재생 전(카운트다운 포함)에는 페이지가 움직이지 못하도록 하이재킹 차단
       if (currentStep === 6 && !isVideoActive) {
-        if (e.cancelable) e.preventDefault();
         target.scrollIntoView({ behavior: 'auto', block: 'center' });
           
           // 위로 쓸어내려 5단계로 가고 싶다면 주석 해제
@@ -135,9 +141,7 @@ const Funding_2 = () => {
 
       if (isVideoActive) return;
 
-      if (e.cancelable) e.preventDefault();
       target.scrollIntoView({ behavior: 'auto', block: 'center' });
-        
       if (isAnimating.current) return;
 
       // 기준점을 현재 터치 위치로 갱신하여 슬라이딩 속도 보정

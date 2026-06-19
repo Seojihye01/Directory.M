@@ -47,7 +47,7 @@ const Funding_4 = () => {
     }
   }, [isInside]);
 
-  // ⭐️ [핵심 교정] 모바일 터치 및 휠 제어 최적화 타워
+  // 모바일 터치 및 휠 제어 최적화 타워
   useEffect(() => {
     const targetSection = sectionRef.current;
     if (!targetSection) return;
@@ -67,7 +67,7 @@ const Funding_4 = () => {
       });
 
       const isLastDown = indexRef.current === 4 && scrollingDown;
-      const delayTime = isLastDown ? 700 : 500; // ⭐️ 빠른 반응형 인터랙션을 위해 딜레이 약간 단축
+      const delayTime = isLastDown ? 700 : 500; // 빠른 반응형 인터랙션을 위해 딜레이 약간 단축
 
       setTimeout(() => { 
         if (isLastDown) {
@@ -124,35 +124,40 @@ const Funding_4 = () => {
       touchStartY.current = e.touches[0].clientY;
     };
 
-    // 3. 모바일 터치 무브 (핵심 교정부)
+    // 3. 모바일 터치 무브 
     const handleTouchMove = (e: TouchEvent) => {
       if (!isInside) return;
 
+      const currentIdx = indexRef.current;
       const touchEndY = e.touches[0].clientY;
       const diffY = touchStartY.current - touchEndY;
 
-      // ⭐️ 터치 감도 임계값 조절 (35px 이상 쓸어올리거나 내렸을 때 움직임으로 인정)
-      if (Math.abs(diffY) < 35) return;
+      // 가둠 상태에 있는 모든 핵심 단계에서는 모바일 네이티브 스크롤 전면 원천 차단
+      if ((diffY > 0 && currentIdx < 4) || (diffY < 0 && currentIdx > -3)) {
+        if (e.cancelable) e.preventDefault();
+      }
+      // 터치 감도 임계값 조절 (35px 이상 쓸어올리거나 내렸을 때 움직임으로 인정)
+      if (Math.abs(diffY) < 30) return;
 
       const scrollingDown = diffY > 0; 
       const scrollingUp = diffY < 0;   
 
-      // ⭐️ [교정] 첫 스텝에서 위로 스크롤(쓸어내림) 시 패스를 열어주어 이전 섹션으로 이동 허용
-      if (indexRef.current === -3 && scrollingUp) {
+      // 첫 스텝에서 위로 스크롤 시 패스를 열어주어 이전 섹션으로 이동 허용
+      if (currentIdx === -3 && scrollingUp) {
         setIsInside(false);
         return;
       }
 
-      // ⭐️ [교정] 마지막 스텝에서 아래로 스크롤(쓸어올림) 시 패스를 열어주어 다음 섹션으로 이동 허용
-      if (indexRef.current === 4 && scrollingDown) {
+      // 마지막 스텝에서 아래로 스크롤 시 패스를 열어주어 다음 섹션으로 이동 허용
+      if (currentIdx === 4 && scrollingDown) {
         if (!isAnimating.current) {
           setIsInside(false);
           return;
         }
       }
 
-      // ⭐️ 가둠 상태 내부 전환 시에만 네이티브 스크롤을 막아 튕김 현상 방지
-      if ((scrollingDown && indexRef.current < 4) || (scrollingUp && indexRef.current > -3)) {
+      // 가둠 상태 내부 전환 시에만 네이티브 스크롤을 막아 튕김 현상 방지
+      if ((scrollingDown && currentIdx < 4) || (scrollingUp && currentIdx > -3)) {
         if (e.cancelable) e.preventDefault();
         targetSection.scrollIntoView({ behavior: 'auto', block: 'center' });
       }

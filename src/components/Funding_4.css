@@ -144,3 +144,55 @@
   .indicator_line {width: 100%; height: 2px; margin-top: 5px;}
 
 }
+
+
+
+.funding_section {
+  width: 100%; 
+  height: 100vh; 
+  background: #f9f9f9; 
+  overflow: hidden; 
+  position: relative; 
+  display: flex; 
+  align-items: center; 
+  cursor: none; 
+  /* ⭐️ [교정] pan-y를 차단하여 브라우저 가로채기 본능 완전 봉쇄 */
+  touch-action: none; 
+}
+
+.funding_section.funding_full_page {
+  width: 100%; 
+  height: 100vh; 
+  height: 100dvh;
+  margin: 0; 
+  padding: 0; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  overflow: hidden;
+  position: relative; 
+  background-color: #fff;
+}
+
+/* ⭐️ 모바일 그리드 서체 레이아웃 이탈 방지형 고정 장치 */
+@media (max-width: 768px) {
+  .funding_container {
+    padding: 0 20px !important;
+  }
+  .grid_row {
+    gap: 15px !important; /* 모바일에서 좁혀진 알파벳 간격 */
+  }
+  .grid_char {
+    font-size: 24px !important; /* 가독 한계 크기 */
+  }
+  .static_title {
+    font-size: 28px !important;
+    left: 50% !important;
+    top: 8% !important;
+  }
+  .fu4_bottom_tab {
+    flex-direction: column !important;
+    gap: 30px;
+    margin-top: 60px !important;
+  }
+}
