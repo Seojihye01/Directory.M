@@ -14,12 +14,13 @@
 
 .theme_ {--point-color: #aaa; --tab-point: #aaa;}
 
-.status_tab_track {display: flex; padding: 5px; border-radius: 40px; position: relative; height: 48px; background: #f0f0f0;
-                   box-shadow: inset 4px 4px 8px #d1d1d1, inset -4px -4px 8px #f5f5f5; min-width: 400px; border: none;}
+.status_tab_track {display: flex; padding: 4px; border-radius: 40px; position: relative; height: 48px; background: #f0f0f0;
+                   box-shadow: inset 4px 4px 8px #d1d1d1, inset -4px -4px 8px #f5f5f5; min-width: 440px; border: none;
+                   width: 440px; border: none; box-sizing: border-box;}
 
 .tab_btn {padding: 12px 35px; border: none; background: none; font-size: 13px; font-weight: 400; 
           color: #999; cursor: pointer; z-index: 2; transition: all 0.3s; display: flex; flex: 1;
-          justify-content: center; align-items: center; padding-top: -10px; min-width: 100px;}
+          justify-content: center; align-items: center; padding-top: -10px; min-width: auto;}
 
 .tab_btn.active {font-weight: 500; color: #777;}
 
@@ -33,11 +34,11 @@
 
 .tab_indicator.pos_Dev {left: 10px;}
 
-.tab_indicator.pos_Prod {left: calc(25% + 7px);}
+.tab_indicator.pos_Prod {left: calc(25% + 5px);}
 
-.tab_indicator.pos_Post {left: calc(50% + 5px);}
+.tab_indicator.pos_Post {left: calc(50% + 1px);}
 
-.tab_indicator.pos_Ready {left: calc(75% + 1px);}
+.tab_indicator.pos_Ready {left: calc(75%);}
 
 .filter_group {display: flex; align-items: center; gap: 15px; margin-top: 33px;}
 
@@ -135,11 +136,12 @@
 
     .funding_list_section {padding: 60px 0;}
 
-    .status_tab_header {flex-direction: column; align-items: flex-start; height: auto; gap: 25px; margin-bottom: 50px;}
+    .status_tab_header {flex-direction: column; align-items: flex-start; height: auto; gap: 25px; 
+                        margin-bottom: 50px; width: 100%;}
 
     .status_tab_container {width: 100%;}
 
-    .status_tab_track {min-width: 100%;}
+    .status_tab_track {width: 100%; min-width: auto;}
 
     .filter_group {margin-top: 0; width: 100%; justify-content: space-between;}
 
@@ -174,117 +176,4 @@
 
     .gauge_value {font-size: 11px; right: 10px;}
     
-}
-
-
-/* ==========================================================================
-   [교정] 상단 탭 트랙 및 버튼 기본 스타일 (PC 기준 기본값)
-   ========================================================================== */
-
-.status_tab_track {
-  display: flex;
-  padding: 4px;
-  border-radius: 40px;
-  position: relative;
-  height: 48px;
-  background: #f0f0f0;
-  box-shadow: inset 4px 4px 8px #d1d1d1, inset -4px -4px 8px #f5f5f5;
-  border: none;
-  box-sizing: border-box;
-  
-  /* ⭐️ PC에서는 원래 디자인대로 안정적인 최소 너비를 확보합니다 */
-  width: 440px; 
-  min-width: 440px; 
-}
-
-.tab_btn {
-  padding: 0;
-  border: none;
-  background: none;
-  font-size: 13px;
-  font-weight: 400; 
-  color: #999;
-  cursor: pointer;
-  z-index: 2;
-  transition: all 0.3s;
-  display: flex;
-  flex: 1;           /* 4개의 버튼이 균등하게 공간 분할 */
-  justify-content: center;
-  align-items: center;
-  min-width: auto;   /* 불필요한 고정값 제거 */
-}
-
-/* ==========================================================================
-   [교정] 인디케이터 위치 계산 단순화 (% 기준 정밀 매칭)
-   ========================================================================== */
-
-.tab_indicator {
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  width: calc(25% - 8px); /* 패딩 4px씩 좌우 공백을 뺀 완벽한 너비 */
-  border-radius: 35px;
-  background: rgba(249, 249, 249, 0.2);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  z-index: 1;
-  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); 
-  box-shadow: inset 0 4px 9px rgba(18, 18, 18, 0.12), 0 4px 9px rgba(18, 18, 18, 0.20);
-}
-
-/* % 기준으로 오프셋을 설정하여 트랙 너비가 변해도 정확히 연동됩니다 */
-.tab_indicator.pos_Dev { 
-  left: 4px; 
-}
-.tab_indicator.pos_Prod { 
-  left: calc(25% + 2px); 
-}
-.tab_indicator.pos_Post { 
-  left: calc(50% + 1px); 
-}
-.tab_indicator.pos_Ready { 
-  left: calc(75% - 1px); 
-}
-
-
-/* ==========================================================================
-   [수정] 미디어 쿼리 - 오직 반응형(화면이 좁아질 때)에서만 줄여주기
-   ========================================================================== */
-
-/* 1. 태블릿 이하 (1024px 이하) */
-@media (max-width: 1024px) {
-    /* 필요 시 태블릿 레이아웃 유지를 위해 기본 440px 유지 혹은 유연하게 대응 가능 */
-}
-
-/* 2. 모바일 (768px 이하) */
-@media (max-width: 768px) {
-    .funding_list_section {
-        padding: 60px 0;
-    }
-    
-    .status_tab_header {
-        flex-direction: column;
-        align-items: flex-start;
-        height: auto;
-        gap: 25px;
-        margin-bottom: 50px;
-        width: 100%;
-    }
-    
-    .status_tab_container {
-        width: 100%;
-    }
-
-    /* ⭐️ 화면이 768px 이하로 작아진 모바일에서만 고정 크기를 해제하고 100%로 유연하게 늘려줍니다 */
-    .status_tab_track {
-        width: 100%;
-        min-width: auto; 
-    }
-}
-
-/* 3. 소형 모바일 (480px 이하) */
-@media (max-width: 480px) {
-    .tab_btn {
-        font-size: 11px; /* 아주 작은 화면에서는 텍스트 크기만 살짝 줄여서 자리를 확보합니다 */
-    }
 }

@@ -31,6 +31,7 @@ const Funding_4 = () => {
   const isAnimating = useRef(false);
   const indexRef = useRef(-3);
   const sectionRef = useRef<HTMLElement>(null);
+  const touchStartY = useRef(0); // ⭐️ 모바일 터치 시작점 트래킹용
 
   useEffect(() => {
     if (isInside && index === -3) {
@@ -42,8 +43,12 @@ const Funding_4 = () => {
     }
   }, [isInside]);
 
+  // ⭐️ [핵심 교정] PC 휠 및 모바일 터치 스크롤 통합 제어 타워
   useEffect(() => {
-    // 휠과 터치 조작이 공유하는 단일 인덱스 변경 제어 타워
+    const targetSection = sectionRef.current;
+    if (!targetSection) return;
+
+    // 공통 스텝 변환 로직 함수화
     const changeStepFlow = (scrollingDown: boolean) => {
       setIndex(prev => {
         let next: number;
@@ -59,14 +64,13 @@ const Funding_4 = () => {
       });
 
       const isLastDown = indexRef.current === 4 && scrollingDown;
-      // 다음 섹션으로 완전히 넘어가기 전, 애니메이션을 감상할 충분한 딜레이(800ms) 확보
       const delayTime = isLastDown ? 800 : 600;
 
       setTimeout(() => { 
         if (isLastDown) {
           setIsInside(false);
           setTimeout(() => {
-            const nextSection = sectionRef.current?.nextElementSibling || document.getElementById('funding_5_section');
+            const nextSection = targetSection?.nextElementSibling || document.getElementById('funding_5_section');
             if (nextSection) {
               nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
@@ -78,9 +82,9 @@ const Funding_4 = () => {
       }, delayTime);
     };
 
-    // 데스크톱 마우스 휠 리스너
+    // 1. 데스크톱 휠 스크롤 감지 및 차단
     const handleGlobalWheel = (e: WheelEvent) => {
-      if (!isInside || !sectionRef.current) return;
+      if (!isInside) return;
 
       const scrollingDown = e.deltaY > 0;
       const scrollingUp = e.deltaY < 0;
@@ -97,12 +101,9 @@ const Funding_4 = () => {
         }
       }
 
-      if (
-        (scrollingDown && indexRef.current < 4) || 
-        (scrollingUp && indexRef.current > -3)
-      ) {
+      if ((scrollingDown && indexRef.current < 4) || (scrollingUp && indexRef.current > -3)) {
         e.preventDefault();
-        sectionRef.current.scrollIntoView({ behavior: 'auto', block: 'center' });
+        targetSection.scrollIntoView({ behavior: 'auto', block: 'center' });
       } else {
         if (isAnimating.current) e.preventDefault();
         return;
@@ -114,26 +115,26 @@ const Funding_4 = () => {
       changeStepFlow(scrollingDown);
     };
 
-    // 모바일 터치(스와이프) 리스너 구역
-    let touchStartY = 0;
-
+    // 2. 모바일 터치 스타트 (현재 섹션 내부에서 동작 시 터치 위치 확보)
     const handleTouchStart = (e: TouchEvent) => {
       if (!isInside) return;
-      touchStartY = e.touches[0].clientY;
+      touchStartY.current = e.touches[0].clientY;
     };
 
+    // 3. 모바일 터치 무브 알고리즘 및 가둠 고정
     const handleTouchMove = (e: TouchEvent) => {
-      if (!isInside || !sectionRef.current) return;
+      if (!isInside) return;
 
       const touchEndY = e.touches[0].clientY;
-      const diffY = touchStartY - touchEndY;
+      const diffY = touchStartY.current - touchEndY;
 
-      // 터치 민감도 조절 (최소 40px 이상 명확히 쓸어 넘겼을 때만 판정)
-      if (Math.abs(diffY) < 40) return;
+      // 미세 터치 흔들림 오작동 가드라인 (30px 이상 명확히 제스처를 취했을 때만 작동)
+      if (Math.abs(diffY) < 30) return;
 
-      const scrollingDown = diffY > 0; // 아래에서 위로 스와이프 (다운)
-      const scrollingUp = diffY < 0;   // 위에서 아래로 스와이프 (업)
+      const scrollingDown = diffY > 0; // 쓸어올림 -> 다운스크롤 효과
+      const scrollingUp = diffY < 0;   // 쓸어내림 -> 업스크롤 효과
 
+      // 첫 단계에서 위로 탈출하거나, 마지막 단계에서 아래로 탈출 처리 보장
       if (indexRef.current === -3 && scrollingUp) {
         setIsInside(false);
         return;
@@ -146,35 +147,36 @@ const Funding_4 = () => {
         }
       }
 
-      if (
-        (scrollingDown && indexRef.current < 4) || 
-        (scrollingUp && indexRef.current > -3)
-      ) {
+      // 가둠 조건 충족 시 네이티브 스크롤 하이재킹 차단
+      if ((scrollingDown && indexRef.current < 4) || (scrollingUp && indexRef.current > -3)) {
         if (e.cancelable) e.preventDefault();
-        sectionRef.current.scrollIntoView({ behavior: 'auto', block: 'center' });
+        targetSection.scrollIntoView({ behavior: 'auto', block: 'center' });
       } else {
         return;
       }
 
+      // 애니메이션 도중 연속 트리거 인터셉트 방지
       if (isAnimating.current) return;
       isAnimating.current = true;
 
       changeStepFlow(scrollingDown);
     };
 
+    // 윈도우 마우스 이동 트래킹
     const handleMouseMove = (e: MouseEvent) => {
       setCursorPos({ x: e.clientX, y: e.clientY });
     };
 
+    // 타겟 요소에 직접 패시브 무력화 리스너 추가하여 스크롤 완전 통제
     window.addEventListener('wheel', handleGlobalWheel, { passive: false });
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    targetSection.addEventListener('touchstart', handleTouchStart, { passive: true });
+    targetSection.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
       window.removeEventListener('wheel', handleGlobalWheel);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
+      targetSection.removeEventListener('touchstart', handleTouchStart);
+      targetSection.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, [isInside]);
@@ -182,7 +184,6 @@ const Funding_4 = () => {
   const isPointTarget = (r: number, c: number) => 
     TARGET_COORDS.some(coord => coord.r === r && coord.c === c);
 
-  // 탭 리스트 클릭 시 인덱스 매칭 싱크 처리
   const handleTabClick = (tabId: number) => {
     if (isAnimating.current) return;
     setIndex(tabId);
@@ -190,10 +191,12 @@ const Funding_4 = () => {
   };
 
   return (
-    <section ref={sectionRef} data-theme="light" id="funding_4_section"
+    <section 
+      ref={sectionRef} data-theme="light" id="funding_4_section"
       className="funding_section funding_full_page" 
       onMouseEnter={() => setIsInside(true)} 
       onMouseLeave={() => setIsInside(false)}
+      onTouchStart={() => setIsInside(true)} // ⭐️ 모바일 터치 시작 시 스크롤 인터랙션 락 강제 활성화
     >
       <div className={`custom_cursor_wrapper ${isInside ? 'active' : ''}`} style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}>
         <div className="custom_cursor_visual"><img src='/media/cursor_b.svg' alt="scroll" /></div>
@@ -220,7 +223,6 @@ const Funding_4 = () => {
                           key={`${r}-${c}`}
                           className={`grid_char ${target ? 'target' : ''}`}
                           animate={{
-                            // 소수점을 제외한 완결형 정수 조건식 적용
                             opacity: index === -3 ? 1 : (target ? 1 : (index === -2 ? 0.2 : 0)),
                             y: index === -1 && target ? (2 - r) * (window.innerWidth < 768 ? 60 : 110) : 0,
                           }}

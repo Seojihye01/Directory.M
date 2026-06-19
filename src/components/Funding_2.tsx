@@ -22,10 +22,12 @@ const Funding_2 = () => {
   const [isInside, setIsInside] = useState(false);
   const [isVideoActive, setIsVideoActive] = useState(false); 
   const [isMuted, setIsMuted] = useState(false);
+  
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const stepRef = useRef(0);
   const isAnimating = useRef(false);
+  const touchStartY = useRef(0);
 
   useEffect(() => {
     stepRef.current = step;
@@ -47,59 +49,123 @@ const Funding_2 = () => {
     if (step < 6) setCount(5);
   }, [step]);
 
-  // 휠 이벤트 제어 및 가둠 해제 로직
+  // ⭐️ [핵심 교정] 스크롤 가둠 및 영상 재생 연동 타워
   useEffect(() => {
-    const handleGlobalWheel = (e: WheelEvent) => {
-      if (!isInside || isVideoActive || !sectionRef.current) return;
+    const target = sectionRef.current;
+    if (!target) return;
 
-      const scrollingDown = e.deltaY > 0;
-      const scrollingUp = e.deltaY < 0;
+    const changeStep = (direction: 'next' | 'prev') => {
+      if (isAnimating.current || isVideoActive) return;
 
-      if (stepRef.current === 0 && scrollingUp) {
-        setIsInside(false);
-        return;
-      }
+      const currentStep = stepRef.current;
 
-      if (stepRef.current === 6 && scrollingDown) {
-        e.preventDefault();        
-        return;
-      }
-
-      if (isAnimating.current) {
-        e.preventDefault();
-        return;
-      }
-
-      e.preventDefault();
-      sectionRef.current.scrollIntoView({ behavior: 'auto', block: 'center' });
-
-      isAnimating.current = true;
-
-      if (scrollingDown && stepRef.current < 6) {
-        const nextStep = stepRef.current + 1;
-        setStep(nextStep);
+      if (direction === 'next' && currentStep < 6) {
+        isAnimating.current = true;
+        setStep(currentStep + 1);
         setTimeout(() => { isAnimating.current = false; }, 800);
-      } else if (scrollingUp && stepRef.current > 0) {
-        const nextStep = stepRef.current - 1;
-        setStep(nextStep);
+      } else if (direction === 'prev' && currentStep > 0) {
+        isAnimating.current = true;
+        setStep(currentStep - 1);
         setTimeout(() => { isAnimating.current = false; }, 800);
       }
     };
 
+    // 1. 데스크톱 휠 스크롤 제어
+    const handleGlobalWheel = (e: WheelEvent) => {
+      if (!isInside) return;
+
+      const currentStep = stepRef.current;
+      const scrollingDown = e.deltaY > 0;
+      const scrollingUp = e.deltaY < 0;
+
+      // 0단계에서 위로 갈 때만 스크롤 락 해제
+      if (currentStep === 0 && scrollingUp) {
+        setIsInside(false);
+        return;
+      }
+      
+      // ⭐️ [교정] 6단계 카운트다운 중이거나 아직 영상이 나오기 전이면 아래/위 스크롤 모두 락(가둠)
+      if (currentStep === 6 && !isVideoActive) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'auto', block: 'center' });
+        
+        // 6단계에서 위로 휠을 굴렸을 때 5단계로 돌아가고 싶다면 아래 주석을 해제하세요.
+        // if (scrollingUp) changeStep('prev');
+        return;
+      }
+
+      // 영상 재생 중일 때는 완전히 내버려 두어 스크롤이 통과하도록 처리
+      if (isVideoActive) return;
+
+      // 인터랙션 내부 스텝 전환 가둠
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'auto', block: 'center' });
+      changeStep(scrollingDown ? 'next' : 'prev');
+    };
+
+    // 2. 모바일 터치 스타트
+    const handleTouchStart = (e: TouchEvent) => {
+      if (!isInside) return;
+      touchStartY.current = e.touches[0].clientY;
+    };
+
+    // 3. 모바일 터치 무브 알고리즘
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isInside) return;
+
+      const currentStep = stepRef.current;
+      const deltaY = touchStartY.current - e.touches[0].clientY; 
+      const scrollingDown = deltaY > 0;
+      const scrollingUp = deltaY < 0;
+
+      if (currentStep === 0 && scrollingUp) {
+        return; 
+      }
+      
+      // ⭐️ [교정] 모바일도 동일하게 영상 재생 전(카운트다운 포함)에는 페이지가 움직이지 못하도록 하이재킹 차단
+      if (currentStep === 6 && !isVideoActive) {
+        if (Math.abs(deltaY) > 10) {
+          if (e.cancelable) e.preventDefault();
+          target.scrollIntoView({ behavior: 'auto', block: 'center' });
+          
+          // 위로 쓸어내려 5단계로 가고 싶다면 주석 해제
+          // if (scrollingUp && !isAnimating.current) changeStep('prev');
+        }
+        return;
+      }
+
+      if (isVideoActive) return;
+
+      if (Math.abs(deltaY) > 10) {
+        if (e.cancelable) e.preventDefault();
+        target.scrollIntoView({ behavior: 'auto', block: 'center' });
+        
+        if (!isAnimating.current) {
+          changeStep(scrollingDown ? 'next' : 'prev');
+        }
+      }
+    };
+
     window.addEventListener('wheel', handleGlobalWheel, { passive: false });
-    return () => window.removeEventListener('wheel', handleGlobalWheel);
+    target.addEventListener('touchstart', handleTouchStart, { passive: true });
+    target.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      window.removeEventListener('wheel', handleGlobalWheel);
+      target.removeEventListener('touchstart', handleTouchStart);
+      target.removeEventListener('touchmove', handleTouchMove);
+    };
   }, [isInside, isVideoActive]);
 
-  // 비디오 스타트 통합 핸들러 (PC 클릭 & 모바일 터치 공용)
+  // 비디오 스타트 통합 핸들러
   const triggerStartVideo = () => {
-    if (step !== 6 || isVideoActive || count > 0) return;
+    if (stepRef.current !== 6 || isVideoActive || count > 0) return;
     
     setIsVideoActive(true);
     if (videoRef.current) {
       videoRef.current.muted = false;
       setIsMuted(false);
       videoRef.current.play().catch(() => {
-        // 자동재생 정책 대응 브레이크
         videoRef.current!.muted = true;
         setIsMuted(true);
         videoRef.current!.play();
@@ -118,7 +184,7 @@ const Funding_2 = () => {
   };
 
   const handleSoundToggle = (e: React.MouseEvent | React.TouchEvent) => {
-    e.stopPropagation(); // 부모 클릭/터치 이벤트 전파 방지
+    e.stopPropagation(); 
     if (videoRef.current && isVideoActive) {
       videoRef.current.muted = !videoRef.current.muted;
       setIsMuted(videoRef.current.muted);
@@ -156,6 +222,7 @@ const Funding_2 = () => {
       className={`funding_3_section step_${step} ${step >= 5 ? 'is_dimmed' : ''} ${isVideoActive ? 'video_playing' : ''}`}
       onMouseEnter={() => setIsInside(true)}
       onMouseLeave={() => setIsInside(false)}
+      onTouchStart={() => setIsInside(true)}
       onMouseMove={handleMouseMove} 
       onClick={handleStartVideo}
       onTouchEnd={handleTouchStartVideo} 
@@ -175,7 +242,7 @@ const Funding_2 = () => {
         </div>
       )}
 
-      {/* 모바일/태블릿 전용 액션 힌트 및 타겟 영역 */}
+      {/* 모바일/태블릿 전용 액션 힌트 */}
       {isResponsive && step === 6 && !isVideoActive && (
         <div className="responsive_action_hint">
           <span key={count} className='hint_text'>{count > 0 ? `${count}` : 'TAB TO ACTION'}</span>
