@@ -60,7 +60,7 @@ const Signup_3: React.FC<Signup3Props> = ({ onLogin, onPrev }) => {
                             // 로직: 선택되었거나 호버 중일 때만 영화 포스터, 아니면 signup_3.png
                             const currentSrc = (isSelected || isHovered) 
                                 ? fixedMovieImages[genre] 
-                                : "/media/signup_3.png";
+                                : "/media/etc/signup_3.png";
 
                             return (
                                 <React.Fragment key={genre}>
