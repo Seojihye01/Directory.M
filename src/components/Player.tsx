@@ -36,33 +36,7 @@ const Player = () => {
         const randomIndex = Math.floor(Math.random() * adVideos.length);
         setCurrentVideoSrc(adVideos[randomIndex]);
         setIsAdPlaying(true);
-
-        // 모바일 기기에서 진입 시 모던 브라우저 API를 이용해 가로 화면 잠금 시도
-        const lockLandscape = async () => {
-            try {
-                if (document.documentElement.requestFullscreen) {
-                    await document.documentElement.requestFullscreen();
-                    if (window.screen.orientation && (window.screen.orientation as any).lock) {
-                        await (window.screen.orientation as any).lock("landscape");
-                    }
-                }
-            } catch (err) {
-                console.log("Play:", err);
-            }
-        };
-
-        lockLandscape();
-
-        // 컴포넌트 나갈 때 전체화면 및 회전 잠금 해제
-        return () => {
-            if (document.exitFullscreen && document.fullscreenElement) {
-                document.exitFullscreen().catch(() => {});
-            }
-            if (window.screen.orientation && (window.screen.orientation as any).unlock) {
-                (window.screen.orientation as any).unlock();
-            }
-        };
-    }, [movieId]);
+    }, [movieId]);    
 
     useEffect(() => {
     if (!videoRef.current) return;
@@ -95,8 +69,29 @@ const Player = () => {
         timerRef.current = setTimeout(() => setShowControls(false), 1000);
     };
 
-    const togglePlay = () => {
+    // 2. 이용자가 플레이 버튼을 누르는 순간 가로 모드 및 전체화면 강제 활성화
+    const togglePlay = async () => {
         if (!videoRef.current) return;
+    
+        // 재생이 시작될 때 화면을 가로 전체화면으로 전환 시도
+        if (!isPlaying) {
+            try {
+                // 플레이어 컨테이너 요소 전체를 전체화면으로 전환
+                const container = document.querySelector('.player_container');
+                if (container && container.requestFullscreen) {
+                    await container.requestFullscreen();
+                
+                    // 전체화면 진입 성공 후 가로 모드로 화면 방향 잠금
+                    if (window.screen.orientation && (window.screen.orientation as any).lock) {
+                        await (window.screen.orientation as any).lock("landscape");
+                    }
+                }
+            } catch (err) {
+                console.log("전체화면 및 가로모드 전환 실패 (모바일 기기 및 환경에 따라 제한될 수 있음):", err);
+            }
+        }
+
+        // 기존 재생/일시정지 토글 로직
         isPlaying ? videoRef.current.pause() : videoRef.current.play();
         setIsPlaying(!isPlaying);
     };
@@ -177,6 +172,7 @@ const Player = () => {
                 onPlay={() => setIsPlaying(true)}
                 onPause={() => setIsPlaying(false)}
                 autoPlay
+                playsInline
             />
 
             <div className={`player_overlay ${showControls ? "visible" : "hidden"}`}>
