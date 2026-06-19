@@ -86,7 +86,7 @@
 /* 3. 소형 모바일 (480px 이하) */
 @media (max-width: 480px) {
 
-  .main_headline {font-size: 18px;}
+  .main_headline {font-size: 18px; padding: 0 20px;}
 
   .table_container {padding: 0 20px;}
 
