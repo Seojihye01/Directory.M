@@ -1,11 +1,11 @@
 .outcomes_section {padding: 120px 20px; background-color: #f9f9f9; display: flex; flex-direction: column;
                    align-items: center; overflow: hidden;}
 
-.main_headline {width: 100%; max-width: 1200px; font-size: 50px; font-weight: 800; margin-bottom: 100px;
+.main_headline {width: 100%; max-width: 1000px; font-size: 50px; font-weight: 800; margin-bottom: 100px;
                 padding: 0 40px;}
 
 .table_container {width: 100%; max-width: 1000px; margin-bottom: 120px; padding: 0 40px; box-sizing: border-box;
-                  overflow-x: auto; -webkit-overflow-scrolling: touch;}
+                  overflow-x: auto; -webkit-overflow-scrolling: touch; position: relative;}
 
 .table_container::-webkit-scrollbar {height: 4px;}
 
@@ -69,10 +69,12 @@
 
   .outcomes_section {padding: 80px 20px;}
 
-  .main_headline {font-size: 24px; margin-bottom: 40px; text-align: center;}
+  .main_headline {font-size: 24px; margin-bottom: 40px;}
   
   .table_container {margin-bottom: 80px;}
   
+  .outcomes_table {min-width: 200px;}
+
   .outcomes_table th {font-size: 12px;}
 
   .outcomes_table td {font-size: 14px; padding: 15px 8px;}
@@ -90,47 +92,12 @@
 
   .table_container {padding: 0 20px;}
 
+  .table_container::-webkit-scrollbar {height: 3px; display: block;}
+
+  .table_container::-webkit-scrollbar-track {background: rgba(18, 18, 18, 0.03);}
+
+  .table_container::-webkit-scrollbar-thumb {background: rgba(18, 18, 18, 0.2); border-radius: 2px;}
+
   .project_title_cell {max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 
-}
-
-
-/* 컨테이너에 relative 기준점 설정 */
-.table_container {
-  position: relative;
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* 480px 이하 모바일에서만 그라데이션 힌트 노출 */
-@media (max-width: 480px) {
-  .table_container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 40px; /* 그라데이션 너비 */
-    height: 100%;
-    /* 배경색(#f9f9f9)과 투명도가 매치되는 그라데이션 */
-    background: linear-gradient(to right, rgba(249, 249, 249, 0) 0%, rgba(249, 249, 249, 0.9) 100%);
-    pointer-events: none; /* 클릭 방해 금지 */
-    z-index: 5;
-  }
-}
-
-
-@media (max-width: 480px) {
-  /* 모바일 스크롤바 커스텀 및 상시 노출 */
-  .table_container::-webkit-scrollbar {
-    height: 3px; /* 얇고 심플하게 */
-    display: block;
-  }
-  .table_container::-webkit-scrollbar-track {
-    background: rgba(18, 18, 18, 0.03); /* 아주 투명한 트랙 */
-  }
-  .table_container::-webkit-scrollbar-thumb {
-    background: rgba(18, 18, 18, 0.2); /* 은은한 바 색상 */
-    border-radius: 2px;
-  }
 }
