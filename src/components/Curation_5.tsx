@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { allMovies } from "./MovieData"; //
 import "./Curation_5.css";
@@ -45,12 +45,27 @@ const Curation_5 = () => {
 // LockerItem 컴포넌트
 const LockerItem = ({ movie, openId, setOpenId, pos }: any) => {
   const isOpen = openId === movie.id;
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+
+  // 모바일에서 셔터가 올라가는 속도와 비디오 재생 타이밍을 완벽하게 동기화
+  React.useEffect(() => {
+    if (!videoRef.current) return;
+    if (isOpen) {
+      // 열리면 즉시 비디오 재생 실행
+      videoRef.current.play().catch((err) => console.log("자동재생 제한 차단 방지:", err));
+    } else {
+      // 닫히면 일시정지하고 처음으로 되돌림
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  }, [isOpen]);
 
   return (
-    <div className={`cu5_locker_item ${pos}`} onClick={() => setOpenId(isOpen ? null : movie.id)} data-theme="dark">
+    <div className={`cu5_locker_item ${pos} ${isOpen ? 'is_open' : ''}`} 
+      onClick={() => setOpenId(isOpen ? null : movie.id)} data-theme="dark">
       <div className="cu5_inner_content">
         {isOpen && (
-          <video src={movie.symbol} autoPlay loop muted playsInline />
+          <video ref={videoRef} src={movie.symbol} autoPlay loop muted playsInline preload="auto"/>
         )}
       </div>
 
@@ -60,7 +75,7 @@ const LockerItem = ({ movie, openId, setOpenId, pos }: any) => {
             key="shutter"
             className="cu5_shutter"
             exit={{ y: "-100%" }}
-            transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+            transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
           >
             <h3 className="cu5_engraved_title">{movie.title}</h3>
           </motion.div>
