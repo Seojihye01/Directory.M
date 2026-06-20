@@ -1,6 +1,29 @@
 .player_container {position: relative; width: 100vw; height: 100vh; background: #121212;
                    overflow: hidden; color: #f9f9f9; z-index: 101;}
 
+.rotate_guide_overlay {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(18, 18, 18, 0.95);
+                       display: flex; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px);
+                       animation: fadeInRotate 0.3s ease;}
+
+.rotate_guide_content {text-align: center; color: #f9f9f9;}
+
+.rotate_guide_content p {font-size: 15px; font-weight: 300; line-height: 1.6; margin-top: 20px; letter-spacing: 0.5px;}
+
+.rotate_guide_content strong {color: #fff; font-weight: 600;}
+
+.rotate_icon_anim {width: 50px; height: 50px; opacity: 0.8; animation: rotateDevice 2s infinite ease-in-out;}
+
+@keyframes rotateDevice {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(-90deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes fadeInRotate {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 .main_video {width: 100%; height: 100%; object-fit: cover; transition: filter 0.2s ease;}
 
 .player_overlay {position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 40px;
@@ -103,6 +126,8 @@
 
 .volume_slider::-webkit-slider-thumb {-webkit-appearance: none; width: 10px; height: 10px; background: #f9f9f9;
                                       border-radius: 50%; cursor: pointer;}
+
+.ctrl_right {display: flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px;}
 
 .episode_modal_overlay {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
                         background: rgba(18, 18, 18, 0.85); display: flex; align-items: center; 
@@ -209,82 +234,30 @@
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
-    .player_overlay { padding: 15px 30px; }
-    .top_bar { flex-direction: row; align-items: center; justify-content: space-between; }
-    .top_center.star_rating { position: absolute; left: 50%; transform: translateX(-50%); margin-top: 0; }
-    .cc_container { position: relative; top: auto; right: auto; }
-    .center_controls { gap: 80px; }
+
+    .player_overlay {padding: 15px 30px;}
+
+    .top_bar {flex-direction: row; align-items: center; justify-content: space-between;}
+
+    .top_center.star_rating {position: absolute; left: 50%; transform: translateX(-50%); margin-top: 0;}
+
+    .cc_container {position: relative; top: auto; right: auto;}
+
+    .center_controls {gap: 80px;}
     
-    .bottom_controls { flex-direction: row; align-items: center; justify-content: space-between; width: 100%; gap: 0; }
-    .ctrl_left { display: flex; align-items: center; gap: 25px; width: auto; }
-    .volume_wrapper { width: 120px; margin-bottom: 0; }
-    .ctrl_right { position: static; }
+    .bottom_controls {flex-direction: row; align-items: center; justify-content: space-between; width: 100%; 
+                      gap: 0;}
+
+    .ctrl_left {display: flex; align-items: center; gap: 25px; width: auto;}
+
+    .volume_wrapper {width: 120px; margin-bottom: 0;}
+
+    .ctrl_right {position: static;}
     
-    .brightness_control { left: 20px; gap: 10px; }
-    .slider_wrapper { height: 80px; }
-    .brightness_slider { width: 80px; }
-}
+    .brightness_control {left: 20px; gap: 10px;}
 
+    .slider_wrapper {height: 80px;}
 
+    .brightness_slider {width: 80px;}
 
-/* ⭐️ 추가: 모바일 가로 전환 가이드 오버레이 */
-.rotate_guide_overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(18, 18, 18, 0.95);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    backdrop-filter: blur(8px);
-    animation: fadeInRotate 0.3s ease;
-}
-
-.rotate_guide_content {
-    text-align: center;
-    color: #f9f9f9;
-}
-
-.rotate_guide_content p {
-    font-size: 15px;
-    font-weight: 300;
-    line-height: 1.6;
-    margin-top: 20px;
-    letter-spacing: 0.5px;
-}
-
-.rotate_guide_content strong {
-    color: #ffffff;
-    font-weight: 600;
-}
-
-.rotate_icon_anim {
-    width: 50px;
-    height: 50px;
-    opacity: 0.8;
-    animation: rotateDevice 2s infinite ease-in-out;
-}
-
-/* 스마트폰 디바이스 회전 애니메이션 */
-@keyframes rotateDevice {
-    0% { transform: rotate(0deg); }
-    50% { transform: rotate(-90deg); }
-    100% { transform: rotate(0deg); }
-}
-
-@keyframes fadeInRotate {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* 모바일 터치 미스 방지를 위한 터치 영역 패딩 확장 */
-.ctrl_right {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 44px;
-    min-height: 44px;
 }

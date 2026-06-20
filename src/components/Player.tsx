@@ -217,7 +217,7 @@ const Player = () => {
             
             {isTransitioning && <div className="transition_overlay"></div>}
 
-            {/* ⭐️ 모바일 세로 차단 가이드 레이어 */}
+            {/* 모바일 세로 차단 가이드 레이어 */}
             {showRotateGuide && (
                 <div className="rotate_guide_overlay" onClick={() => setShowRotateGuide(false)}>
                     <div className="rotate_guide_content">

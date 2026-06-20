@@ -38,10 +38,6 @@
 
 .effect-rotate {transform: rotate(-90deg) scale(1.05); transition: transform 0.3s ease;}
 
-.effect-blur {filter: blur(4px);}
-
-.effect-invert {filter: invert(100%);}
-
 /* Responsive Design */
 /* 1. 태블릿 (1024px 이하) */
 @media (max-width: 1024px) {
