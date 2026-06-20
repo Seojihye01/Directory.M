@@ -72,8 +72,8 @@ const Signup_3: React.FC<Signup3Props> = ({ onLogin, onPrev }) => {
                                     )}
                                     <div 
                                         className={`box ${isSelected ? 'active' : ''}`}
-                                        onMouseEnter={() => setHoveredGenre(genre)}
-                                        onMouseLeave={() => setHoveredGenre(null)}
+                                        onPointerEnter={(e) => { if (e.pointerType === 'mouse') setHoveredGenre(genre); }}
+                                        onPointerLeave={(e) => { if (e.pointerType === 'mouse') setHoveredGenre(null); }}
                                         onClick={() => handleSelect(genre)}
                                     >
                                         <img 

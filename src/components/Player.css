@@ -79,7 +79,7 @@
 
 .brightness_slider {-webkit-appearance: none; appearance: none; width: 150px; height: 4px; outline: none; 
                     background: rgba(249, 249, 249, 0.3); transform: rotate(-90deg); writing-mode: bt-lr;  
-                    border-radius: 2px; cursor: pointer;}
+                    border-radius: 2px; cursor: pointer; touch-action: none;}
 
 .brightness_slider::-webkit-slider-thumb {-webkit-appearance: none; appearance: none; width: 12px; height: 12px; 
                                           background: #f9f9f9; border-radius: 50%; cursor: pointer;
@@ -90,7 +90,8 @@
 
 .progress_area {display: flex; align-items: center; gap: 20px; margin-bottom: 20px;}
 
-.pl_progress_bar {flex: 1; height: 4px; background: rgba(249, 249, 249, 0.2); position: relative; cursor: pointer;}
+.pl_progress_bar {flex: 1; height: 4px; background: rgba(249, 249, 249, 0.2); position: relative; cursor: pointer;
+                  touch-action: none;}
 
 .pl_progress_bar.is_ad {cursor: wait;}
 
@@ -122,7 +123,7 @@
 .volume_icon {width: 20px; opacity: 0.8; object-fit: contain;}
 
 .volume_slider {-webkit-appearance: none; width: 60px; height: 2px; background: rgba(249, 249, 249, 0.2);
-                outline: none; border-radius: 2px;}
+                outline: none; border-radius: 2px; touch-action: none;}
 
 .volume_slider::-webkit-slider-thumb {-webkit-appearance: none; width: 10px; height: 10px; background: #f9f9f9;
                                       border-radius: 50%; cursor: pointer;}

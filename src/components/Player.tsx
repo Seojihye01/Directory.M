@@ -280,14 +280,16 @@ const Player = () => {
                 <div className="brightness_control">
                     <img src="/media/light.svg" alt="light" />
                     <div className="slider_wrapper">
-                        <input type="range" min="30" max="150" value={brightness} onChange={(e) => setBrightness(Number(e.target.value))} className="brightness_slider" />
+                        <input type="range" min="30" max="150" value={brightness} onChange={(e) => setBrightness(Number(e.target.value))} 
+                               className="brightness_slider" onTouchMove={(e) => e.stopPropagation()} />
                     </div>
                 </div>
 
                 <div className="bottom_bar">
                     <div className="progress_area">
                         <div className="time_info">{formatTime(currentTime)}</div>
-                        <div className={`pl_progress_bar ${isAdPlaying ? "is_ad" : ""}`} onClick={handleProgressClick}>
+                        <div className={`pl_progress_bar ${isAdPlaying ? "is_ad" : ""}`} onClick={handleProgressClick}
+                                        onTouchMove={(e) => e.stopPropagation()}>
                             <div className="progress_current" style={{ width: `${(currentTime / duration) * 100}%` }}></div>
                         </div>
                         <div className="time_total">{formatTime(duration)}</div>
@@ -317,7 +319,7 @@ const Player = () => {
                                         setVolume(v);
                                         if (videoRef.current) videoRef.current.volume = v;
                                     }} 
-                                    className="volume_slider" 
+                                    className="volume_slider" onTouchMove={(e) => e.stopPropagation()}
                                 />
                             </div>
                         </div>

@@ -108,14 +108,8 @@
 .ex4_content_area:not(.is_switching) .ex4_movie_item {animation: itemReveal 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;}
 
 @keyframes itemReveal {
-    0% {
-        opacity: 0;
-        transform: translateY(40px) scale(0.95);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+    0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .side_nav_section, .neu_input_box, .arrow_btn {cursor: pointer;}

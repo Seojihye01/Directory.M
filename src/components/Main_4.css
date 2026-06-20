@@ -91,7 +91,13 @@
                    height: max-content; pointer-events: auto;}
 
     .hud_main_cta {font-size: 1.1rem; transform: rotate(-90deg); width: max-content; display: inline-block;
-                   white-space: nowrap;}
+                   white-space: nowrap; animation: pulseBlink 2s infinite ease-in-out;}
+
+    @keyframes pulseBlink {
+        0% { opacity: 0.5; text-shadow: 0 0 2px rgba(249, 249, 249, 0.2); }
+        50% { opacity: 1; text-shadow: 0 0 12px rgba(249, 249, 249, 0.9); }
+        100% { opacity: 0.5; text-shadow: 0 0 2px rgba(249, 249, 249, 0.2); }
+    }
 
     .genre_grid {grid-template-columns: repeat(3, 1fr); gap: 30px 10px;}
 

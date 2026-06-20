@@ -71,7 +71,7 @@ export const allMovies: Movie[] = [
         relatedMovies: [2, 5, 12],
         genre: "Sci-Fi",
         age: "12",
-        symbol: "/media/Curation/interstellar2_symbol.mp4"
+        symbol: "/media/Curation/interstellar_symbol.mp4"
     },
     { 
     id: 5, title: "Black Swan", subTitle: "완벽을 향한 갈망이 빚어낸 탐미적 파멸",

@@ -60,6 +60,11 @@
 
   .main2_cta img {width: 18px;}
 
+  .main2_cta {text-shadow: 1px 1px 1px rgba(18, 18, 18, 0.05), -1px -1px 1px rgba(18, 18, 18, 0.05);}
+
+  .main2_cta img {filter: drop-shadow(-0.5px -0.5px 0.5px rgba(18, 18, 18, 0.05)) 
+                          drop-shadow(1px 1px 1px rgba(18, 18, 18, 0.2));}
+
   .main2_cont h1 {font-size: 26px; letter-spacing: 0.2em; margin-bottom: 40px; margin-right: 0;}
 
   .main2_meta_grid {width: 100%; gap: 15px;}
@@ -71,10 +76,12 @@
 /* 3. 소형 모바일 (480px 이하) */
 @media (max-width: 480px) {
 
-  .main2_cta {text-shadow: 0.5px 0.5px 0.5px rgba(18, 18, 18, 0.05), -0.5px -0.5px 0.5px rgba(18, 18, 18, 0.5);}
+  .main2_cta {text-shadow: 0.5px 0.5px 0.5px rgba(18, 18, 18, 0.05), -0.5px -0.5px 0.5px rgba(18, 18, 18, 0.05);}
 
   .main2_cta span {font-size: 13px;}
-
+ 
+  .main2_cta img {filter: drop-shadow(-0.5px -0.5px 0.5px rgba(18, 18, 18, 0.05)) 
+                          drop-shadow(1px 1px 1px rgba(18, 18, 18, 0.2));}
   .main2_cont h1 {font-size: 22px; letter-spacing: 0.15em; 
                   text-shadow: 0.5px 0.5px 0.5px rgba(18, 18, 18, 0.05), -0.5px -0.5px 0.5px rgba(18, 18, 18, 0.35);}
 

@@ -9,7 +9,6 @@
 .file_page {position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; cursor: pointer;
             transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); margin-bottom: 150px;}
 
-/* --- 호버 모션: 1번이 아닌 페이지를 호버하면 우측으로 나옴 --- */
 .file_page:not(.page_01):hover {transform: translateX(100px);}
 
 .file_page.active:not(.page_01) {transform: translateX(100px);}
@@ -111,7 +110,7 @@
 
     .curation_container {margin-top: 80px; padding-top: 50px;}
 
-    .file_stack_container {width: calc(100% - 60px); height: 550px; margin-bottom: 80px;}
+    .file_stack_container {width: calc(100% - 80px); height: 550px; margin-bottom: 80px;}
 
     .page_02 {left: 20px;}
 

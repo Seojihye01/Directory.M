@@ -51,6 +51,8 @@
     .explore_b_container {padding: 60px 20px; height: auto; min-height: 100dvh; display: flex; flex-direction: column;
                           justify-content: center; align-items: center;}
 
+    .ex3_video video {filter: grayscale(100%) blur(0.35px) contrast(200%);}
+
     .explore_inner {width: 100%; display: flex; flex-direction: column; align-items: center;}
 
     .ex3_cont {display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 100%;
