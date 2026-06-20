@@ -29,6 +29,8 @@ const Player = () => {
     const [currentLanguage, setCurrentLanguage] = useState("English");
     
     const [isFullscreen, setIsFullscreen] = useState(false);
+    // ⭐️ 모바일 회전 유도 가이드 상태 추가
+    const [showRotateGuide, setShowRotateGuide] = useState(false);
 
     const movieData = allMovies.find((m) => String(m.id) === movieId);
 
@@ -41,20 +43,44 @@ const Player = () => {
     }, [movieId]);    
 
     useEffect(() => {
-    if (!videoRef.current) return;
-    if (isModalOpen) {
-        videoRef.current.pause(); // 모달 열리면 정지
-        setIsPlaying(false);
+        if (!videoRef.current) return;
+        if (isModalOpen) {
+            videoRef.current.pause();
+            setIsPlaying(false);
         } 
     }, [isModalOpen]);
 
-    // 전체화면 감지 이벤트 리스너 (ESC나 제스처로 탈출 시 동기화)
+    // 전체화면 및 화면 방향 감지 동기화
     useEffect(() => {
         const handleFullscreenChange = () => {
-            setIsFullscreen(!!document.fullscreenElement);
+            const isFull = !!document.fullscreenElement || !!(document as any).webkitFullscreenElement;
+            setIsFullscreen(isFull);
+            
+            // 전체화면에서 나갔을 때 잠금 해제 및 가이드 제거
+            if (!isFull) {
+                if (window.screen.orientation && window.screen.orientation.unlock) {
+                    window.screen.orientation.unlock();
+                }
+                setShowRotateGuide(false);
+            }
         };
+
+        const handleOrientationChange = () => {
+            // 가로 모드로 전환되면 가이드 숨김
+            if (window.innerHeight < window.innerWidth) {
+                setShowRotateGuide(false);
+            }
+        };
+
         document.addEventListener("fullscreenchange", handleFullscreenChange);
-        return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+        document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+        window.addEventListener("resize", handleOrientationChange);
+
+        return () => {
+            document.removeEventListener("fullscreenchange", handleFullscreenChange);
+            document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+            window.removeEventListener("resize", handleOrientationChange);
+        };
     }, []);
 
     // 광고 종료 후 3초 대기 로직
@@ -75,40 +101,66 @@ const Player = () => {
         timerRef.current = setTimeout(() => setShowControls(false), 1000);
     };
 
-    // 2. 이용자가 플레이 버튼을 누르는 순간 가로 모드 및 전체화면 강제 활성화
     const togglePlay = async () => {
         if (!videoRef.current) return;
-        // 기존 재생/일시정지 토글 로직
         isPlaying ? videoRef.current.pause() : videoRef.current.play();
         setIsPlaying(!isPlaying);
     };
 
-    // 브라우저 UI 주소창 파괴용 수동 전체화면 및 가로 잠금 함수
+    // ⭐️ 실제 모바일 환경 대응 고도화 크로스 브라우징 전체화면 함수
     const toggleFullscreen = async () => {
-        const container = document.querySelector(".player_container");
+        const container = document.querySelector(".player_container") as any;
         if (!container) return;
 
         try {
-            if (!document.fullscreenElement) {
-                // 전체화면 진입
+            const doc = document as any;
+            const isFull = doc.fullscreenElement || doc.webkitFullscreenElement;
+
+            if (!isFull) {
+                // 1. 전체화면 진입 (iOS Safari의 webkit Request 대응 추가)
                 if (container.requestFullscreen) {
                     await container.requestFullscreen();
-                    setIsFullscreen(true);
-                    
-                    // 가로 모드 강제 전환 시도 (지원 기기만)
-                    if (window.screen.orientation && (window.screen.orientation as any).lock) {
-                        await (window.screen.orientation as any).lock("landscape").catch(() => {});
+                } else if (container.webkitRequestFullscreen) {
+                    await container.webkitRequestFullscreen();
+                } else if (videoRef.current && (videoRef.current as any).webkitEnterFullscreen) {
+                    // iOS 오리지널 비디오 팝업 전체화면 최후의 수단
+                    (videoRef.current as any).webkitEnterFullscreen();
+                    return;
+                }
+
+                setIsFullscreen(true);
+
+                // 2. 가로 모드 화면 잠금 시도
+                if (window.screen.orientation && (window.screen.orientation as any).lock) {
+                    await (window.screen.orientation as any).lock("landscape")
+                        .then(() => {
+                            setShowRotateGuide(false);
+                        })
+                        .catch((err : any) => {
+                            console.log("자동 회전 잠금 거부됨 (유저 가이드 필요):", err);
+                            // 브라우저가 잠금을 거부하고 현재 세로 방향이면 안내창 노출
+                            if (window.innerHeight > window.innerWidth) {
+                                setShowRotateGuide(true);
+                            }
+                        });
+                } else {
+                    // 잠금 API 자체가 없을 때 가로 유도
+                    if (window.innerHeight > window.innerWidth) {
+                        setShowRotateGuide(true);
                     }
                 }
             } else {
                 // 전체화면 탈출
-                if (document.exitFullscreen) {
-                    await document.exitFullscreen();
-                    setIsFullscreen(false);
+                if (doc.exitFullscreen) {
+                    await doc.exitFullscreen();
+                } else if (doc.webkitExitFullscreen) {
+                    await doc.webkitExitFullscreen();
                 }
+                setIsFullscreen(false);
+                setShowRotateGuide(false);
             }
         } catch (err) {
-            console.error("전체화면 제어 중 에러 발생:", err);
+            console.error("전체화면 제어 중 오류 발생:", err);
         }
     };
 
@@ -126,7 +178,6 @@ const Player = () => {
         if (videoRef.current) videoRef.current.playbackRate = nextSpeed;
     };
 
-    // 화면 캡처 기능 (Archive)
     const handleCapture = () => {
         if (videoRef.current) {
             const canvas = document.createElement("canvas");
@@ -150,21 +201,11 @@ const Player = () => {
         return `${hrs.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
     };
 
-    // 프로그레스 바 클릭 시 시간 이동 함수
     const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (isAdPlaying) return;
-        if (!videoRef.current || duration === 0) return;
-
-        // 클릭된 요소(pl_progress_bar)의 크기와 위치 정보 가져오기
+        if (isAdPlaying || !videoRef.current || duration === 0) return;
         const rect = e.currentTarget.getBoundingClientRect();
-        // 전체 가로 길이 중 마우스가 클릭한 위치의 상대적 X 좌표 계산
         const clickX = e.clientX - rect.left;
-        const width = rect.width;
-    
-        // 비율 계산 (0 ~ 1 사이)
-        const percentage = Math.min(Math.max(clickX / width, 0), 1);
-    
-        // 영상의 현재 시간을 변경된 비율에 맞춰 세팅
+        const percentage = Math.min(Math.max(clickX / rect.width, 0), 1);
         videoRef.current.currentTime = percentage * duration;
         setCurrentTime(percentage * duration);
     };
@@ -175,6 +216,16 @@ const Player = () => {
         <div className={`player_container ${!showControls ? "hide_cursor" : ""}`} onMouseMove={handleMouseMove}>
             
             {isTransitioning && <div className="transition_overlay"></div>}
+
+            {/* ⭐️ 모바일 세로 차단 가이드 레이어 */}
+            {showRotateGuide && (
+                <div className="rotate_guide_overlay" onClick={() => setShowRotateGuide(false)}>
+                    <div className="rotate_guide_content">
+                        <img src="/media/rotate_device.svg" alt="rotate" className="rotate_icon_anim" />
+                        <p>더 나은 시청 환경을 위해<br /><strong>기기를 가로로 회전</strong>해 주세요.</p>
+                    </div>
+                </div>
+            )}
 
             <video
                 ref={videoRef}
@@ -226,7 +277,6 @@ const Player = () => {
                     {!isAdPlaying && <img src="/media/next.svg" className="skip_icon next" alt="next" onClick={() => skipTime(10)} />}
                 </div>
 
-                {/* 밝기 조절 */}
                 <div className="brightness_control">
                     <img src="/media/light.svg" alt="light" />
                     <div className="slider_wrapper">
@@ -258,9 +308,8 @@ const Player = () => {
                                 <img src="/media/next_episode.svg" alt="next" /><span>Next Episode</span>
                             </div>
 
-                            {/* 소리 조절 */}
                             <div className="volume_wrapper">
-                                <img src={volume === 0 ? "/media/mute.svg" : "/media/sound_w.svg"} alt="volume" className="volume_icon" />
+                                <img src={volume === 0 ? "/media/muted.svg" : "/media/sound_w.svg"} alt="volume" className="volume_icon" />
                                 <input 
                                     type="range" min="0" max="1" step="0.05" value={volume} 
                                     onChange={(e) => {
@@ -272,10 +321,10 @@ const Player = () => {
                                 />
                             </div>
                         </div>
-                        <div className="ctrl_right" onClick={toggleFullscreen}>
+                        <div className="ctrl_right" onClick={toggleFullscreen} style={{ cursor: "pointer", padding: "10px" }}>
                             <img src={isFullscreen ? "/media/fullscreen_exit.svg" : "/media/fullscreen.svg"} 
                                  alt="fullscreen" 
-                                 style={{ transform: "scale(1.2)" }} />
+                                 style={{ transform: "scale(1.2)", display: "block" }} />
                         </div>
                     </div>
                 </div>

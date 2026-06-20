@@ -96,7 +96,7 @@
 
 .volume_control {display: flex; align-items: center; gap: 10px; margin-left: 10px;}
 
-.volume_icon {width: 18px; opacity: 0.8; object-fit: contain;}
+.volume_icon {width: 20px; opacity: 0.8; object-fit: contain;}
 
 .volume_slider {-webkit-appearance: none; width: 60px; height: 2px; background: rgba(249, 249, 249, 0.2);
                 outline: none; border-radius: 2px;}
@@ -184,7 +184,7 @@
 
     .ctrl_left {width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;}
 
-    .volume_wrapper {grid-column: span 2; margin-left: 0; width: 100%; max-width: 180px; display: flex;
+    .volume_wrapper {grid-column: span 2; margin-left: 0; width: 100%; max-width: 160px; display: flex;
                      align-items: center; gap: 10px;}
 
     .volume_slider {flex: 1; width: auto;}
@@ -223,4 +223,68 @@
     .brightness_control { left: 20px; gap: 10px; }
     .slider_wrapper { height: 80px; }
     .brightness_slider { width: 80px; }
+}
+
+
+
+/* ⭐️ 추가: 모바일 가로 전환 가이드 오버레이 */
+.rotate_guide_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(18, 18, 18, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(8px);
+    animation: fadeInRotate 0.3s ease;
+}
+
+.rotate_guide_content {
+    text-align: center;
+    color: #f9f9f9;
+}
+
+.rotate_guide_content p {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-top: 20px;
+    letter-spacing: 0.5px;
+}
+
+.rotate_guide_content strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.rotate_icon_anim {
+    width: 50px;
+    height: 50px;
+    opacity: 0.8;
+    animation: rotateDevice 2s infinite ease-in-out;
+}
+
+/* 스마트폰 디바이스 회전 애니메이션 */
+@keyframes rotateDevice {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(-90deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes fadeInRotate {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* 모바일 터치 미스 방지를 위한 터치 영역 패딩 확장 */
+.ctrl_right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
 }
