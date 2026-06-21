@@ -64,9 +64,7 @@ const LockerItem = ({ movie, openId, setOpenId, pos }: any) => {
     <div className={`cu5_locker_item ${pos} ${isOpen ? 'is_open' : ''}`} 
       onClick={() => setOpenId(isOpen ? null : movie.id)} data-theme="dark">
       <div className="cu5_inner_content">
-        {isOpen && (
-          <video ref={videoRef} src={movie.symbol} autoPlay loop muted playsInline preload="auto"/>
-        )}
+          <video ref={videoRef} src={movie.symbol} loop muted playsInline preload="auto"/>
       </div>
 
       <AnimatePresence>

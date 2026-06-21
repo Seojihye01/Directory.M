@@ -194,6 +194,20 @@ const Player = () => {
         }
     };
 
+    const toggleMute = () => {
+    if (!videoRef.current) return;
+    if (volume > 0) {
+        // 음소거하기
+        videoRef.current.muted = true;
+        setVolume(0);
+    } else {
+        // 음소거 해제 (기존 볼륨 0.5로 복구)
+        videoRef.current.muted = false;
+        setVolume(0.5);
+        videoRef.current.volume = 0.5;
+        }
+    };
+
     const formatTime = (time: number) => {
         const hrs = Math.floor(time / 3600);
         const mins = Math.floor((time % 3600) / 60);
@@ -311,13 +325,17 @@ const Player = () => {
                             </div>
 
                             <div className="volume_wrapper">
-                                <img src={volume === 0 ? "/media/muted.svg" : "/media/sound_w.svg"} alt="volume" className="volume_icon" />
+                                <img src={volume === 0 ? "/media/muted.svg" : "/media/sound_w.svg"} alt="volume" 
+                                     className="volume_icon" onClick={toggleMute} style={{ cursor: 'pointer' }}/>
                                 <input 
                                     type="range" min="0" max="1" step="0.05" value={volume} 
                                     onChange={(e) => {
                                         const v = Number(e.target.value);
                                         setVolume(v);
-                                        if (videoRef.current) videoRef.current.volume = v;
+                                        if (videoRef.current) {
+                                            videoRef.current.muted = v === 0;
+                                            videoRef.current.volume = v;
+                                        }
                                     }} 
                                     className="volume_slider" onTouchMove={(e) => e.stopPropagation()}
                                 />
