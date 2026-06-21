@@ -235,7 +235,7 @@ const Player = () => {
             {showRotateGuide && (
                 <div className="rotate_guide_overlay" onClick={() => setShowRotateGuide(false)}>
                     <div className="rotate_guide_content">
-                        <img src="/media/rotate_device.svg" alt="rotate" className="rotate_icon_anim" />
+                        <img src="/media/etc/rotate_device.svg" alt="rotate" className="rotate_icon_anim" />
                         <p>더 나은 시청 환경을 위해<br /><strong>기기를 가로로 회전</strong>해 주세요.</p>
                     </div>
                 </div>
@@ -259,7 +259,7 @@ const Player = () => {
             <div className={`player_overlay ${showControls ? "visible" : "hidden"}`}>
                 <div className="top_bar">
                     <div className="top_left" onClick={() => navigate(-1)}>
-                        <img src="/media/arrow_w.svg" className="back_icon" alt="back" />
+                        <img src="/media/etc/arrow_w.svg" className="back_icon" alt="back" />
                         <span className="movie_title">{isAdPlaying ? "Ad - Advertisement" : movieData.title}</span>
                     </div>
 
@@ -284,15 +284,15 @@ const Player = () => {
                 </div>
 
                 <div className="center_controls">
-                    {!isAdPlaying && <img src="/media/next.svg" className="skip_icon prev" alt="prev" onClick={() => skipTime(-10)} />}
+                    {!isAdPlaying && <img src="/media/etc/next.svg" className="skip_icon prev" alt="prev" onClick={() => skipTime(-10)} />}
                     <div className="main_play_btn" onClick={togglePlay}>
-                        <img src={isPlaying ? "/media/pause.svg" : "/media/play_b.svg"} alt="play_toggle" />
+                        <img src={isPlaying ? "/media/etc/pause.svg" : "/media/etc/play_b.svg"} alt="play_toggle" />
                     </div>
-                    {!isAdPlaying && <img src="/media/next.svg" className="skip_icon next" alt="next" onClick={() => skipTime(10)} />}
+                    {!isAdPlaying && <img src="/media/etc/next.svg" className="skip_icon next" alt="next" onClick={() => skipTime(10)} />}
                 </div>
 
                 <div className="brightness_control">
-                    <img src="/media/light.svg" alt="light" />
+                    <img src="/media/etc/light.svg" alt="light" />
                     <div className="slider_wrapper">
                         <input type="range" min="30" max="150" value={brightness} onChange={(e) => setBrightness(Number(e.target.value))} 
                                className="brightness_slider" onTouchStart={(e) => e.stopPropagation()} 
@@ -316,18 +316,18 @@ const Player = () => {
                             {!isAdPlaying && (
                                 <>
                                     <span className="speed_btn" onClick={toggleSpeed}>{playbackSpeed.toFixed(1)}x</span>
-                                    <div className="icon_group" onClick={handleCapture}><img src="/media/archive.svg" alt="archive" /><span>Archive</span></div>
+                                    <div className="icon_group" onClick={handleCapture}><img src="/media/etc/archive.svg" alt="archive" /><span>Archive</span></div>
                                 </>
                             )}
                             <div className="icon_group" onClick={() => setIsModalOpen(true)}>
-                                <img src="/media/episodes.svg" alt="episodes" /><span>Episodes</span>
+                                <img src="/media/etc/episodes.svg" alt="episodes" /><span>Episodes</span>
                             </div>
                             <div className="icon_group" onClick={handleVideoEnd}>
-                                <img src="/media/next_episode.svg" alt="next" /><span>Next Episode</span>
+                                <img src="/media/etc/next_episode.svg" alt="next" /><span>Next Episode</span>
                             </div>
 
                             <div className="volume_wrapper">
-                                <img src={volume === 0 ? "/media/muted.svg" : "/media/sound_w.svg"} alt="volume" 
+                                <img src={volume === 0 ? "/media/etc/muted.svg" : "/media/etc/sound_w.svg"} alt="volume" 
                                      className="volume_icon" onClick={toggleMute} style={{ cursor: 'pointer' }}/>
                                 <input 
                                     type="range" min="0" max="1" step="0.05" value={volume} 
@@ -344,7 +344,7 @@ const Player = () => {
                             </div>
                         </div>
                         <div className="ctrl_right" onClick={toggleFullscreen} style={{ cursor: "pointer", padding: "10px" }}>
-                            <img src={isFullscreen ? "/media/fullscreen_exit.svg" : "/media/fullscreen.svg"} 
+                            <img src={isFullscreen ? "/media/etc/fullscreen_exit.svg" : "/media/etc/fullscreen.svg"} 
                                  alt="fullscreen" 
                                  style={{ transform: "scale(1.2)", display: "block" }} />
                         </div>

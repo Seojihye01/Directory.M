@@ -1,6 +1,6 @@
 .main2_container {width: 100%; padding: 120px 0; background-size: cover; color: rgba(249, 249, 249, 0.95); height: 110vh;
                   background-position: center; display: flex; justify-content: center; align-items: center;
-                  background: url("/media/panel.jpg") no-repeat center/cover; filter: brightness(0.8);}
+                  background: url("/media/etc/panel.jpg") no-repeat center/cover; filter: brightness(0.8);}
 
 .main2_inner {width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center;}
 

@@ -96,7 +96,7 @@ const Main_5: React.FC = () => {
                             <div className="checkbox_wrapper">
                                 <input type="checkbox" onChange={handleCtaClick} />
                                 <span className="main5_check_box">
-                                    <img src="/media/check_bold.svg" alt="check" className="check_img" />
+                                    <img src="/media/etc/check_bold.svg" alt="check" className="check_img" />
                                 </span>
                             </div>
                         </label>

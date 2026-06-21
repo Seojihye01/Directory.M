@@ -7,7 +7,7 @@ const Footer = () => {
         <section className="footer_container" data-theme="light">
             <div className="footer_inner">
                 <a href="/" className="footer_top">
-                    <img src="/media/logo_b.png" className="footer_logo"/>
+                    <img src="/media/etc/logo_b.png" className="footer_logo"/>
                     <p className="catchphrase">Archive Today, Remember Always</p>
                 </a>
                 

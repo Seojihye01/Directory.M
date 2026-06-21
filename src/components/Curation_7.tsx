@@ -44,7 +44,7 @@ const Curation_7 = () => {
                                         <span>Archive in Library</span>
                                         <div className="icon_img_wrap">
                                             <img 
-                                                src={isSaved ? "/media/check.svg" : "/media/save.svg"} 
+                                                src={isSaved ? "/media/etc/check.svg" : "/media/etc/save.svg"} 
                                                 alt="save icon" 
                                                 className="cta_icon"/>
                                         </div>

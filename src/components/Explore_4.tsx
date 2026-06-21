@@ -94,7 +94,7 @@ const Explore_4 = ({ onMovieClick }: ExploreProps) => {
                     <div className="ex4_pagination">
                         <div className="neu_pagination_bar">
                             <button className="arrow_btn" onClick={() => handlePageChange(currentPage - 1)}>
-                                <img src="/media/arrow_b.svg" className="ex4_left" alt="prev" />
+                                <img src="/media/etc/arrow_b.svg" className="ex4_left" alt="prev" />
                             </button>
                             <div className="page_indicator_box" onClick={() => { setIsEditingPage(true); setPageInput(String(currentPage)); }}>
                                 <span className="txt_page">PAGE</span>
@@ -119,7 +119,7 @@ const Explore_4 = ({ onMovieClick }: ExploreProps) => {
                                 )}
                             </div>
                             <button className="arrow_btn" onClick={() => handlePageChange(currentPage + 1)}>
-                                <img src="/media/arrow_b.svg" className="ex4_right" alt="next" />
+                                <img src="/media/etc/arrow_b.svg" className="ex4_right" alt="next" />
                             </button>
                         </div>
                         <p className="total_page">TOTAL {totalPages} PAGES</p>

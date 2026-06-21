@@ -93,7 +93,7 @@ const MovieModal = ({ movie, onClose, onMovieClick }: MovieModalProps) => {
                             </div>
                         </div>
                         <button className="share_btn">
-                            <img src="/media/share.svg" alt="share" />
+                            <img src="/media/etc/share.svg" alt="share" />
                         </button>
                     </div>
 
@@ -102,9 +102,9 @@ const MovieModal = ({ movie, onClose, onMovieClick }: MovieModalProps) => {
                         <span className="meta_txt">{movie.genre}</span>
                         <span className="meta_txt">{movie.runtime}</span>
                         <div className="tech_icons">
-                            <img src="/media/dolby.svg" alt="Dolby" className="dolby" />
-                            <img src="/media/hd.svg" alt="4K" className="hd"/>
-                            <img src="/media/sound.svg" alt="Atmos" className="sound" />
+                            <img src="/media/etc/dolby.svg" alt="Dolby" className="dolby" />
+                            <img src="/media/etc/hd.svg" alt="4K" className="hd"/>
+                            <img src="/media/etc/sound.svg" alt="Atmos" className="sound" />
                         </div>
                     </div>
 

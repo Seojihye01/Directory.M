@@ -77,7 +77,7 @@ const Curation_4: React.FC = () => {
                                             e.stopPropagation();
                                         }}
                                     >
-                                        <img src="/media/view_w.svg" className="m_view_w" alt="view" />
+                                        <img src="/media/etc/view_w.svg" className="m_view_w" alt="view" />
                                     </button>
                                 </div>
                                 <div className="m_info_area">
@@ -124,8 +124,8 @@ const Curation_4: React.FC = () => {
                             <img src={selectedMovie.img} alt="preview" />
                             <div className="m_control_bar">
                                 <div className="m_arrow">
-                                        <img src="/media/arrow_b.svg" className="m_left" onClick={() => navigateMovie('prev')} alt="prev" />
-                                        <img src="/media/arrow_b.svg" className="m_right" onClick={() => navigateMovie('next')} alt="next" />
+                                        <img src="/media/etc/arrow_b.svg" className="m_left" onClick={() => navigateMovie('prev')} alt="prev" />
+                                        <img src="/media/etc/arrow_b.svg" className="m_right" onClick={() => navigateMovie('next')} alt="next" />
                                     </div>
                                 <button className="m_more_btn" onClick={handleMoreClick}>MORE</button>
                                 <span className="m_cancel" onClick={() => setSelectedMovie(null)}>✕</span>

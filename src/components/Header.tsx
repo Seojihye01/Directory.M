@@ -52,7 +52,7 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
             <div className='header_inner'>
                 <div>
                     <Link to='/'>
-                        <img src={isDarkSection ? "/media/logo_w.png" : "/media/logo_b.png"} alt="logo" className='logo' />
+                        <img src={isDarkSection ? "/media/etc/logo_w.png" : "/media/etc/logo_b.png"} alt="logo" className='logo' />
                     </Link>
                 </div>
 
@@ -101,7 +101,7 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
                 <ul className='gnb2'>
                     <li className={`menu_item ${openSubMenu === 'user' ? 'active' : ''}`} onClick={() => toggleSubMenu('user')}>
                         <Link to='#' onClick={(e) => window.innerWidth <= 768 && e.preventDefault()}>
-                            <img src="/media/userL_b.svg" alt="user" />
+                            <img src="/media/etc/userL_b.svg" alt="user" />
                         </Link>
                         <div className='sub_menu'>
                             {isLoggedIn ? (
@@ -119,7 +119,7 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
                     </li>
                     <li className='menu_item'>
                         <button onClick={() => setIsSearchOpen(true)} className="search_btn">
-                            <img src={isDarkSection ? "/media/searchL_w.svg" : "/media/searchL_b.svg"} alt="search" />
+                            <img src={isDarkSection ? "/media/etc/searchL_w.svg" : "/media/etc/searchL_b.svg"} alt="search" />
                         </button>
 
                         {isSearchOpen && (
@@ -144,7 +144,7 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
                 </nav>
 
                 <button className="mobile_menu_btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                    <img src="/media/arrow_b.svg" alt="menu toggle" />
+                    <img src="/media/etc/arrow_b.svg" alt="menu toggle" />
                 </button>
             </div>
             {isMenuOpen && <div className="menu_overlay" onClick={() => setIsMenuOpen(false)}></div>}

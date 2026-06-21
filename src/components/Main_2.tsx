@@ -8,7 +8,7 @@ const Main_2: React.FC = () => {
                 <div className='main2_cont'>
                     <a href='/about' className='main2_cta'>
                         <span>How We Work</span>
-                        <img src='/media/arrow_w.svg' />
+                        <img src='/media/etc/arrow_w.svg' />
                     </a>
 
                     <h1>DIRECTORY.M</h1>

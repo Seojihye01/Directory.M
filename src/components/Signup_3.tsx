@@ -57,10 +57,10 @@ const Signup_3: React.FC<Signup3Props> = ({ onLogin, onPrev }) => {
                             const isSelected = selectedGenre === genre;
                             const isHovered = hoveredGenre === genre;
                             
-                            // 로직: 선택되었거나 호버 중일 때만 영화 포스터, 아니면 signup_3.png
+                            // 로직: 선택되었거나 호버 중일 때만 영화 포스터, 아니면 signup.png
                             const currentSrc = (isSelected || isHovered) 
                                 ? fixedMovieImages[genre] 
-                                : "/media/etc/signup_3.png";
+                                : "/media/etc/signup.png";
 
                             return (
                                 <React.Fragment key={genre}>
@@ -83,7 +83,7 @@ const Signup_3: React.FC<Signup3Props> = ({ onLogin, onPrev }) => {
                                         />
                                         <p className="genre">{genre}</p>
                                         {isSelected && <div className="check_badge">
-                                            <img src="/media/check.svg" /></div>}
+                                            <img src="/media/etc/check.svg" /></div>}
                                     </div>
                                 </React.Fragment>
                             );
@@ -92,12 +92,12 @@ const Signup_3: React.FC<Signup3Props> = ({ onLogin, onPrev }) => {
                             
                     <div className="link_btn">
                         <div className="before" onClick={onPrev} style={{ cursor: 'pointer' }}>
-                            <img src="/media/arrow_b.svg" className="be" />
+                            <img src="/media/etc/arrow_b.svg" className="be" />
                             <p>Before</p>
                         </div>
                         <div className="next" onClick={handleCreateAccount} style={{ cursor: 'pointer' }}>
                             <p>Create Account</p>
-                            <img src="/media/arrow_b.svg" className="ar" />
+                            <img src="/media/etc/arrow_b.svg" className="ar" />
                         </div>
                     </div>
                 </div>

@@ -34,12 +34,12 @@ const Signup_1 = ({ onNext }: { onNext: () => void }) => {
                     </div>
                     <div className="link_btn">
                         <Link to='/' className="before">
-                            <img src="/media/arrow_b.svg" className="be" />
+                            <img src="/media/etc/arrow_b.svg" className="be" />
                             <p>Before</p>
                         </Link>
                         <button onClick={onNext} className="next">
                             <p>Next</p>
-                            <img src="/media/arrow_b.svg" className="ar" />
+                            <img src="/media/etc/arrow_b.svg" className="ar" />
                         </button>
                     </div>
                 </div>

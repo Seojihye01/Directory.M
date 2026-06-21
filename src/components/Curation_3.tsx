@@ -143,12 +143,12 @@ const Curation_3 = () => {
                                 <div className="ended_controls_container">
                                     <div className="control_item" onClick={handleReplay}>
                                         <div className="pill_icon_button">
-                                            <img src="/media/replay.svg" alt="replay" className="replay" />
+                                            <img src="/media/etc/replay.svg" alt="replay" className="replay" />
                                         </div>
                                     </div>
                                     <div className="control_item" onClick={openModal}>
                                         <div className="pill_icon_button">
-                                            <img src="/media/view.svg" alt="info" className="view" />
+                                            <img src="/media/etc/view.svg" alt="info" className="view" />
                                         </div>
                                     </div>
                                 </div>
@@ -234,8 +234,8 @@ const Curation_3 = () => {
                                 <img src={selectedMovie.img} alt="preview" />
                                 <div className="m_control_bar">
                                     <div className="m_arrow">
-                                        <img src="/media/arrow_b.svg" className="m_left" onClick={() => navigateMovie('prev')} alt="prev" />
-                                        <img src="/media/arrow_b.svg" className="m_right" onClick={() => navigateMovie('next')} alt="next" />
+                                        <img src="/media/etc/arrow_b.svg" className="m_left" onClick={() => navigateMovie('prev')} alt="prev" />
+                                        <img src="/media/etc/arrow_b.svg" className="m_right" onClick={() => navigateMovie('next')} alt="next" />
                                     </div>
                                     <button className="m_more_btn" onClick={(e) => { e.stopPropagation(); setIsDetailOpen(true); }}>MORE</button>
                                     <span className="m_cancel" onClick={() => { setSelectedMovie(null); setIsDetailOpen(false); }}>✕</span>

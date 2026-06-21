@@ -66,7 +66,7 @@ const Main_3 = () => {
           >
             <Link to='/curation' className="title_box">
               <h1>A curator's view<br /> of cinema</h1>
-              <img src='/media/arrow_w.svg' alt="arrow" />
+              <img src='/media/etc/arrow_w.svg' alt="arrow" />
             </Link>
           </motion.div>
         </div>

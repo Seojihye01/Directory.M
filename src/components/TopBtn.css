@@ -4,7 +4,7 @@
 
 .top_btn_wrap.show {opacity: 1; visibility: visible;}
 
-.metallic_btn {position: relative; padding: 10px 30px; background-image: url("/media/metal.png"); background-size: 102%;
+.metallic_btn {position: relative; padding: 10px 30px; background-image: url("/media/etc/metal.png"); background-size: 102%;
                background-position: center; background-color: #121212; border: 1px solid transparent; cursor: pointer;
                border-radius: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;
                box-shadow: 0 2px 10px rgba(18, 18, 18, 0.2); overflow: hidden;}

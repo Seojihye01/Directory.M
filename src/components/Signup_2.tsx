@@ -95,12 +95,12 @@ const Signup_2: React.FC<Signup2Props> = ({ onNext, onPrev }) => {
 
                     <div className="link_btn">
                         <div className="before" onClick={onPrev} style={{ cursor: 'pointer' }}>
-                            <img src="/media/arrow_b.svg" className="be" alt="before" />
+                            <img src="/media/etc/arrow_b.svg" className="be" alt="before" />
                             <p>Before</p>
                         </div>
                         <div className="next" onClick={onNext} style={{ cursor: 'pointer' }}>
                             <p>Next</p>
-                            <img src="/media/arrow_b.svg" className="ar" alt="next" />
+                            <img src="/media/etc/arrow_b.svg" className="ar" alt="next" />
                         </div>
                     </div>
                 </div>

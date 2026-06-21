@@ -19,7 +19,7 @@ const Login = ({ onLogin }: LoginProps) => {
                 <div className="login_content">
                     <div className="cont_left">
                         <div className="img_mask">
-                            <img src="/media/login_main2.png" />
+                            <img src="/media/etc/login_main.png" />
                         </div>
                         <p className="logo_img">Directory.M</p>
                     </div>

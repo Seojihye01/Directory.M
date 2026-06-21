@@ -59,8 +59,8 @@ const Curation_6 = ({ onMovieClick }: CurationProps) => {
                         <div className="cu6_title_set" onClick={handleTitleClick} style={{ cursor: 'pointer' }}>
                             <h3 className="cu6_m_title">{currentMovie.title}</h3>
                             <div className="arrow_group">
-                                <img src="/media/arrow_btn.svg" alt="arrow" />
-                                <img src="/media/arrow_btn.svg" alt="arrow" />
+                                <img src="/media/etc/arrow_btn.svg" alt="arrow" />
+                                <img src="/media/etc/arrow_btn.svg" alt="arrow" />
                             </div>
                         </div>
                     </div>

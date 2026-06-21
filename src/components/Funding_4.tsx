@@ -180,7 +180,7 @@ const Funding_4 = () => {
       onMouseMove={handleMouseMove}
     >
       <div className={`custom_cursor_wrapper ${isInside ? 'active' : ''}`} style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}>
-        <div className="custom_cursor_visual"><img src='/media/cursor_b.svg' alt="scroll" /></div>
+        <div className="custom_cursor_visual"><img src='/media/etc/cursor_b.svg' alt="scroll" /></div>
       </div>
 
       <div className="funding_container">

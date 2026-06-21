@@ -70,7 +70,7 @@
 .logo_box.draggable {position: absolute; top: 40px; left: 40px; width: 235px; height: 200px; background: #121212;
                      z-index: 500; cursor: crosshair; touch-action: none;}
 
-.logo_box.draggable:active {cursor: url("/media/target_w.svg"), grabbing;}
+.logo_box.draggable:active {cursor: url("/media/etc/target_w.svg"), grabbing;}
 
 .show {opacity: 1; transition: opacity 0.8s ease; }
 

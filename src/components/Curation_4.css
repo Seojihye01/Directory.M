@@ -121,7 +121,7 @@
 .m_left {transform: rotate(180deg);}
 
 .m_more_btn {background: linear-gradient(135deg, rgba(249, 249, 249, 0.3) 0%, rgba(249, 249, 249, 0.15) 100%); 
-             backdrop-filter: blur(1.5px) saturate(180%); border-radius: 30px; font-size: 15px; letter-spacing: 5%;
+             backdrop-filter: blur(1.5px) saturate(180%); border-radius: 30px; font-size: 14px; letter-spacing: 5%;
              border-top: 1px solid rgba(249, 249, 249, 0.3); padding: 8px 40px; width: 140px; height: 38px;
              display: flex; justify-content: center; align-items: center; padding: 0; color: #121212;
              font-weight: 300; cursor: pointer; transition: 0.01s; position: relative;
@@ -177,8 +177,6 @@
     .m_video_preview {height: 300px;}
 
     .m_control_bar {width: 470px;}
-
-    .m_more_btn:hover {font-size: 14px;}
     
 }
 
@@ -215,8 +213,6 @@
 
     .m_control_bar {width: 95.5%; height: 50px; padding: 0 15px;}
 
-    .m_more_btn {width: 100px; height: 32px; font-size: 12px;}
-
-    .m_more_btn:hover {font-size: 12px;}
+    .m_more_btn {width: 100px; height: 32px; font-size: 11px;}
 
 }
