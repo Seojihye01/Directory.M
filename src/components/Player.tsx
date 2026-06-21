@@ -295,7 +295,9 @@ const Player = () => {
                     <img src="/media/light.svg" alt="light" />
                     <div className="slider_wrapper">
                         <input type="range" min="30" max="150" value={brightness} onChange={(e) => setBrightness(Number(e.target.value))} 
-                               className="brightness_slider" onTouchMove={(e) => e.stopPropagation()} />
+                               className="brightness_slider" onTouchStart={(e) => e.stopPropagation()} 
+                               onTouchMove={(e) => { e.stopPropagation();
+                                                     if (e.cancelable) e.preventDefault(); }} />
                     </div>
                 </div>
 

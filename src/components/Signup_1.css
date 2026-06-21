@@ -8,8 +8,7 @@
                  align-items: center; margin-top: 0; margin-bottom: 70px;}
 
 .step {width: 100%; display: flex; justify-content: space-between; padding-bottom: 80px;
-       font-size: 16px; font-weight: 300; letter-spacing: 0.05em; color: #ababab;
-       margin-top: 0;}
+       font-size: 16px; letter-spacing: 0.05em; font-weight: 300; color: #ababab; margin-top: 0;}
 
 .step p {margin-top: 0;}
 

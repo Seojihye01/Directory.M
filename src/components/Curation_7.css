@@ -153,11 +153,11 @@
 
     .c7_view .issue_no {font-size: 8px;}
 
-    .c7_view .issue_title {font-size: 14px; letter-spacing: 2px;}
+    .c7_view .issue_title {font-size: 14px; letter-spacing: 1px;}
 
-    .movie_list {gap: 12px;}
+    .movie_list {gap: 11px;}
 
-    .movie_list li {font-size: 10px;}
+    .movie_list li {font-size: 9.5px;}
 
     .archive_btn span {font-size: 11px;}
 
@@ -171,8 +171,8 @@
 
     .locked_msg {font-size: 10px;}
 
-    .curator_tag {font-size: 9.5px;}
+    .curator_tag {font-size: 8.5px;}
 
-    .cu7_team_mem {font-size: 9px;}
+    .cu7_team_mem {font-size: 8px;}
 
 }

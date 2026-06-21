@@ -171,9 +171,17 @@
 @media (max-width: 480px) {
 
     .tab_btn {padding: 10px 10px; font-size: 11px;}
+    
+    .tab_indicator.pos_Dev {left: 9px;}
 
-    .project_stats {flex-direction: row; justify-content: space-between;}
+    .tab_indicator.pos_Prod {left: calc(25% + 5px);}
+
+    .tab_indicator.pos_Post {left: calc(50% + 3px);}
+
+    .tab_indicator.pos_Ready {left: calc(75% + 1px);}
 
     .gauge_value {font-size: 11px; right: 10px;}
+    
+    .project_stats {flex-direction: row; justify-content: space-between;}
     
 }

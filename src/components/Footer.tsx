@@ -46,7 +46,7 @@ const Footer = () => {
 
                 <div className="footer_bottom">
                     <p className="copyright">© 2025 Directory.M</p>
-                    <p className="personal_work">This project is a personal portfolio work by Seo Jihye</p>
+                    <p className="personal_work">This project is a personal portfolio work by SEO JIHYE</p>
                 </div>        
             </div>
         </section>

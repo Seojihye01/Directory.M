@@ -89,7 +89,7 @@
 
   .funding_container {padding: 0 40px;}
 
-  .static_title {font-size: 44px; left: 50%; top: 15%; transform: translateX(-50%); margin-top: 0; width: 100%;
+  .static_title {font-size: 34px; left: 50%; top: 15%; transform: translateX(-50%); margin-top: 0; width: 100%;
                  text-align: center;}
 
   .grid_char {font-size: 30px; width: 40px; height: 40px;}
@@ -115,7 +115,7 @@
 
   .funding_container {padding: 0 20px;}
 
-  .static_title {font-size: 32px; width: 100%; max-width: 100%; text-align: center; left: 50%; top: 15%; 
+  .static_title {font-size: 18px; width: 100%; max-width: 100%; text-align: center; left: 50%; top: 15%; 
                  transform: translateX(-50%) !important; margin-top: 20px; padding: 0 20px; box-sizing: border-box;}
 
   .text_step_layer.step_0, 

@@ -20,7 +20,7 @@ const Main_4 = () => {
     const navigate = useNavigate(); 
     const containerRef = useRef<HTMLDivElement>(null);
     
-    // 🌟 1. 좌표를 직접 꽂아넣을 돔(DOM) 참조 지점 생성
+    // 좌표 돔(DOM) 참조 지점 생성
     const locRef = useRef<HTMLDivElement>(null);
     const [currentTime, setCurrentTime] = useState<string>("");
 
@@ -32,7 +32,7 @@ const Main_4 = () => {
 
     const displayGenres = useMemo(() => Array.from({ length: 10 }, () => allGenres).flat(), [allGenres]);
 
-    // 🌟 2. 마스크 위치를 바꿀 때, locRef를 이용해 글자도 같이 리렌더링 없이 바꿔줍니다.
+    // 마스크 위치를 바꿀 때, locRef를 이용해 글자도 같이 리렌더링 없이 교체
     const updateMaskPosition = (clientX: number, clientY: number) => {
         if (!containerRef.current) return;
         const rect = containerRef.current.getBoundingClientRect();
@@ -43,7 +43,7 @@ const Main_4 = () => {
         containerRef.current.style.setProperty('--mouse-x', `${x}px`);
         containerRef.current.style.setProperty('--mouse-y', `${y}px`);
 
-        // 🌟 돔에 직접 텍스트를 밀어 넣어 컴포넌트가 멈칫하는 현상을 원천 차단합니다.
+        // 돔에 직접 텍스트를 밀어 넣어 컴포넌트가 멈칫하는 현상을 원천 차단
         if (locRef.current) {
             locRef.current.textContent = `LOC: [ ${x.toFixed(0)}, ${y.toFixed(0)} ]`;
         }

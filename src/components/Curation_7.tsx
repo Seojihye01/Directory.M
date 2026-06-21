@@ -74,7 +74,7 @@ const Curation_7 = () => {
                                     <div className="cu7_curator">
                                         <div className="curator_tag">
                                             <span className="cu7_name">SEO JIHYE,</span>
-                                            <span className="cu7_team_mem">Lead Curator at Directory.M</span>
+                                            <span className="cu7_team_mem">AI Chief Curator at Directory.M</span>
                                         </div>
                                     </div>
                                 )}

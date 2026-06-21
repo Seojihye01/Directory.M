@@ -187,7 +187,7 @@ const Curation_2 = () => {
                 </div>
               </div>
               <div className="cu2_bottom_bar">
-                <span>SEO JIHYE, Lead Curator at Directory.M</span>
+                <span>SEO JIHYE, AI Chief Curator at Directory.M</span>
               </div>
             </motion.div>
           </div>

@@ -53,23 +53,22 @@ const Curation_3 = () => {
     const handleRoomEnter = () => {
         setIsStarted(true); 
         setIsEnded(false);
-        setIsPlaying(false);
+        setIsPlaying(true);
 
-        startTimeoutRef.current = setTimeout(() => {
-            setIsPlaying(true); 
-            if (videoRef.current) {
-                videoRef.current.muted = false;
-                setIsMuted(false);
-                const playPromise = videoRef.current.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        console.error("재생 실패:", error);
-                        setIsPlaying(false);
-                        setIsStarted(false);
-                    });
-                }
+        if (videoRef.current) {
+            videoRef.current.muted = false;
+            setIsMuted(false);
+            
+            // 즉시 play() 호출
+            const playPromise = videoRef.current.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.error("재생 실패:", error);
+                    setIsPlaying(false);
+                    setIsStarted(false);
+                });
             }
-        }, 1200);
+        }
     };
 
     const handleVideoEnd = () => {
@@ -105,13 +104,11 @@ const Curation_3 = () => {
 
     // Framer-motion 애니메이션 배리언트
     const roomBtnVariants = {
-        start: { scale: 1, opacity: 1, z: 0 },
+        start: { opacity: 1 },
         exit: { 
-            scale: 0.15,
-            z: -600, 
-            opacity: [1, 0],
+            opacity: 0,
             filter: 'blur(4px)',
-            transition: { duration: 0.8, ease: [0.7, 0, 0.3, 1] as const } 
+            transition: { duration: 0.3, ease: 'easeOut' as const } 
         }
     };
 
