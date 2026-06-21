@@ -128,7 +128,7 @@ video::-webkit-media-controls-panel {width: calc(100% + 30px);}
 
     .movie_modal_content {width: 90%; max-height: 85vh;}
 
-    .modal_visual_area, .modal_hero img {width: 90vw; height: auto; aspect-ratio: 16 / 9;}
+    .modal_visual_area, .modal_hero img {width: 100%; height: auto; aspect-ratio: 16 / 9;}
 
     .related_grid {grid-template-columns: repeat(3, 1fr);}
 
