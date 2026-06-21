@@ -1,5 +1,5 @@
 .player_container {position: relative; width: 100vw; height: 100vh; background: #121212;
-                   overflow: hidden; color: #f9f9f9; z-index: 101;}
+                   overflow: hidden; color: #f9f9f9; z-index: 101; overscroll-behavior: none;}
 
 .rotate_guide_overlay {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(18, 18, 18, 0.95);
                        display: flex; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px);
@@ -71,7 +71,7 @@
 
 /* 밝기 조절 슬라이더 (세로형) */
 .brightness_control {position: absolute; left: 50px; top: 50%; transform: translateY(-50%); display: flex;
-                     flex-direction: column; align-items: center; gap: 20px; z-index: 20;}
+                     flex-direction: column; align-items: center; gap: 20px; z-index: 20; touch-action: none;}
 
 .brightness_control img {width: 34px;}
 

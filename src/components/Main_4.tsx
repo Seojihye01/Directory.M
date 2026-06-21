@@ -94,7 +94,6 @@ const Main_4 = () => {
             </div>
             
             <div className="hud_item bottom_left">
-              {/* 🌟 3. 초기값을 적어두고 ref를 연결하여 실시간으로 데이터만 쇽쇽 변경되게 만듭니다. */}
               <div className="loc_data" ref={locRef}>LOC: [ 150, 300 ]</div>
               <div className="time_data">{currentTime}</div>
               <div className="hud_title">PROJECT_DIRECTORY.M</div>
