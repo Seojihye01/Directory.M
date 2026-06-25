@@ -1,5 +1,5 @@
 .main_container {width: 100vw; background-color: #f9f9f9; display: flex; padding: 100px 60px 40px 40px; 
-                 box-sizing: border-box; align-items: center; justify-content: center; margin: 0; 
+                 box-sizing: border-box; align-items: center; justify-content: center; margin: 0; cursor: crosshair;
                  overflow: hidden; position: relative; min-height: 100vh; overscroll-behavior: none;
                  will-change: transform, opacity; transform: translateZ(0); backface-visibility: hidden;}
 
@@ -52,11 +52,13 @@
 .logo_box p {position: absolute; bottom: 17px; right: 17px; color: #f9f9f9;
              font-weight: 700; font-size: 14px;}
 
+.mobile_guide_arrow {display: none;}
+
 .target_dropzone {width: 235px; height: 200px; border: 0.1px solid rgba(18, 18, 18, 0.05); display: flex;
                   justify-content: center; align-items: center; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                  margin-left: auto; margin-bottom: 0; background: #f9f9f9; 
+                  margin-left: auto; margin-bottom: 0; background: #f3f3f3; 
                   box-shadow: -5px -5px 22px rgba(18, 18, 18, 0.08), 5px 5px 12px rgba(249, 249, 249, 1),
-                              inset 6px 6px 12px rgba(18, 18, 18, 0.1), inset -6px -6px 12px rgba(249, 249, 249, 0.8);}
+                              inset 6px 6px 20px rgba(18, 18, 18, 0.1), inset -6px -6px 20px rgba(18, 18, 18, 0.05);}
 
 .target_dropzone.matched {border: none;}
 
@@ -65,12 +67,25 @@
 
 .logo_box.matched .brand_name {font-size: 14px; font-weight: 700; color: #f9f9f9;}
 
-.drop_text {font-size: 12px; letter-spacing: 10%; font-weight: 400; color: #999; text-transform: uppercase;}
+.drop_text {font-size: 12px; letter-spacing: 10%; font-weight: 400; color: #777; text-transform: uppercase;
+            transition: all 0.3s ease; will-change: transform, opacity;}
 
-.logo_box.draggable {position: absolute; top: 40px; left: 40px; width: 235px; height: 200px; background: #121212;
-                     z-index: 500; cursor: crosshair; touch-action: none;}
+.target_dropzone.active_target .drop_text {color: #1090BF; 
+                                           text-shadow: 0 0 8px rgba(16, 144, 191, 0.3), 0 0 20px rgba(16, 144, 191, 0.15);}
 
-.logo_box.draggable:active {cursor: url("/media/etc/target_w.svg"), grabbing;}
+.logo_box.draggable {position: absolute; top: 40px; left: 40px; width: 231px; height: 196px; background: #121212;
+                     z-index: 500; cursor: url("/media/etc/target_w.svg"), grabbing; touch-action: none;
+                     border: 1px solid rgba(18, 18, 18, 0.1); animation: logo_pulse_glow 1.4s infinite ease-in-out;
+                     transition: box-shadow 0.3s ease, border-color 0.3s ease;}
+
+@keyframes logo_pulse_glow {
+  0%, 100% { box-shadow: 0 0 10px rgba(16, 144, 191, 0.25); border-color: rgba(18, 18, 18, 0.1); }
+  50% { box-shadow: 0 0 50px rgba(16, 144, 191, 0.55); border-color: rgba(18, 18, 18, 0.5); }
+}
+
+.logo_box.draggable.is_dragging {animation: none; box-shadow: none; border: 1px solid #121212;}
+
+.main_container:has(.logo_box.matched) {cursor: default;}
 
 .show {opacity: 1; transition: opacity 0.8s ease; }
 
@@ -123,6 +138,13 @@
     .logo_box.draggable {order: -1; position: relative; top: 0; left: 0; margin: 0 auto 5px auto;
                          width: 100%; height: 120px; z-index: 100; transform: none; max-width: 400px; 
                          z-index: 500; touch-action: none;}
+
+    .mobile_guide_arrow {display: flex; justify-content: center; align-items: center; width: 100%; height: 30px; 
+                         margin: 5px 0; order: 0; animation: mobile_bounce_arrow 1.2s infinite ease-in-out;
+                         transform: rotate(90deg) translateX(-120px);}
+
+    .mobile_guide_arrow img {width: 18px; height: 30px; filter: invert(0.8);}
+
 
     .target_dropzone {order: 1; width: 100%; height: 120px;  margin: 0 auto; position: relative;}
     

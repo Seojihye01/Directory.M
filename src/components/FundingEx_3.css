@@ -30,7 +30,7 @@
 .fex3_track {display: flex; gap: 40px; will-change: transform;}
 
 .fex3_card {min-width: 550px; aspect-ratio: 16 / 10; border-radius: 8px; overflow: hidden; background: #eee;
-            box-shadow: 0 10px 30px rgba(18, 18, 18, 0.05); background: #000;}
+            box-shadow: 4px 4px 20px rgba(18, 18, 18, 0.25), -4px -4px 20px rgba(18, 18, 18, 0.05); background: #000;}
 
 .fex3_card img {width: 100%; height: 100%; object-fit: cover;}
 
