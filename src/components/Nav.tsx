@@ -82,14 +82,15 @@ const Nav = ({ isMenuOpen }: NavProps) => {
                 const showLabel = isActive && clickedSectionId === sec.id;
 
                 return (
-                    <button 
+                    <div 
                         key={sec.id} 
-                        onClick={() => handleBtnClick(sec.id)}
                         className={`elevator_btn ${isActive ? 'active' : ''} ${showLabel ? 'show-label' : ''}`}
                     >
                         <span className="label">{sec.label}</span>
-                        <span className="dot" />
-                    </button>
+                        <button className='dot_wrapper' onClick={() => handleBtnClick(sec.id)} aria-label={sec.label}>
+                            <span className="dot" />
+                        </button>
+                    </div>
                 );
             })}
         </nav>

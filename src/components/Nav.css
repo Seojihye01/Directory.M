@@ -2,28 +2,32 @@
                flex-direction: column; gap: 20px; z-index: 1000; padding: 10px; transition: color 0.3s ease;}
 
 .elevator_btn {background: none; border: none; display: flex; align-items: center; justify-content: flex-end;
-               cursor: pointer; padding: 0;}
+               padding: 0;}
 
-.dot {width: 8px; height: 8px; border-radius: 50%; transition: all 0.3s ease;}
+.dot_wrapper {position: relative; width: 12px; height: 12px; background: transparent; cursor: pointer;
+              display: flex; justify-content: center; align-items: center;}
 
-.label {font-size: 10px; letter-spacing: 0.1em; margin-right: 15px; opacity: 0; transform: translateX(5px);
-        transition: opacity 0.3s ease;}
+.dot {position: absolute; width: 8px; height: 8px; border-radius: 50%; transition: all 0.3s ease;}
+
+.label {font-size: 10px; letter-spacing: 0.1em; font-weight: 500; margin-right: 15px; opacity: 0; 
+        transition: opacity 0.3s ease; pointer-events: none; padding: 5px 8px; white-space: nowrap; 
+        transform: translateX(5px);}
 
 .theme_dark .dot {background-color: rgba(249, 249, 249, 0.3);}
 
-.theme_dark .label {color: #f9f9f9;}
+.theme_dark .label {color: #121212; background: #f9f9f9;}
 
 .theme_dark .elevator_btn:hover .dot {background-color: #f9f9f9;}
 
 .theme_light .dot {background-color: rgba(18, 18, 18, 0.3);}
 
-.theme_light .label {color: #121212;}
+.theme_light .label {color: #f9f9f9; background: #121212;}
 
 .theme_light .elevator_btn:hover .dot {background-color: #121212;}
 
 .elevator_btn:hover .dot, .elevator_btn:active .dot {transform: scale(1.1);}
 
-.elevator_btn:hover .label, .elevator_btn:active .label {opacity: 1;}
+.elevator_btn:hover .label, .elevator_btn:active .label {opacity: 1; pointer-events: none !important; cursor: default;} 
 
 .theme_dark .elevator_btn.active .dot {background-color: #f9f9f9; transform: scale(1.1);}
 
@@ -40,7 +44,9 @@
 /* 2. 모바일 (768px 이하) */
 @media (max-width: 768px) {
 
-    .elevator_nav {right: 10px; gap: 20px;}
+    .elevator_nav {right: 10px; gap: 25px;}
+
+    .label {pointer-events: none; cursor: none;}
 
     .dot {width: 8px; height: 8px;}
 
