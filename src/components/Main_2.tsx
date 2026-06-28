@@ -26,7 +26,7 @@ const Main_2: React.FC = () => {
 
                         <div className="main2_row">
                             <span className="main2_label">LOCATION</span>
-                            <span className="main2_value">Seoul, Republic of Korea</span>
+                            <span className="main2_value">Seoul, South Korea</span>
                         </div>
                     </div>
                 </div>
