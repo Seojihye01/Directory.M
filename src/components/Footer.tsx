@@ -8,7 +8,7 @@ const Footer = () => {
             <div className="footer_inner">
                 <a href="/" className="footer_top">
                     <img src="/media/etc/logo_b.png" className="footer_logo"/>
-                    <p className="catchphrase">Archive Today, Remember Always</p>
+                    <p className="catchphrase">Where the Moment Never Ends</p>
                 </a>
                 
                 <div className="footer_middle">
@@ -18,7 +18,7 @@ const Footer = () => {
                             <Link to="/curation"><li>Curation</li></Link>
                             <Link to="/explore"><li>Explore</li></Link>
                             <Link to="/funding"><li>Funding</li></Link>
-                            <Link to="/"><li>About</li></Link>
+                            <Link to="/about"><li>About</li></Link>
                             <a href="/"><li>Membership</li></a>
                         </ul>
                         <ul className="sec_2">

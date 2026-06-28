@@ -1,0 +1,16 @@
+.about5_container {width: 100%; height: 100vh; padding: 120px 0; background: #e8e8e8; display: flex; justify-content: center;}
+
+.about5_inner {width: 1200px; display: flex; justify-content: center; align-items: center;}
+
+.about5_email {font-size: 18px; letter-spacing: 3px; font-weight: 400; margin: auto;  z-index: 1; 
+               transition: all 0.3s ease-in-out; cursor: pointer;}
+
+.about5_email:hover, .about5_email:active {transform: scale(0.97);}
+
+/* Responsive Design */
+/* 1. 모바일 (768px 이하) */
+@media screen and (max-width: 768px) {
+
+  .about5_email {font-size: 16px;}
+
+}

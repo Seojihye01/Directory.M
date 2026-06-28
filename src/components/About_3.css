@@ -1,0 +1,73 @@
+.about3_container {position: relative; width: 100%; height: 120vh; overflow: hidden; background-color: #121212;
+                   display: flex; align-items: center; justify-content: center;}
+
+.about3_bg_wrapper {position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;}
+
+.about3_bg_image {width: 100%; height: 100%; object-fit: cover;}
+
+.about3_cont {display: flex; justify-content: space-between; align-items: center; z-index: 2; margin: 0 auto;
+              width: 100%; max-width: 1200px; padding: 0 40px; box-sizing: border-box;}
+
+.about3_left_wrapper {display: flex; justify-content: flex-start; align-items: center; flex: 1;}
+
+.about3_title {color: #121212; font-size: 20px; letter-spacing: 0.05em; font-weight: 700;}
+
+.about3_line_wrapper {display: flex; justify-content: center; align-items: center; flex: 1;}
+
+.about3_line {width: 30%; border: solid 1px #333; transform: translate(-130%);}
+
+.about3_right_wrapper {display: flex; flex-direction: column; align-items: flex-end; gap: 50px; flex: 1.3;}
+
+.about3_lang_tabs {display: flex; align-items: center; gap: 8px; margin-bottom: -10px;}
+
+.lang_tab {background: none; border: none; color: #666; font-size: 13.5px; letter-spacing: 0.05em; font-weight: 400;
+           cursor: pointer; padding: 0; transition: color 0.2s ease;}
+
+.lang_tab:hover, .lang_tab.active {color: #555; font-weight: 700;}
+
+.tab_divider {color: #777; font-size: 11px;}
+
+.about3_right_eng, .about3_right_kor {color: #121212; font-size: 15px;  letter-spacing: 1px; font-weight: 400;
+                                     text-align: right; line-height: 1.7; max-width: 520px; word-break: keep-all;}
+
+/* Responsive Design */
+/* 1. 태블릿 (1024px 이하) */
+@media screen and (max-width: 1024px) {
+
+  .about3_cont {flex-direction: column; align-items: flex-start; justify-content: center; gap: 50px; height: auto;
+                padding: 100px 40px;}
+
+  .about3_container {height: auto; min-height: 100vh;}
+
+  .about3_left_wrapper {width: 100%; display: flex; align-items: center; gap: 20px;}
+
+  .about3_line_wrapper {display: inline-flex; flex: none; width: auto;}
+
+  .about3_line {width: 88px; transform: none;}
+  
+  .about3_right_wrapper {align-items: flex-start; width: 100%;}
+
+  .lang_tab {color: #444;}
+
+  .lang_tab:hover, .lang_tab.active {color: #444; font-weight: 700;}
+
+  .tab_divider {color: #444;}
+
+  .about3_right_eng, .about3_right_kor {text-align: left; max-width: 100%;}
+
+}
+
+/* 2. 모바일 (768px 이하) */
+@media screen and (max-width: 768px) {
+
+  .about3_cont {padding: 80px 24px; gap: 40px;}
+
+  .about3_left_wrapper {width: 100%;}
+
+  .about3_line {width: 88px;}
+
+  .about3_title {font-size: 18px;}
+
+  .about3_right_eng, .about3_right_kor {font-size: 14px; line-height: 1.5;}
+  
+}

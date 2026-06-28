@@ -1,0 +1,67 @@
+.about4_section {width: 100%; display: flex; flex-direction: column;}
+
+.about4_top_container {width: 100%; background-color: #f0f0f0; box-sizing: border-box; padding: 100px 40px 60px 40px;}
+
+.about4_top_content {width: 100%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between;
+                     align-items: flex-end;}
+
+.about4_section_title {font-size: 32px; letter-spacing: -0.01em; font-weight: 500; color: #121212; line-height: 1.5;
+                       margin: 0;}
+
+.about4_slide_tabs {display: flex; gap: 12px;}
+
+.about4_tab_btn {width: 50px; height: 50px; background: #121212; border: solid 3px #121212; color: #121212;
+                 font-size: 18px; font-weight: 600; cursor: pointer; display: flex; align-items: center;
+                 justify-content: center; transition: all 0.3s ease; border-radius: 0px;}
+
+.about4_tab_btn.active {background-color: transparent;}
+
+.about4_bottom_container {width: 100%; background-color: #121212; padding: 60px 40px; box-sizing: border-box;
+                          min-height: 480px;}
+
+.about4_bottom_content {width: 100%; max-width: 1200px; margin: 0 auto;}
+
+.about4_slide_item {display: flex; justify-content: space-between; align-items: flex-start; opacity: 1;
+                    transition: opacity 0.3s ease, transform 0.3s ease; transform: translateY(0);}
+
+.about4_slide_item.fade_out {opacity: 0; transform: translateY(2px);}
+
+.about4_content_left {flex: 1;}
+
+.about4_content_title {font-size: 24px; letter-spacing: 0.02em; font-weight: 600; color: #f9f9f9; margin: 0;}
+
+.about4_content_right {flex: 1.4; display: flex; flex-direction: column; gap: 40px; max-width: 700px; text-align: right;}
+
+.about4_desc_eng {font-size: 16px;  letter-spacing: 0.07em; font-weight: 400; color: #f9f9f9; line-height: 1.7;
+                  margin: 0; white-space: pre-line;}
+
+.about4_desc_kor {font-size: 15px; font-weight: 400; color: #d0d0d0; line-height: 1.8; margin: 0; word-break: keep-all;}
+
+/* Responsive Design */
+/* 1. 태블릿 (1024px 이하) */
+@media screen and (max-width: 1024px) {
+
+  .about4_top_content {flex-direction: column; align-items: flex-start; gap: 40px;}
+  
+  .about4_slide_item {flex-direction: column; gap: 100px;}
+  
+  .about4_bottom_container {padding: 80px 40px;}
+  
+  .about4_content_right {max-width: 100%;}
+
+}
+
+/* 2. 모바일 (768px 이하) */
+@media screen and (max-width: 768px) {
+
+  .about4_top_container {padding: 60px 24px 40px 24px;}
+  
+  .about4_bottom_container {padding: 60px 24px;}
+
+  .about4_section_title {font-size: 26px;}
+
+  .about4_desc_eng {font-size: 14px;}
+
+  .about4_desc_kor {font-size: 13px;}
+
+}

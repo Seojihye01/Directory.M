@@ -6,7 +6,7 @@ const Main_2: React.FC = () => {
         <section className="main2_container" data-theme="dark">
             <div className="main2_inner">
                 <div className='main2_cont'>
-                    <a href='/' className='main2_cta'>
+                    <a href='/about' className='main2_cta'>
                         <span>How We Work</span>
                         <img src='/media/etc/arrow_w.svg' />
                     </a>
