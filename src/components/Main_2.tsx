@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Main_2.css';
 
 const Main_2: React.FC = () => {
@@ -6,10 +7,10 @@ const Main_2: React.FC = () => {
         <section className="main2_container" data-theme="dark">
             <div className="main2_inner">
                 <div className='main2_cont'>
-                    <a href='/about' className='main2_cta'>
+                    <Link to='/about' className='main2_cta'>
                         <span>How We Work</span>
                         <img src='/media/etc/arrow_w.svg' />
-                    </a>
+                    </Link>
 
                     <h1>DIRECTORY.M</h1>
 
