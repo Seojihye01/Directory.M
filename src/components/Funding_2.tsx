@@ -75,6 +75,7 @@ const Funding_2 = () => {
 
     // 1. 데스크톱 휠 스크롤 제어
     const handleGlobalWheel = (e: WheelEvent) => {
+      if (isVideoActiveRef.current) return;
       const rect = target.getBoundingClientRect();
       const inView = rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
       if (!inView) return;
@@ -95,7 +96,6 @@ const Funding_2 = () => {
       }
 
       // 영상 재생 중일 때는 가둠을 완전히 풀어 브라우저 스크롤 흐름 제공
-      if (isVideoActiveRef.current) return;
 
       // 인터랙션 내부 스텝 전환 가둠
       e.preventDefault();
@@ -106,6 +106,7 @@ const Funding_2 = () => {
 
     // 2. 모바일 터치 스타트
     const handleTouchStart = (e: TouchEvent) => {
+      if (isVideoActiveRef.current) return;
       const rect = target.getBoundingClientRect();
       const inView = rect.top <= window.innerHeight * 0.4 && rect.bottom >= window.innerHeight * 0.4;
       if (!inView) return;
@@ -115,6 +116,7 @@ const Funding_2 = () => {
 
     // 3. 모바일 터치 무브 알고리즘 (★완전 교정)
     const handleTouchMove = (e: TouchEvent) => {
+      if (isVideoActiveRef.current) return;
       const rect = target.getBoundingClientRect();
       const inView = rect.top <= window.innerHeight * 0.4 && rect.bottom >= window.innerHeight * 0.4;
       if (!inView) return;
@@ -125,7 +127,6 @@ const Funding_2 = () => {
       const scrollingUp = deltaY < 0;
 
       // 영상이 이미 재생 중이면 터치 무브 락을 풀어 다음 섹션으로 가도록 유도
-      if (isVideoActiveRef.current) return;
 
       // 0단계에서 위로 탈출할 때가 아니라면 모바일 네이티브 스크롤 강제 차단
       if (!(currentStep === 0 && scrollingUp)) {

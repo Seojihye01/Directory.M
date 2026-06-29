@@ -174,7 +174,7 @@ const Funding_4 = () => {
       ref={sectionRef} 
       data-theme="light" 
       id="funding_4_section"
-      className="funding_section funding_full_page" 
+      className={`funding_section funding_full_page index_${index}`}
       onMouseEnter={() => setIsInside(true)} 
       onMouseLeave={() => setIsInside(false)}
       onMouseMove={handleMouseMove}

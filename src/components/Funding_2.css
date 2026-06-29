@@ -8,7 +8,8 @@
 
 .funding_3_section.is_dimmed::after {opacity: 1;}
 
-.funding_3_section.video_playing {touch-action: auto;}
+.funding_3_section.video_playing {touch-action: auto; overscroll-behavior-y: auto !important;
+                                  overflow-y: auto;}
 
 .funding_3_section.video_playing::after {opacity: 0;}
 
@@ -115,7 +116,7 @@
 .overlay_video {position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; 
                 opacity: 0; z-index: 10; transition: opacity 1.5s ease; pointer-events: none;}
 
-.overlay_video.active {opacity: 1; pointer-events: auto;}
+.overlay_video.active {opacity: 1; pointer-events: none;}
 
 .glass_slate_fixed.fade_out {opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(1.15);}
 

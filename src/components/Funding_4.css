@@ -5,6 +5,9 @@
                                     justify-content: center; align-items: center; overflow: hidden; position: relative;
                                     background-color: #fff; overscroll-behavior-y: none; touch-action: none;}
 
+.funding_section.funding_full_page.index_4 {touch-action: auto !important; overscroll-behavior-y: auto !important;
+                                            overflow-y: auto;}
+
 .funding_container {max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 60px; position: relative;
                     height: 100%; display: flex; flex-direction: column; justify-content: center;
                     align-items: center; box-sizing: border-box;}
@@ -86,6 +89,10 @@
 @media (max-width: 1024px) {
 
   .funding_section {cursor: auto;}
+
+  .funding_section.funding_full_page {touch-action: none;}
+
+  .funding_section.funding_full_page.index_4 {touch-action: auto !important;}
 
   .funding_container {padding: 0 40px;}
 
