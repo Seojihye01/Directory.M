@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import './Main_4.css';
 
@@ -22,7 +22,7 @@ const Main_4 = () => {
     
     // 좌표 돔(DOM) 참조 지점 생성
     const locRef = useRef<HTMLDivElement>(null);
-    const [currentTime] = useState<string>("");
+    const [currentTime, setCurrentTime] = useState<string>("");
 
     const allGenres = useMemo(() => [
         "ACTION", "ROMANCE", "THRILLER", "COMEDY", "DRAMA", 
@@ -59,8 +59,31 @@ const Main_4 = () => {
         }
     };
 
-    
+    // 모바일 터치 스크롤 방지
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
 
+        const preventDefaultTouch = (e: TouchEvent) => {
+            const target = e.target as HTMLElement;
+            if (target.closest('.bottom_right.clickable')) return;
+            if (e.cancelable) e.preventDefault();
+        };
+
+        container.addEventListener('touchmove', preventDefaultTouch, { passive: false });
+        return () => container.removeEventListener('touchmove', preventDefaultTouch);
+    }, []);
+
+    // 시계 타이머
+    useEffect(() => {
+        const timer = setInterval(() => {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.');
+            const timeStr = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            setCurrentTime(`${dateStr} / ${timeStr}`);
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
 
     return (
         <div className="genre_container" ref={containerRef} onMouseMove={handleMouseMove} 
