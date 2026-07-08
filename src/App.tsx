@@ -19,6 +19,7 @@ import About from "./components/About";
 import ScrollToTop from "./components/ScrollToTop";
 import TopButton from "./components/TopBtn";
 import Navigation from "./components/Nav"; // 엘리베이터 버튼
+import My from "./components/My"; 
 
 function App() {
   const location = useLocation(); // 현재 경로 파악을 위해 추가
@@ -26,6 +27,11 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
+  const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>("TOP");
+
+
+  
   // 1. 스크롤 진행 바 로직 (기존 유지)
   useEffect(() => {
     const handleScroll = () => {
@@ -48,6 +54,7 @@ function App() {
   // 3. 메인 페이지 여부 확인
   const isMainPage = location.pathname === '/';
 
+ 
   return (
     <>
       {/* 진행 상태 바 (기존 유지) */}
@@ -71,12 +78,14 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/signup" element={<Signup onLogin={handleLogin} />} />
-        <Route path="/curation" element={<Curation onMovieClick={openModal} />} />
-        <Route path="/explore" element={<Explore onMovieClick={openModal} />} />
+        <Route path="/curation" element={<Curation onMovieClick={openModal} isSaved={isSaved} setIsSaved={setIsSaved} />} />
+        <Route path="/explore" element={<Explore onMovieClick={openModal} activeTab={activeTab} setActiveTab={setActiveTab} />} />
         <Route path="/player/:movieId" element={<Player />} />
         <Route path="/funding" element={<Funding />} />
         <Route path="/funding/:id" element={<FundingEx />} />
         <Route path="/about/" element={<About />} />
+        <Route path="/mypage/" element={<My isSaved={isSaved} activeTab={activeTab} 
+                                            onMovieClick={openModal}  />} />
       </Routes>
 
       <Footer />

@@ -12,10 +12,12 @@ import { type Movie } from "./MovieData";
 
 interface CurationProps {
     onMovieClick: (movie: Movie) => void;
+    isSaved: boolean;
+    setIsSaved: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
-const Curation_wrapper =({ onMovieClick }: CurationProps) => {
+const Curation_wrapper =({ onMovieClick, isSaved, setIsSaved }: CurationProps) => {
 
     // 영화를 클릭했을 때 실행되는 함수
     const handleMovieSelect = (movie: Movie) => {
@@ -58,7 +60,7 @@ const Curation_wrapper =({ onMovieClick }: CurationProps) => {
         <Curation_4/>
         <Curation_5 />
         <Curation_6 onMovieClick={handleMovieSelect}/>
-        <Curation_7 />
+        <Curation_7 isSaved={isSaved} setIsSaved={setIsSaved} />
         </div>
     );
 }

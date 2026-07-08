@@ -1,0 +1,204 @@
+.my4_timeline_section {width: 100%; padding: 80px 0 100px 0; box-sizing: border-box;}
+
+.my4_inner {width: 100%; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column;
+            padding: 0 40px; box-sizing: border-box;}
+
+.my4_container {display: flex; flex-direction: column; align-items: flex-start; width: 100%;
+                max-width: 1200px; gap: 20px;}
+
+.my4_axis_track {position: relative; width: 100%; height: 1px; background-color: #b5b5b5; margin: 40px 0 60px 0;}
+
+.my4_slider_thumb {position: absolute; top: 50%; transform: translate(-50%, -50%); width: 36px; height: 15px;
+                   background-color: #dcdcdc; border-radius: 10px; cursor: grab; z-index: 50; touch-action: none;
+                   box-shadow: 0 1px 2px rgba(18, 18, 18, 0.05);}
+
+.my4_slider_thumb:active {cursor: grabbing; background-color: #c8c8c8;}
+
+.my4_scroll_rail {display: flex; gap: 30px; overflow-x: auto; white-space: nowrap; width: 100%;
+                  padding-bottom: 50px; -ms-overflow-style: none; scrollbar-width: none;
+                  will-change: scroll-left; -webkit-overflow-scrolling: touch;}
+
+.my4_scroll_rail::-webkit-scrollbar {display: none;}
+
+.my4_rail_inner_motion {display: flex; gap: 30px; width: max-content;}
+
+.my4_scroll_rail.dragging .my4_movie_poster {pointer-events: none;}
+
+.my4_movie_node {display: flex; flex-direction: column; flex-shrink: 0;}
+
+.my4_movie_date {font-size: 12px; font-weight: 500; color: #444; margin-bottom: 12px; min-height: 14px;}
+
+.my4_movie_poster {position: relative; width: 180px; aspect-ratio: 16 / 10; overflow: hidden;
+                   background-color: #e0e0e0; cursor: pointer;}
+
+.my4_poster_hover_overlay {position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+                           background-color: rgba(0, 0, 0, 0.7); display: flex; align-items: center;
+                           justify-content: center; padding: 0 10px; box-sizing: border-box; 
+                           opacity: 0; transition: opacity 0.2s ease-in-out; z-index: 2;}
+
+.my4_movie_poster:hover .my4_poster_hover_overlay {opacity: 1;}
+
+.my4_hover_title {color: #ffffff; font-size: 13px; font-weight: 600; text-align: center;
+                  white-space: normal; word-break: keep-all;}
+
+.my4_movie_poster img {width: 100%; height: 100%; object-fit: cover; user-select: none;
+                       -webkit-user-drag: none; transform: translate3d(0, 0, 0); backface-visibility: hidden;}
+
+.my4_bottom_wrapper {display: flex; justify-content: space-between; align-items: flex-start; width: 100%;
+                     margin-top: 40px; gap: 40px;}
+
+.my4_tab_menu {width: 200px; display: flex; flex-direction: column; gap: 25px; align-items: flex-start;
+               padding-left: 20px; margin: 12px 170px 0 0; flex-shrink: 0;}
+
+.my4_tab_btn {background: none; border: none; padding: 0; margin: 0; cursor: pointer; display: flex;
+              align-items: center; font-family: inherit; outline: none; text-align: left;}
+
+.my4_indicator {font-size: 14px; letter-spacing: 5px; font-weight: 600; color: #333;
+                margin-right: 15px; display: inline-block; width: 32px; position: relative;}
+
+.my4_indicator .dot {visibility: hidden; font-size: 6px; vertical-align: middle;
+                     position: absolute; left: 9px; top: 6.3px;}
+
+.my4_label {font-size: 13px; letter-spacing: 0.08em; font-weight: 600; color: #333;
+            transition: color 0.2s ease;}
+
+.my4_tab_btn.active .my4_indicator .dot {visibility: visible; color: #000;}
+
+.my4_tab_btn.active .my4_label {color: #000;}
+
+.my4_cinema_calendar {width: 240px; user-select: none; flex-shrink: 0;}
+
+.my4_cal_header {display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;
+                 font-size: 12px; letter-spacing: 0.05em; font-weight: 600; color: #121212;}
+
+.my4_cal_arrow {display: inline-flex; justify-content: center; align-items: center; width: 24px; height: 24px;
+                cursor: pointer; transition: opacity 0.2s ease;}
+
+.my4_cal_arrow:hover {opacity: 0.6;}
+
+.my4_cal_arrow:active {transform: scale(0.9);}
+
+.my4_cal_arrow img {width: 8px; height: auto; object-fit: contain; display: block;}
+
+.my4_cal_arrow.is_prev img {transform: scaleX(-1) rotate(0deg);}
+
+.my4_cal_selectors {display: flex; align-items: center; gap: 8px; }
+
+.my4_cal_select {appearance: none; -webkit-appearance: none; -moz-appearance: none; cursor: pointer;
+                 color: inherit; font-size: 12px; font-weight: 600; border: none; outline: none; 
+                 border-bottom: 1px solid rgba(249, 249, 249, 0.2); padding: 2px 4px; 
+                 background-color: transparent; transition: border-color 0.2s ease;}
+                 
+.my4_cal_select:hover {border-color: #c3c3c3;}
+
+.my4_cal_select:focus {border-bottom-color: #777;}
+
+.my4_cal_select option {background-color: #f4f4f4; color: #121212; padding: 8px;}
+
+.my4_cal_select option:disabled {color: rgba(255, 255, 255, 0.2);}
+
+.my4_cal_weekdays {display: grid; grid-template-columns: repeat(7, 1fr); text-align: center;
+                   margin-bottom: 8px; border-bottom: 1px solid #e5e5e5; padding-bottom: 7px;}
+
+.my4_cal_week_label {font-size: 10px; font-weight: 400; color: #333;}
+
+.my4_cal_grid {display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 8px; text-align: center;}
+
+.my4_cal_empty {display: block;}
+
+.my4_cal_day {font-size: 11px; font-weight: 400; color: #ccc; position: relative; display: flex;
+              justify-content: center; align-items: center; height: 24px; border-radius: 2px;}
+
+.my4_cal_day.is_active {color: #121212; font-weight: 700; cursor: pointer;}
+
+.my4_cal_day.is_selected {background-color: #121212; color: #f4f4f4;}
+
+.my4_cal_day.is_selected::after {background-color: #f4f4f4;}
+
+.my4_cal_movie_list {flex-grow: 1; max-width: 400px; border-left: 1px dashed #b5b5b5; padding-left: 50px;
+                     min-height: 215px;}
+
+.my4_list_header {font-size: 12px; letter-spacing: 0.05em; font-weight: 600; color: #121212; margin-bottom: 15px;}
+
+.my4_empty_log_msg {font-size: 11.5px; font-weight: 400; color: #999; line-height: 1.5;}
+
+.my4_movie_titles {list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;}
+
+.my4_title_item {font-size: 13px; font-weight: 400; color: #121212; cursor: pointer; padding: 4px 0;
+                 transition: transform 0.2s, color 0.2s; width: max-content;}
+
+.my4_title_item:hover, .my4_title_item:active {color: #666; transform: translateX(2px);}
+
+/* Responsive Design */
+/* 1. 태블릿 (1024px 이하) */
+@media screen and (max-width: 1024px) {
+    
+  .my4_axis_track {margin: 100px 0 40px 0;}
+
+  .my4_scroll_rail {padding-bottom: 40px;}
+
+  .my4_bottom_wrapper {flex-direction: row; flex-wrap: wrap; justify-content: space-between;
+                       align-items: flex-start; gap: 40px; padding: 0 20px; margin-top: 0px;}
+
+  .my4_tab_menu {width: 100%; flex-direction: row; gap: 80px; padding: 0 0 20px 0;
+                 border-bottom: 1px solid #e5e5e5; margin: 12px 0 0 0;}
+
+  .my4_cinema_calendar {width: 240px; flex-shrink: 0;}
+
+  .my4_cal_movie_list {flex-grow: 1; max-width: calc(100% - 280px); padding: 0 0 0 40px; 
+                       border-left: 1px dashed #b5b5b5; border-top: none; min-height: 215px;}
+
+}
+
+/* 2. 모바일 (768px 이하) */
+@media screen and (max-width: 768px) {
+    
+  .my4_axis_track {margin: 100px 0 20px 0;}
+
+  .my4_scroll_rail {padding-bottom: 20px;}
+
+  .my4_bottom_wrapper {flex-direction: column; align-items: center; gap: 40px; padding: 0 20px;
+                       margin-top: 0px;}
+
+  .my4_tab_menu {width: 100%; flex-direction: row; justify-content: center; align-items: center;       
+                 gap: 20px; padding: 0 0 25px 0; border-bottom: 1px dashed #b5b5b5; 
+                 margin: 12px 0 0 0;}
+
+  .my4_tab_btn {display: flex; justify-content: center; align-items: center; text-align: center;}
+
+  .my4_indicator {font-size: 10px; letter-spacing: 10px; margin-right: 4px; display: inline-flex; 
+                  align-items: center; justify-content: center; width: auto;}
+  
+  .my4_indicator .dot {font-size: 4.5px; left: 6.5px; top: 4.5px;}
+
+  .my4_label {font-size: 10px;}
+
+  .my4_cinema_calendar {width: 100%; max-width: 320px; margin: 0 auto;}
+
+  .my4_cal_header {margin-bottom: 14px; font-size: 10px;}
+
+  .my4_cal_arrow img {width: 8px; height: auto; object-fit: contain; display: block;}
+
+  .my4_cal_select {font-size: 11px;}
+                 
+  .my4_cal_weekdays {margin-bottom: 7px; padding-bottom: 7px;}
+
+  .my4_cal_week_label {font-size: 9.5px;}
+
+  .my4_cal_grid {row-gap: 8px;}
+
+  .my4_cal_day {font-size: 10px;}
+
+  .my4_cal_movie_list {width: 100%; max-width: 320px; padding-left: 0; min-height: 115px; 
+                       padding-top: 0px; border: none; display: flex; flex-direction: column;
+                       align-items: center;}
+
+  .my4_list_header {font-size: 11px; margin-bottom: 10px;}
+
+  .my4_empty_log_msg {font-size: 10px;}
+
+  .my4_movie_titles {align-items: center; gap: 6px;}
+
+  .my4_title_item {text-align: center; width: auto; font-size: 12px; padding: 4px 0;}
+
+}

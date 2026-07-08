@@ -1,0 +1,30 @@
+.sticky_nav {position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; display: flex; 
+             justify-content: center; align-items: center; padding: 25px 0; z-index: 100; 
+             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);}
+
+.sticky_nav.hidden {opacity: 0; pointer-events: none; transform: translate(-50%, -10px);}
+
+.sticky_nav.visible {opacity: 1; pointer-events: auto; background: rgba(243, 243, 243, 0.85); 
+                     backdrop-filter: blur(10px); transform: translate(-50%, -32px);}
+ 
+.sticky_nav .my_menu_item {background: none; border: none; font-size: 16px; letter-spacing: 0.05em; font-weight: 500;
+                           cursor: pointer; padding: 0 15px; color: #b4b4b4; transition: all 0.3s ease;}
+
+.sticky_nav .my_menu_item:hover {color: #555;}
+
+.sticky_nav .my_menu_item.active {color: #121212; position: relative; transform: scale(0.95);}
+
+/* Responsive Design */
+/* 1. 태블릿 (1024px 이하) */
+@media (max-width: 1024px) {
+
+  .sticky_nav .my_menu_item {font-size: 16px;}
+
+}
+
+/* 2. 모바일 (768px 이하) */
+@media (max-width: 768px) {
+
+  .sticky_nav .my_menu_item {font-size: 8.5px;}
+
+}

@@ -3,12 +3,17 @@ import { type Movie } from "./MovieData";
 
 interface CurationProps {
     onMovieClick: (movie: Movie) => void;
+    isSaved: boolean;
+    setIsSaved: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Curation({ onMovieClick }: CurationProps){
+function Curation({ onMovieClick, isSaved, setIsSaved }: CurationProps){
     return(
         <>
-        <Curation_wrapper onMovieClick={onMovieClick}/>
+        <Curation_wrapper onMovieClick={onMovieClick}
+                          isSaved={isSaved} 
+                          setIsSaved={setIsSaved}
+        />
         </>
     );
 }

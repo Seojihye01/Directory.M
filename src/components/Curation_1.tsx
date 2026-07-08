@@ -93,7 +93,7 @@ const Curation_1 = () => {
                         >
                             <button className="editor_entry_btn" onClick={handleEnterClick}>
                                 <motion.span exit={{ opacity: 0, transition: { duration: 0.3 } }}>
-                                    Enter the Curator's Room
+                                    Enter the Curator's Space
                                 </motion.span>
                             </button>
                         </motion.div>

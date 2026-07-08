@@ -2,8 +2,13 @@ import { useState } from "react";
 import { allMovies, type Movie } from "./MovieData"; 
 import './Curation_7.css';
 
-const Curation_7 = () => {
-    const [isSaved, setIsSaved] = useState(false);
+// 부모로부터 받아올 인터페이스 명시
+interface Curation7Props {
+  isSaved: boolean;
+  setIsSaved: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Curation_7: React.FC<Curation7Props> = ({ isSaved, setIsSaved }) => {
     const [activePage, setActivePage] = useState<number | null>(null);
 
     const handlePageClick = (num: number) => {

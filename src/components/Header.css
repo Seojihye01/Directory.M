@@ -1,4 +1,4 @@
-#header {width: 100%; position: fixed; top: 0; left: 0; z-index: 100; transition: all 0.3s ease;}
+#header {width: 100%; position: fixed; top: 0; left: 0; z-index: 101; transition: all 0.3s ease;}
          
 #header.theme-light {background: rgba(249, 249, 249, 0.7); border-bottom: none; backdrop-filter: blur(1.5px);
                      box-shadow: 0 2px 10px rgba(18, 18, 18, 0.1);}

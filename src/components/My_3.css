@@ -1,0 +1,70 @@
+.my3_library_section {width: 100%; min-height: 100vh; display: flex; justify-content: center;
+                      align-items: center; box-sizing: border-box;}
+
+.my3_inner {width: 1200px; padding: 0 40px; box-sizing: border-box; display: flex; justify-content: center;
+            align-items: center;}
+
+.my3_archive_container {display: flex; flex-direction: column; align-items: flex-start; width: 100%;
+                        max-width: 600px; gap: 20px;}
+
+.my3_index_row {display: flex; justify-content: space-between; width: 100%; padding: 0 10px; box-sizing: border-box;}
+
+.my3_index_num {background: none; border: none; font-size: 11px; letter-spacing: 0.05em; font-weight: 400; 
+                color: #999; cursor: pointer; transition: color 0.2s ease, font-weight 0.2s ease; padding: 5px;}
+
+.my3_index_num:hover, .my3_index_num.active {color: #121212; font-weight: 600;}
+
+.my3_content_window {width: 100%; position: relative; overflow: hidden;}
+
+.my3_accordion_bar {display: flex; justify-content: space-between; align-items: center; width: 100%; height: 56px; 
+                    background: #e1e1e1; padding: 0 28px; border-radius: 7px; box-sizing: border-box;}
+
+.my3_accordion_left {display: flex; align-items: center; gap: 15px;}
+
+.my3_curation_badge {font-size: 13px; letter-spacing: 0.05em; font-weight: 700; color: #121212;}
+
+.my3_curation_title {font-size: 13px; letter-spacing: 0.08em; font-weight: 500; color: #444;}
+
+.my3_plus_btn {background: none; border: none; font-size: 20px; font-weight: 300; color: #333; cursor: pointer;
+               display: flex; justify-content: center; align-items: center; padding: 0; height: 100%;
+               transition: transform 0.2s ease;}
+
+.my3_plus_btn:hover, .my3_plus_btn:active {transform: scale(1.15);}
+
+.my3_accordion_bar.prepared {justify-content: center; background: #eaeaea;}
+
+.my3_prepared_msg {font-size: 12px; letter-spacing: 0.12em; font-weight: 500; color: #999;}
+
+.my3_nav_pagination {display: flex; gap: 24px; margin-top: 5px; padding-left: 10px;}
+
+.my3_nav_arrow {background: none; border: none; cursor: pointer; padding: 5px; display: flex; align-items: center;
+                justify-content: center; transition: color 0.2s ease, opacity 0.2s ease;}
+
+.my3_nav_arrow img {width: 12px; height: auto; display: block;}
+
+.my3_nav_arrow:not(.disabled):hover, .my3_nav_arrow:not(.disabled):active {opacity: 0.6;}
+
+.my3_nav_arrow.disabled, .my3_nav_arrow.disabled {opacity: 0.2; cursor: default; pointer-events: none;}
+
+.my3_empty_state {width: 100%; display: flex; justify-content: center;}
+
+.my3_empty_container {display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 500px;}
+
+.my3_empty_msg {font-size: 14px; letter-spacing: 0.15em; font-weight: 600; color: #a0a0a0; margin-bottom: 8px;}
+
+.my3_empty_sub {font-size: 11px; letter-spacing: 0.05em; color: #bbb; line-height: 1.6;}
+
+.my3_empty_slot_dash {width: 240px; height: 320px; border: 1px dashed #dcdcdc; border-radius: 12px;
+                      margin-top: 40px; background: rgba(255, 255, 255, 0.2);}
+
+/* Responsive Design */
+/* 1. 모바일 (768px 이하) */
+@media screen and (max-width: 768px) {
+
+  .my3_archive_container {max-width: 90%;}
+
+  .my3_index_num {font-size: 10px; padding: 3px;}
+
+  .my3_curation_badge, .my3_curation_title, .my3_prepared_msg {font-size: 11px;}
+  
+}

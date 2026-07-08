@@ -1,0 +1,152 @@
+.my5_project_section {width: 100%; min-height: 100vh; padding: 100px 0; box-sizing: border-box;}
+
+.my5_container {width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 40px; box-sizing: border-box; 
+                position: relative;}
+
+.my5_delete_btn {position: absolute; top: -50px; right: 40px; background-color: #121212; color: #f9f9f9; 
+                 border: none; padding: 8px 16px; font-size: 11px; font-weight: 600; cursor: pointer; 
+                 border-radius: 1px; transition: transform 0.2s; z-index: 10;}
+
+.my5_delete_btn:hover {transform: scale(0.98);}
+
+.my5_menu_root_zone {display: flex; flex-direction: column; gap: 32px; align-items: center; justify-content: center;
+                     min-height: calc(100vh - 200px);}
+
+.my5_root_row {display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 20px;
+               font-weight: 500; width: 250px;}
+
+.my5_root_indicator {width: 8px; height: 8px; background: transparent; border-radius: 1px; 
+                     border: 2px solid #121212; transition: background 0.2s ease; flex-shrink: 0;}
+
+.my5_root_row:hover .my5_root_indicator, .my5_root_row:active .my5_root_indicator {background: #121212;}
+
+.my5_table_wrapper {width: 100%; display: flex; flex-direction: column;}
+
+.my5_table_header {display: flex; align-items: center; padding: 20px 0; color: #121212; font-size: 17px; 
+                   letter-spacing: 0.02em; font-weight: 500;}
+
+.col_title {font-weight: 600;}
+                   
+.back_trigger {cursor: pointer; display: inline-flex; align-items: center; gap: 15px; margin-right: 50px;}
+
+.my5_arrow {width: 10px; transform: rotate(180deg); transition: transform 0.2s cubic-bezier(0.185, 0.885, 0.32, 1.275);}
+
+.back_trigger:hover .my5_arrow, .back_trigger:active .my5_arrow {transform: rotate(180deg) scale(0.9);}
+
+.col_check {width: 80px; display: flex; justify-content: center; align-items: center;}
+
+.custom_check_zone:hover {background: transparent !important;}
+
+.my5_custom_check_btn {position: relative; width: 18px; height: 18px; cursor: pointer; display: block;}
+
+.my5_custom_check_btn input {display: none;}
+
+.my5_check_box {width: 100%; height: 100%; border: 2px solid #121212; border-radius: 2px; transition: all 0.2s ease; 
+                display: flex; justify-content: center; align-items: center; box-sizing: border-box;}
+
+.my5_check_img {width: 16px; opacity: 0; transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
+
+.my5_custom_check_btn:hover .my5_check_box {background: #c5c5c5;}
+
+.my5_custom_check_btn input:checked + .my5_check_box {background: #1a1a1a;}
+
+.my5_custom_check_btn input:checked + .my5_check_box .my5_check_img {opacity: 1; transform: scale(1); filter: invert(1);}
+
+.my5_table_body {border-top: 1px solid #c1c1c1;}
+
+.my5_table_body.mode_interest {margin-left: 146px;}   
+
+.my5_table_body.mode_project {margin-left: 178px;}    
+
+.my5_table_row {display: flex; align-items: center; padding: 16px 0; border-bottom: 1px solid #e8e8e8; 
+                cursor: pointer; transition: background-color 0.2s;}
+
+.my5_table_row:hover {background-color: #e9e9e9;}
+
+.col_name {flex: 2; padding-left: 20px;}
+
+.col_rate, .col_days, .col_status, .col_tier {flex: 1; text-align: center;}
+
+.my5_pagination {display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 40px;}
+
+.my5_page_btn {background: transparent; border: none; color: #767676; font-size: 14px; font-weight: 500; 
+               cursor: pointer; padding: 4px 8px; transition: all 0.2s; position: relative;}
+
+.my5_page_btn.active {color: #121212; font-weight: 700;}
+
+.my5_page_btn.active::after {content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); 
+                             width: 12px; height: 1px; background: #121212;}
+
+.my5_modal_overlay {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);
+                    backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 9999;}
+
+.my5_modal_content {background: #f4f4f4; padding: 32px; border-radius: 4px; width: 100%; max-width: 360px;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); text-align: center;}
+
+.my5_modal_title {font-size: 15px; letter-spacing: -0.01em; font-weight: 600; color: #121212; margin: 0 0 25px 0;}
+
+.my5_modal_text {font-size: 14px; line-height: 1.5; color: #666; margin: 0 0 28px 0;}
+
+.my5_modal_text strong {color: #121212; font-weight: 600;}
+
+.my5_modal_btns {display: flex; gap: 8px;}
+
+.my5_modal_btn {flex: 1; padding: 13px 0; font-size: 13px; font-weight: 500; border: none; border-radius: 2px;
+                cursor: pointer; transition: all 0.2s ease; display: inline-flex; justify-content: center;
+                align-items: center; text-align: center;}
+
+.my5_modal_btn.cancel {background-color: #e7e7e7; color: #555555;}
+
+.my5_modal_btn.cancel:hover, .my5_modal_btn.cancel:active {background-color: #dfdfdf; color: #121212; 
+                                                           transform: scale(0.98);}
+
+.my5_modal_btn.confirm {background-color: #121212; color: #f4f4f4;}
+
+.my5_modal_btn.confirm:hover, .my5_modal_btn.confirm:active {background-color: #323131; transform: scale(0.98);}
+
+/* Responsive Design */
+/* 1. 태블릿 (1024px 이하) */
+@media screen and (max-width: 1024px) {
+
+  .my5_container {padding: 0 24px;}
+
+  .my5_table_body.mode_interest {margin-left: 108px;} 
+
+  .my5_table_body.mode_project {margin-left: 136px;} 
+
+  .my5_table_header {font-size: 15px;}
+  
+  .back_trigger {margin-right: 20px;}
+
+  .col_name {flex: 1.5; font-size: 15px;}
+
+  .col_rate, .col_days, .col_status, .col_tier {font-size: 15px;}
+
+}
+
+@media screen and (max-width: 768px) {
+    
+  .my5_project_section {padding: 60px 0;}
+
+  .my5_menu_root_zone {min-height: calc(100vh - 120px); gap: 24px;}
+
+  .my5_root_row {width: 200px; font-size: 18px;}
+
+  .my5_delete_btn {position: fixed; bottom: 20px; top: auto; left: 20px; font-size: 12px; 
+                   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);}
+
+  .my5_table_body.mode_interest {margin-left: 96px;} 
+
+  .my5_table_body.mode_project {margin-left: 107px;} 
+
+  .col_check {width: 50px;}
+
+  .my5_table_header {font-size: 10px;}
+  
+  .back_trigger {margin-right: 20px;}
+
+  .col_name {flex: 1.2; font-size: 10px;}
+
+  .col_rate, .col_days, .col_status, .col_tier {font-size: 10px;}
+
+}

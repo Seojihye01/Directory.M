@@ -107,12 +107,14 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
                             {isLoggedIn ? (
                                 <>
                                     <div className='sub'><Link to='/' onClick={onLogout}>LOGOUT</Link></div>
-                                    <div className='sub'><Link to='/mypage' onClick={() => setIsMenuOpen(false)}>MYPAGE</Link></div>
+                                    <div className='sub'><Link to='/mypage' onClick={() => setIsMenuOpen(false)}>MY SPACE</Link></div>
+                                    <div className='sub'><Link to='/membership' onClick={() => setIsMenuOpen(false)}>MEMBERSHIP</Link></div>
                                 </>
                             ) : (
                                 <>
                                     <div className='sub'><Link to='/login' onClick={() => setIsMenuOpen(false)}>LOGIN</Link></div>
                                     <div className='sub'><Link to='/signup' onClick={() => setIsMenuOpen(false)}>SIGN UP</Link></div>
+                                    <div className='sub'><Link to='/membership' onClick={() => setIsMenuOpen(false)}>MEMBERSHIP</Link></div>
                                 </>
                             )}
                         </div>

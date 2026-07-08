@@ -5,9 +5,11 @@ import './Explore_5.css';
 interface ExploreProps {
     onMovieClick: (movie: Movie) => void;
     isModalOpen: boolean;
+    activeTab: string; // 부모가 관리하는 activeTab을 받음
+    setActiveTab: (tab: string) => void; // 탭 변경 함수를 부모로부터 받음
 }
 
-const Explore_5 = ({ onMovieClick, isModalOpen }: ExploreProps) => {
+const Explore_5 = ({ onMovieClick, isModalOpen, activeTab, setActiveTab }: ExploreProps) => {
     const categoryData: { [key: string]: Movie[] } = {
         "TOP": [allMovies[15], allMovies[10], allMovies[3], allMovies[0], allMovies[8]], 
         "NEW": [allMovies[10], allMovies[0], allMovies[2], allMovies[5], allMovies[12]],
@@ -15,7 +17,6 @@ const Explore_5 = ({ onMovieClick, isModalOpen }: ExploreProps) => {
         "MY PALATE": [allMovies[13], allMovies[14], allMovies[11], allMovies[1], allMovies[16]],
     };
 
-    const [activeTab, setActiveTab] = useState("TOP");
     const [step, setStep] = useState(0);
     const [isInside, setIsInside] = useState(false);
     const [currentDate, setCurrentDate] = useState("");

@@ -10,9 +10,11 @@ import MovieModal from "./Moviemodal";
 
 interface ExploreProps {
     onMovieClick: (movie: Movie) => void;
+    activeTab: string;
+    setActiveTab: (tab: string) => void;
 }
 
-const Explore_wrapper = ({ onMovieClick }: ExploreProps) => {
+const Explore_wrapper = ({ onMovieClick, activeTab, setActiveTab }: ExploreProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -32,7 +34,7 @@ const Explore_wrapper = ({ onMovieClick }: ExploreProps) => {
         setSelectedMovie(null);
     };
 
-    // 💡 URL 파라미터에 따른 스크롤 이동 로직 최적화
+    // URL 파라미터에 따른 스크롤 이동 로직 최적화
     useEffect(() => {
         // 모달이 열려있거나 전환 애니메이션 중일 때는 이동 차단
         if (isModalOpen) return;
@@ -76,7 +78,8 @@ const Explore_wrapper = ({ onMovieClick }: ExploreProps) => {
                 <Explore_4 onMovieClick={handleMovieSelect} isModalOpen={isModalOpen} />
             </div>
             <div id="explore_5_section">
-                <Explore_5 onMovieClick={handleMovieSelect} isModalOpen={isModalOpen} />
+                <Explore_5 onMovieClick={handleMovieSelect} isModalOpen={isModalOpen}
+                           activeTab={activeTab} setActiveTab={setActiveTab} />
             </div>
 
             {isModalOpen && selectedMovie && (
