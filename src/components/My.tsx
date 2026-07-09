@@ -8,7 +8,6 @@ interface MyProps {
   onMovieClick: (movie: Movie) => void;
   isSaved: boolean;
   activeTab: string;
-  
 }
 
 const My: React.FC<MyProps> = ({ onMovieClick, isSaved, activeTab }) => {

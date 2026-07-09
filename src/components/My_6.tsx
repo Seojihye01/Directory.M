@@ -17,7 +17,7 @@ interface TimelineMovie extends Movie {
   date: string; // "YY.MM.DD"
 }
 
-export const My_6: React.FC<TimelineSectionProps> = ({ id, setActiveSection, user }) => {
+export const My_6: React.FC<TimelineSectionProps> = ({ id, setActiveSection, onMovieClick, user }) => {
   const { ref, inView } = useInView({ threshold: 0.1 });
 
   
@@ -46,7 +46,7 @@ export const My_6: React.FC<TimelineSectionProps> = ({ id, setActiveSection, use
     { ...allMovies[6], date: "25.12.14" }, { ...allMovies[10], date: "25.12.01" }
   ];
 
-  // 데이터셋에서 유일한 연도 리스트 자동 추출하여 내림차순 정렬 (2026, 2025...)
+  // 데이터셋에서 유일한 연도 리스트 자동 추출하여 내림차순 정렬
   const uniqueYears = Array.from(
     new Set(watchingDataset.map(m => 2000 + parseInt(m.date.split('.')[0], 10)))
   ).sort((a, b) => a - b);
@@ -222,7 +222,9 @@ export const My_6: React.FC<TimelineSectionProps> = ({ id, setActiveSection, use
                   <div className="my6_nav_left">
                     <div className='my6_nav_set'>
                       <div className="my6_ticket_nav" onClick={() => setStage(2)}>
-                        <span className="my6_arrow_btn" onClick={() => setTicketIndex(prev => Math.max(0, prev - 1))}>
+                        <span className="my6_arrow_btn" onClick={(e) => { 
+                          e.stopPropagation();
+                          setTicketIndex(prev => Math.max(0, prev - 1));}}>
                           <img src='/media/etc/arrow_b.svg' />
                         </span>
                         <span className="my6_ticket_cal"> {String(selectedMonth).padStart(2, '0')} / {selectedYear} </span>
@@ -240,16 +242,15 @@ export const My_6: React.FC<TimelineSectionProps> = ({ id, setActiveSection, use
                       </div>
                     </div>
                   </div>
-                  <span className="my6_ticket_date">
-                    {String(selectedDay).padStart(2, '0')} / {String(selectedMonth).padStart(2, '0')} / {selectedYear}
-                  </span>
                 </div>
 
                 {/* 질감이 적용된 티켓 */}
                 <motion.div 
                   className="my6_paper_ticket"
-                  whileHover={{ y: -4, boxShadow: "0 12px 35px rgba(0, 0, 0, 0.28)" }}
+                  whileHover={{ y: -4, boxShadow: "0 12px 35px rgba(0, 0, 0, 0.28)", scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
                   transition={{ duration: 0.3 }}
+                  onClick={() => onMovieClick(currentTicket)}
                 >
                   <div className="my6_ticket_poster_side">
                     {/* 실사 스틸컷/포스터 영역 */}
@@ -288,8 +289,15 @@ export const My_6: React.FC<TimelineSectionProps> = ({ id, setActiveSection, use
                     </div>
 
                     <div className="my6_ticket_footer_title">
-                      <span className="my6_movie_no">No. {getYearlyChronologicalNo(currentTicket)}</span>
-                      <h2 className="my6_movie_main_title">{currentTicket.title}</h2>
+                      <div className='my6_footer_date'>
+                        <span className="my6_ticket_date">
+                          {String(selectedDay).padStart(2, '0')} / {String(selectedMonth).padStart(2, '0')} / {selectedYear}
+                        </span>
+                      </div>
+                      <div className='my6_footer_titleset'>
+                        <span className="my6_movie_no">No. {getYearlyChronologicalNo(currentTicket)}</span>
+                        <h2 className="my6_movie_main_title">{currentTicket.title}</h2>
+                      </div>                               
                     </div>
                   </div>
                 </motion.div>

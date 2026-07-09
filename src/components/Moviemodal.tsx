@@ -35,7 +35,7 @@ const MovieModal = ({ movie, onClose, onMovieClick }: MovieModalProps) => {
         if (modalContent) modalContent.scrollTop = 0;
         return () => {
         // 모달이 닫힐 때 바디 스크롤 원복
-        document.body.style.overflow = 'unset';
+            document.body.style.overflow = 'unset';
         };
     }, [movie]); // movie가 바뀔 때마다 실행
 

@@ -75,16 +75,23 @@ const MyWrapper: React.FC<MyWrapperProps> = ({ onMovieClick, isSaved, activeTab 
 
   useEffect(() => {
     if (selectedMovie) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     // 모달이 열리면 뒷배경 스크롤 완전 차단
       document.body.style.overflow = 'hidden';
+
+      if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
     } else {
     // 모달이 닫히면 스크롤 원상 복구
       document.body.style.overflow = 'unset';
+      document.body.style.paddingRight = '0px';
     }
 
     // 컴포넌트가 언마운트될 때를 대비한 클린업 코드
     return () => {
       document.body.style.overflow = 'unset';
+      document.body.style.paddingRight = '0px';
     };
   }, [selectedMovie]);
 
