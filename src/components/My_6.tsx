@@ -32,12 +32,14 @@ export const My_6: React.FC<TimelineSectionProps> = ({ id, setActiveSection, onM
   
   // 티켓 단계 전용 페이지네이션 인덱스
   const [ticketIndex, setTicketIndex] = useState<number>(0);
+  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
+  const [isCopied, setIsCopied] = useState<boolean>(false);
 
   useEffect(() => {
     if (inView) setActiveSection(id);
   }, [inView, id, setActiveSection]);
 
-  // My_4 원본 watching 데이터셋 바인딩
+  // My_4 watching 데이터셋 바인딩
   const watchingDataset: TimelineMovie[] = [
     { ...allMovies[1], date: "26.07.03" }, { ...allMovies[4], date: "26.07.03" },
     { ...allMovies[12], date: "26.05.15" }, { ...allMovies[15], date: "26.04.02" },
@@ -94,7 +96,30 @@ export const My_6: React.FC<TimelineSectionProps> = ({ id, setActiveSection, onM
   const activeTickets = selectedDay ? getMoviesByDate(selectedYear, selectedMonth, selectedDay) : [];
   const currentTicket = activeTickets[ticketIndex];
 
+  // SNS 웹사이트 공유 텍스트 전달 함수
+  const shareToSNS = (platform: 'instagram' | 'twitter') => {
+    const shareText = `Ticket for [Directory.${user.sirname}] - ${currentTicket?.title} (No. ${getYearlyChronologicalNo(currentTicket)})`;
+    const shareUrl = window.location.href;
 
+    if (platform === 'twitter') {
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+      window.open(twitterUrl, '_blank', 'noopener,noreferrer');
+    } else if (platform === 'instagram') {
+      const instagramUrl = `https://www.instagram.com/`;
+      window.open(instagramUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  // 클립보드 복사 및 문구 변경 핸들러
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setIsCopied(true);
+    
+    // 2초 후에 복구
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1500);
+  };
 
   return (
     <section id={id} ref={ref} className="my6_archive_section">
@@ -142,7 +167,7 @@ export const My_6: React.FC<TimelineSectionProps> = ({ id, setActiveSection, onM
                 transition={{ duration: 0.4 }}
                 className="my6_stage2_zone"
               >
-                <div className="my6_stage_header">
+                <div className="my6_stage_header target_ticket_header">
                   {/* 화살표와 연도 영역 전체를 클릭하면 Stage 1 단계(뒤로가기)로 이동 */}
                   <div className="my6_back_year" onClick={() => setStage(1)}>
                     <span className="my6_arrow_btn">
@@ -242,6 +267,9 @@ export const My_6: React.FC<TimelineSectionProps> = ({ id, setActiveSection, onM
                       </div>
                     </div>
                   </div>
+                  <button className='nav_right' onClick={() => setIsShareModalOpen(true)}>
+                    <img src='/media/etc/share.svg' />
+                  </button>
                 </div>
 
                 {/* 질감이 적용된 티켓 */}
@@ -309,6 +337,43 @@ export const My_6: React.FC<TimelineSectionProps> = ({ id, setActiveSection, onM
           </AnimatePresence>
         </div>
       </div>
+
+      <AnimatePresence>
+        {isShareModalOpen && (
+          <motion.div 
+            className="my6_modal_overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsShareModalOpen(false)} // 배경 클릭 시 닫힘
+          >
+            <motion.div 
+              className="my6_share_modal"
+              initial={{ opacity: 0, y: 15, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.98 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 닫힘 방지
+            >
+              <div className="my6_modal_header">
+                <h3>Share Ticket</h3>
+                <button className="my6_modal_close" onClick={() => setIsShareModalOpen(false)}>✕</button>
+              </div>
+              <div className="my6_sns_grid">
+                <button className="my6_sns_btn instagram" onClick={() => shareToSNS('instagram')}>
+                  <span>To Instagram</span>
+                </button>
+                <button className="my6_sns_btn twitter" onClick={() => shareToSNS('twitter')}>
+                  <span>To X (Twitter)</span>
+                </button>
+                <button className={`my6_sns_btn link_copy ${isCopied ? 'copied' : ''}`} onClick={handleCopyLink}>
+                  <span>{isCopied ? 'Copied' : 'Copy Link'}</span>
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
