@@ -33,6 +33,7 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
         role: user.role,
         favourite: user.favourite,
       });
+      setActiveSelect(null); // 모달 열릴 때 드롭다운 초기화
     }
   }, [isModalOpen, user]);
 
@@ -72,13 +73,10 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
     if (isTouchDevice || isModalOpen) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
     
     // 중앙을 0으로 잡고 -0.5 ~ 0.5 사이의 상대 좌표 구하기
-    const relativeX = (e.clientX - rect.left) / width - 0.5;
-    const relativeY = (e.clientY - rect.top) / height - 0.5;
-
+    const relativeX = (e.clientX - rect.left) / rect.width - 0.5;
+    const relativeY = (e.clientY - rect.top) / rect.height - 0.5;
     mouseX.set(relativeX);
     mouseY.set(relativeY);
   };
@@ -89,13 +87,11 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
   if (e.cancelable) e.preventDefault();
 
   const rect = e.currentTarget.getBoundingClientRect();
-  const width = rect.width;
-  const height = rect.height;
   
   // 터치 이벤트는 e.clientX 대신 e.touches[0]에서 좌표를 가져옵니다.
   const touch = e.touches[0];
-  const relativeX = (touch.clientX - rect.left) / width - 0.5;
-  const relativeY = (touch.clientY - rect.top) / height - 0.5;
+  const relativeX = (touch.clientX - rect.left) / rect.width - 0.5;
+  const relativeY = (touch.clientY - rect.top) / rect.height - 0.5;
 
   // 값의 범위를 -0.5 ~ 0.5 사이로 안전하게 제한 (손가락이 카드 밖으로 살짝 나가도 튀지 않게)
   const constrainedX = Math.max(-0.5, Math.min(0.5, relativeX));
@@ -116,15 +112,13 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSelectClick = (name: string, value: string, e: React.MouseEvent) => {
-    e.stopPropagation(); // 모바일 터치 버블링 전파 차단
+  const handleSelectClick = (name: string, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
     setActiveSelect(null); // 선택 완료 후 닫기
   };
 
-  const toggleSelect = (name: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    setActiveSelect(activeSelect === name ? null : name);
+  const toggleSelect = (name: string) => {
+    setActiveSelect(prev => (prev === name ? null : name));
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -156,19 +150,10 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
           onMouseLeave={handleMouseLeave}
           onTouchMove={handleTouchMove} // 터치 중일 때 좌표 추적
           onTouchEnd={handleMouseLeave}  
-          style={{
-            rotateX,
-            rotateY,
-            transformStyle: "preserve-3d"
-          }}
+          style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         >
           {/* 빛 반사를 담당하는 가상 레이어를 부모 모션 값과 연동 */}
-          <motion.div 
-            className="my2_shimmer_layer"
-            style={{
-              backgroundPosition: shimmerPosition
-            }}
-          />
+          <motion.div className="my2_shimmer_layer" style={{ backgroundPosition: shimmerPosition }} />
 
           {/* 카드 내부 텍스트 콘텐츠 보호구역 */}
           <div className="my2_card_contents">
@@ -213,18 +198,13 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
                 {Object.keys(selectOptions).map((category) => (
                   <div className="my2_input_field" key={category}>
                     <label>{category === 'favourite' ? 'Favourite Genre' : category}</label>
-                    <div className="custom_select_wrapper" style={{ position: 'relative' }}>
+                    <div className="custom_select_wrapper">
                       <div 
                         className={`si2_selected_box ${activeSelect === category ? 'active' : ''}`}
-                        onClick={(e) => toggleSelect(category, e)}
-                        style={{
-                          display: 'flex', justifyContent: 'between', alignItems: 'center',
-                          cursor: 'pointer', border: '1px solid #dcdcdc', borderRadius: '12px',
-                          height: '46px', padding: '0 16px', backgroundColor: '#fafafa'
-                        }}
+                        onClick={() => toggleSelect(category)}
                       >
                       {/* formData에 들어있는 선택값 표시 */}
-                      <span style={{ color: '#333', fontSize: '14px', fontWeight: 500 }}>
+                      <span>
                         {formData[category as keyof typeof formData] || `Select ${category}`}
                       </span>
                     <div className={`arrow_icon ${activeSelect === category ? 'up' : ''}`}></div>
@@ -232,17 +212,11 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
         
                   {/* 드롭다운 옵션 리스트 팝업 */}
                   {activeSelect === category && (
-                    <ul className="options_list" style={{
-                      position: 'absolute', top: '50px', left: 0, width: '100%',
-                      backgroundColor: '#fff', border: '1px solid #dcdcdc', borderRadius: '12px',
-                      zIndex: 10, maxHeight: '200px', overflowY: 'auto', padding: '8px 0', margin: 0, listStyle: 'none',
-                      boxShadow: '0 10px 25px rgba(0,0,0,0.05)'
-                    }}>
+                    <ul className="options_list">
                       {selectOptions[category].map((opt) => (
                         <li 
                           key={opt} 
-                          onClick={(e) => handleSelectClick(category, opt, e)}
-                          style={{ padding: '10px 16px', fontSize: '14px', cursor: 'pointer', color: '#555' }}
+                          onClick={() => handleSelectClick(category, opt)}
                         >
                           {opt}
                         </li>
