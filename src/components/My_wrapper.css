@@ -1,11 +1,11 @@
 .sticky_nav {position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; display: flex; 
-             justify-content: center; align-items: center; padding: 25px 0; z-index: 100; 
+             justify-content: center; align-items: center; padding: 15px 0; z-index: 100; 
              transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);}
 
-.sticky_nav.hidden {opacity: 0; pointer-events: none; transform: translate(-50%, -10px);}
+.sticky_nav.hidden {opacity: 0; pointer-events: none; top: -20px;}
 
 .sticky_nav.visible {opacity: 1; pointer-events: auto; background: rgba(243, 243, 243, 0.85); 
-                     backdrop-filter: blur(10px); transform: translate(-50%, -32px);}
+                     backdrop-filter: blur(10px); top: 0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);}
  
 .sticky_nav .my_menu_item {background: none; border: none; font-size: 16px; letter-spacing: 0.05em; font-weight: 500;
                            cursor: pointer; padding: 0 15px; color: #b4b4b4; transition: all 0.3s ease;}

@@ -36,3 +36,14 @@
     .static_nav .my_menu_item {font-size: 10px;}
 
 }
+
+/* 3. 소형 모바일 (480px 이하) */
+@media (max-width: 480px) {
+
+    .my1_title {font-size: 50px;}
+
+    .mypage_navigation {margin-top: 100px; display: flex; gap: -5px;}
+
+    .static_nav .my_menu_item {font-size: 9.5px;}
+
+}
