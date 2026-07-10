@@ -61,8 +61,10 @@
 /* 1. 모바일 (768px 이하) */
 @media screen and (max-width: 768px) {
 
-  .my3_archive_container {max-width: 90%;}
+  .my3_archive_container {max-width: 100%;}
 
+  .my3_index_row {padding: 0 10px; }
+                
   .my3_index_num {font-size: 10px; padding: 3px;}
 
   .my3_curation_badge, .my3_curation_title, .my3_prepared_msg {font-size: 11px;}

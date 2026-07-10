@@ -82,9 +82,9 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-  // 카드를 만지고 움직일 때 화면 전체가 스크롤되는 기본 동작을 차단
-  if (isModalOpen) return; // 모달 활성화 시 터치 트래킹 중단
-  if (e.cancelable) e.preventDefault();
+    // 카드를 만지고 움직일 때 화면 전체가 스크롤되는 기본 동작을 차단
+    if (isModalOpen) return; // 모달 활성화 시 터치 트래킹 중단
+    if (e.cancelable) e.preventDefault();
 
   const rect = e.currentTarget.getBoundingClientRect();
   
@@ -94,14 +94,13 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
   const relativeY = (touch.clientY - rect.top) / rect.height - 0.5;
 
   // 값의 범위를 -0.5 ~ 0.5 사이로 안전하게 제한 (손가락이 카드 밖으로 살짝 나가도 튀지 않게)
-  const constrainedX = Math.max(-0.5, Math.min(0.5, relativeX));
-  const constrainedY = Math.max(-0.5, Math.min(0.5, relativeY));
+  mouseX.set(Math.max(-0.5, Math.min(0.5, relativeX)));
+  mouseY.set(Math.max(-0.5, Math.min(0.5, relativeY)));
 
-  mouseX.set(constrainedX);
-  mouseY.set(constrainedY);
   };
 
   const handleMouseLeave = () => {
+    if (isModalOpen) return; // 모달이 열려있을 땐 터치 종료 이벤트 무시
     // 마우스가 나가면 부드럽게 원래 정중앙 상태로 복구
     mouseX.set(0);
     mouseY.set(0);
@@ -179,7 +178,11 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
       {/* 모달 오버레이 및 팝업창 마운트 코드 추가 */}
       <AnimatePresence>
         {isModalOpen && (
-          <div className="my2_modal_overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="my2_modal_overlay" id='overlay' onClick={(e) => {
+              if ((e.target as HTMLElement).id === 'overlay') {
+                setIsModalOpen(false);
+              }
+            }}>
             <motion.div 
               className="my2_modal_content"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
