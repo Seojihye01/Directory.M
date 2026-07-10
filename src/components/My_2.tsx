@@ -16,7 +16,8 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
 
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+  const [activeSelect, setActiveSelect] = useState<string | null>(null);
+
   // 모달용 로컬 상태 초기값을 상위에서 내려받은 user 정보로 설정
   const [formData, setFormData] = useState({
     email: user.email,
@@ -84,8 +85,8 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
   // 카드를 만지고 움직일 때 화면 전체가 스크롤되는 기본 동작을 차단
-  if (e.cancelable) e.preventDefault();
   if (isModalOpen) return; // 모달 활성화 시 터치 트래킹 중단
+  if (e.cancelable) e.preventDefault();
 
   const rect = e.currentTarget.getBoundingClientRect();
   const width = rect.width;
@@ -115,12 +116,14 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSelectClick = (name: string, value: string) => {
+  const handleSelectClick = (name: string, value: string, e: React.MouseEvent) => {
+    e.stopPropagation(); // 모바일 터치 버블링 전파 차단
     setFormData(prev => ({ ...prev, [name]: value }));
     setActiveSelect(null); // 선택 완료 후 닫기
   };
 
-  const toggleSelect = (name: string) => {
+  const toggleSelect = (name: string, e: React.MouseEvent) => {
+    e.stopPropagation();
     setActiveSelect(activeSelect === name ? null : name);
   };
 
@@ -132,12 +135,10 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
     setIsModalOpen(false);
   };
 
-  const [activeSelect, setActiveSelect] = useState<string | null>(null);
-
   // 고정 선택지 틀 정의 
   const selectOptions: Record<string, string[]> = {
     role: ['Cinephile', 'Creator', 'Critic / Curator', 'etc'],
-    favourite: ['Fantasy', 'Romance', 'Action', 'Thriller', 'Documentary', 'Arthouse', 'Noir', 'Classic', 'Independent', 'etc']
+    favourite: ['Fantasy', 'Romance', 'Action', 'Thriller', 'Documentary', 'Arthouse', 'Noir', 'Classic', 'Independent', 'Etc']
   };
 
   return (
@@ -215,7 +216,7 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
                     <div className="custom_select_wrapper" style={{ position: 'relative' }}>
                       <div 
                         className={`si2_selected_box ${activeSelect === category ? 'active' : ''}`}
-                        onClick={() => toggleSelect(category)}
+                        onClick={(e) => toggleSelect(category, e)}
                         style={{
                           display: 'flex', justifyContent: 'between', alignItems: 'center',
                           cursor: 'pointer', border: '1px solid #dcdcdc', borderRadius: '12px',
@@ -240,7 +241,7 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
                       {selectOptions[category].map((opt) => (
                         <li 
                           key={opt} 
-                          onClick={() => handleSelectClick(category, opt)}
+                          onClick={(e) => handleSelectClick(category, opt, e)}
                           style={{ padding: '10px 16px', fontSize: '14px', cursor: 'pointer', color: '#555' }}
                         >
                           {opt}

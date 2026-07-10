@@ -10,7 +10,7 @@
 .mypage_navigation {margin-top: 100px; display: flex; gap: 30px;}
 
 .static_nav .my_menu_item {background: none; border: none; font-size: 20px; letter-spacing: 0.05em; font-weight: 500;
-                           color: #121212;  cursor: pointer; transition: all 0.5s ease;}
+                           color: #121212; cursor: pointer; transition: all 0.5s ease;}
 
 .static_nav .my_menu_item:active {transform: scale(0.9);}
 
@@ -31,8 +31,8 @@
 
     .my1_title {font-size: 50px;}
 
-    .mypage_navigation {margin-top: 100px; display: flex; gap: 4px;}
+    .mypage_navigation {margin-top: 100px; display: flex; gap: 0px;}
 
-    .static_nav .my_menu_item {font-size: 12px;}
+    .static_nav .my_menu_item {font-size: 10px;}
 
 }
