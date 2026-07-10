@@ -53,7 +53,7 @@
 
 .my2_modal_overlay {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(18, 18, 18, 0.4); 
                     backdrop-filter: blur(1.5px); display: flex; justify-content: center; align-items: center;
-                    z-index: 9999;}
+                    z-index: 99999;}
 
 .my2_modal_content {background: #f9f9f9; width: 100%; max-width: 420px; padding: 40px; border-radius: 28px;
                     box-sizing: border-box; border: 1px solid #e5e5e5;
