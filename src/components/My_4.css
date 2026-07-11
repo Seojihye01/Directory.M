@@ -217,9 +217,9 @@
   /* 480px 이하에서는 글자 크기를 9.5px로 살짝 줄여 안정성 확보 */
   .my4_label {font-size: 9.5px;}
 
-  .my4_indicator {letter-spacing: 4px; margin-right: 0px;}
+  .my4_indicator {letter-spacing: 5px; margin-right: 0px;}
 
-  .my4_indicator .dot {font-size: 5px; left: 4.5px; top: 3.5px;}
+  .my4_indicator .dot {font-size: 5px; left: 4px; top: 3.5px;}
 
   .my4_cinema_calendar {width: 100%; max-width: 100%; margin: 0 auto;}
 

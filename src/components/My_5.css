@@ -146,11 +146,12 @@
   .my5_table_header.mode_project {padding-left: 0; justify-content: flex-start;}
 
   .my5_table_body.mode_interest,
-  .my5_table_body.mode_project {margin-left: 0; border-top: 1px solid #121212;} 
+  .my5_table_body.mode_project {margin-left: 0; border-top: 1px solid #c1c1c1;} 
 
   /* 체크박스 정렬 맞춤 */
   .col_check {width: 50px; justify-content: center; flex-shrink: 0;}
 
+  .my5_check_box {border: 1px solid #121212;}
   /* 각 컬럼 너비 비율을 헤더와 바디 동일하게 고정 */
   .col_name {flex: 2; font-size: 11px; padding-left: 10px;}
 
