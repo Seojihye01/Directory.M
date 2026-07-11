@@ -205,11 +205,7 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={(e) => {
-              if (e.target === e.currentTarget) {
-                setIsModalOpen(false);
-              }
-            }}
+            onClick={() => { }}
           >
             <motion.div 
               className="my2_modal_content"
