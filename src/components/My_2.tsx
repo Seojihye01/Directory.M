@@ -182,8 +182,8 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
         {isModalOpen && (
           <div className="my2_modal_overlay" 
             onClick={(e) => {
-              const target = e.target as HTMLElement;
-              if (target.classList.contains('my2_modal_overlay')) {
+        
+              if (e.target === e.currentTarget) {
                 setIsModalOpen(false);
               }
             }}>
@@ -194,6 +194,7 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', duration: 0.4 }}
               onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 버블링 차단
+              onTouchStart={(e) => e.stopPropagation()} // 모바일 터치 이벤트가 오버레이로 유출 방지
             >
               <h3>EDIT ACCOUNT</h3>
               <form onSubmit={handleFormSubmit}>
