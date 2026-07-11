@@ -129,12 +129,14 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
   };
 
   const handleSelectClick = (e: React.MouseEvent, name: string, value: string) => {
+    e.preventDefault();
     e.stopPropagation(); // 드롭다운 아이템 클릭 시 오버레이로 퍼지는 것 완전 차단
     setFormData(prev => ({ ...prev, [name]: value }));
     setActiveSelect(null); // 선택 완료 후 닫기
   };
 
   const toggleSelect = (e: React.MouseEvent, name: string) => {
+    e.preventDefault();
     e.stopPropagation(); // 셀렉트 박스 클릭 시 버블링 방지
     setActiveSelect(prev => (prev === name ? null : name));
   };
@@ -197,13 +199,18 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
       {/* 모달 오버레이 및 팝업창 마운트 코드 추가 */}
       <AnimatePresence>
         {isModalOpen && (
-          <div className="my2_modal_overlay" 
+          <motion.div 
+            key="my2_modal_overlay" /* 1. AnimatePresence 내 추적을 위한 고유 key 지정 필수 */
+            className="my2_modal_overlay" 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             onClick={(e) => {
-        
               if (e.target === e.currentTarget) {
                 setIsModalOpen(false);
               }
-            }}>
+            }}
+          >
             <motion.div 
               className="my2_modal_content"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -211,9 +218,6 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', duration: 0.4 }}
               onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 버블링 차단
-              onTouchStart={(e) => e.stopPropagation()} // 모바일 터치 이벤트가 오버레이로 유출 방지
-              onTouchMove={(e) => e.stopPropagation()}
-              onTouchEnd={(e) => e.stopPropagation()}
             >
               <h3>EDIT ACCOUNT</h3>
               <form onSubmit={handleFormSubmit}>
@@ -259,7 +263,7 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
                 </div>
               </form>
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </section>

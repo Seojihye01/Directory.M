@@ -141,12 +141,12 @@
 
   .col_check {width: 50px;}
 
-  .my5_table_header {font-size: 10px;}
+  .my5_table_header {position: relative; padding: 50px 0 16px 0; font-size: 11px;}
   
-  .back_trigger {margin-right: 20px;}
+  .back_trigger {position: absolute; top: 0; left: 0; margin-right: 0; font-size: 15px;}
 
-  .col_name {flex: 1.2; font-size: 10px;}
+  .col_name {flex: 1.2; font-size: 11px;}
 
-  .col_rate, .col_days, .col_status, .col_tier {font-size: 10px;}
+  .col_rate, .col_days, .col_status, .col_tier {font-size: 11px;}
 
 }

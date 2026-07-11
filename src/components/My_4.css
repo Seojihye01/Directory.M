@@ -205,7 +205,11 @@
 
 /* 3. 소형 모바일 (480px 이하) */
 @media screen and (max-width: 480px) {
-    
-  .my4_indicator .dot {font-size: 6px; left: 7px; top: 4px;}
+  
+  .my4_tab_menu {width: 100%; max-width: 360px;}
+
+  .my4_indicator .dot {font-size: 6px; left: 6.5px; top: 3.5px;}
+
+  .my4_cinema_calendar {width: 100%; max-width: 360px; margin: 0 auto;}
 
 }
