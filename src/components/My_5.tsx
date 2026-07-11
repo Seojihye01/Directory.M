@@ -206,12 +206,12 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
                   transition={{ duration: 0.3 }}
                   className="my5_table_wrapper"
                 >
-                  <div className="my5_board_title_zone back_trigger" onClick={() => handleMenuChange(null)}>
-                    <img src="/media/etc/arrow_b.svg" alt="Back" className='my5_arrow' /> 
-                    <span>Interest</span>
-                  </div>
-
                   <div className="my5_table_header mode_interest">
+                    <div className="my5_board_title_zone back_trigger" onClick={() => handleMenuChange(null)}>
+                      <img src="/media/etc/arrow_b.svg" alt="Back" className='my5_arrow' /> 
+                      <span>Interest</span>
+                    </div>
+
                     <div className="col_check" onClick={(e) => e.stopPropagation()}>
                       <label className="my5_custom_check_btn">
                         <input 
@@ -264,12 +264,12 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
                   transition={{ duration: 0.3 }}
                   className="my5_table_wrapper"
                 >
-                  <div className="my5_board_title_zone back_trigger" onClick={() => handleMenuChange(null)}>
-                    <img src="/media/etc/arrow_b.svg" alt="Back" className='my5_arrow' /> 
-                    <span>Project List</span>
-                  </div>
-
                   <div className="my5_table_header mode_project">
+                    <div className="my5_board_title_zone back_trigger" onClick={() => handleMenuChange(null)}>
+                      <img src="/media/etc/arrow_b.svg" alt="Back" className='my5_arrow' /> 
+                      <span>Project List</span>
+                    </div>
+                    
                     <div className="col_check" onClick={(e) => e.stopPropagation()}>
                       <label className="my5_custom_check_btn" onClick={(e) => e.stopPropagation()}>
                         <input 

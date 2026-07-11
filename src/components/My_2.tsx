@@ -54,6 +54,23 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
     return () => window.removeEventListener('resize', checkTouch);
   }, []);
 
+  useEffect(() => {
+    if (isModalOpen) {
+      // 모달이 열리면 뒷배경 스크롤 완전 고정
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+    } else {
+      // 모달이 닫히면 원래대로 복구
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
+  }, [isModalOpen]);
+
   // 마우스 좌표를 추적할 모션 값 세팅
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -195,6 +212,8 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
               transition={{ type: 'spring', duration: 0.4 }}
               onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 버블링 차단
               onTouchStart={(e) => e.stopPropagation()} // 모바일 터치 이벤트가 오버레이로 유출 방지
+              onTouchMove={(e) => e.stopPropagation()}
+              onTouchEnd={(e) => e.stopPropagation()}
             >
               <h3>EDIT ACCOUNT</h3>
               <form onSubmit={handleFormSubmit}>

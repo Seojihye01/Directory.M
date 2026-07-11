@@ -160,8 +160,8 @@
   .my4_bottom_wrapper {flex-direction: column; align-items: center; gap: 40px; padding: 0 20px;
                        margin-top: 0px;}
 
-  .my4_tab_menu {width: 100%; flex-direction: row; justify-content: center; align-items: center;       
-                 gap: 25px; padding: 0 0 25px 0; border-bottom: 1px dashed #b5b5b5; 
+  .my4_tab_menu {width: 100%; max-width: 340px; flex-direction: row; justify-content: center; 
+                 align-items: center; gap: 25px; padding: 0 0 25px 0; border-bottom: 1px dashed #b5b5b5; 
                  margin: 12px 0 0 0;}
 
   .my4_tab_btn {display: flex; justify-content: center; align-items: center; text-align: center;}
@@ -173,7 +173,7 @@
 
   .my4_label {font-size: 10px;}
 
-  .my4_cinema_calendar {width: 100%; max-width: 320px; margin: 0 auto;}
+  .my4_cinema_calendar {width: 100%; max-width: 340px; margin: 0 auto;}
 
   .my4_cal_header {margin-bottom: 14px; font-size: 10px;}
 
@@ -189,7 +189,7 @@
 
   .my4_cal_day {font-size: 10px;}
 
-  .my4_cal_movie_list {width: 100%; max-width: 320px; padding-left: 0; min-height: 115px; 
+  .my4_cal_movie_list {width: 100%; max-width: 340px; padding-left: 0; min-height: 115px; 
                        padding-top: 0px; border: none; display: flex; flex-direction: column;
                        align-items: center;}
 
@@ -206,6 +206,6 @@
 /* 3. 소형 모바일 (480px 이하) */
 @media screen and (max-width: 480px) {
     
-  .my4_indicator .dot {font-size: 6px; left: 7.5px; top: 5px;}
+  .my4_indicator .dot {font-size: 6px; left: 7px; top: 4px;}
 
 }
