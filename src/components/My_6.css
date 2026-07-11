@@ -66,7 +66,7 @@
 .my6_day_column.active_records .my6_day_num {color: #121212; font-weight: 600;}
 
 .my6_dot_stack {display: flex; flex-direction: column; align-items: center; gap: 8px; min-height: 50px; 
-                cursor: pointer; margin: 3px 3px 0 0;}
+                cursor: pointer; margin: 3px 1px 0 0;}
 
 .my6_graphic_dot {width: 6px; height: 6px; background-color: #d7d7d7; border-radius: 50%;
                   aspect-ratio: 1 / 1; flex-shrink: 0;}

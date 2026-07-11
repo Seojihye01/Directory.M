@@ -57,7 +57,7 @@
                 margin-right: 15px; display: inline-block; width: 32px; position: relative;}
 
 .my4_indicator .dot {visibility: hidden; font-size: 6px; vertical-align: middle;
-                     position: absolute; left: 9px; top: 6.3px;}
+                     position: absolute; left: 50%; top: 50%; transform: translate(-90%, -30%);}
 
 .my4_label {font-size: 13px; letter-spacing: 0.08em; font-weight: 600; color: #333;
             transition: color 0.2s ease;}
@@ -173,7 +173,7 @@
   .my4_indicator {font-size: 10px; letter-spacing: 10px; margin-right: 2px; display: inline-flex; 
                   align-items: center; justify-content: center; width: auto; flex-shrink: 0;}
   
-  .my4_indicator .dot {font-size: 4.5px; left: 6.5px; top: 4.5px;}
+  .my4_indicator .dot {font-size: 4.5px; left: 50%; top: 50%; transform: translate(-90%, -30%);}
 
   /* 글자가 절대 아래로 떨어지지 않도록 고정 */
   .my4_label {font-size: 10px; white-space: nowrap; word-break: keep-all;}
@@ -219,7 +219,7 @@
 
   .my4_indicator {letter-spacing: 8px; margin-right: 0px;}
 
-  .my4_indicator .dot {font-size: 5px; left: 5px; top: 4px;}
+  .my4_indicator .dot {font-size: 5px; left: 50%; top: 50%; transform: translate(-80%, -30%);}
 
   .my4_cinema_calendar {width: 100%; max-width: 100%; margin: 0 auto;}
 
