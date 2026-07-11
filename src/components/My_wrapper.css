@@ -25,6 +25,8 @@
 /* 2. 모바일 (768px 이하) */
 @media (max-width: 768px) {
 
+  .sticky_nav.visible {top: -30px;}
+
   .sticky_nav .my_menu_item {font-size: 8.5px;}
 
 }
