@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { fundingProjects, type FundingProject } from './FundingData'; 
+import { useNavigate } from 'react-router-dom';
 import './My_5.css';
 
 interface ProjectSectionProps {
@@ -18,6 +19,7 @@ interface MyProject extends FundingProject {
 
 export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) => {
   const { ref, inView } = useInView({ threshold: 0.4 });
+  const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = useState<MenuType>(null);
   
   const [movies, setMovies] = useState<MyProject[]>(() => 
@@ -36,7 +38,11 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
   const itemsPerPage = 5;
 
   const [interestIds, setInterestIds] = useState<number[]>(() => 
-  fundingProjects.map(project => project.id) // 초기값은 전체 프로젝트 ID 바인딩
+    fundingProjects.map(project => project.id) // 초기값은 전체 프로젝트 ID 바인딩
+  );
+
+  const [projectIds, setProjectIds] = useState<number[]>(() => 
+    fundingProjects.map(project => project.id)
   );
 
   useEffect(() => {
@@ -53,13 +59,16 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
 
   // --- [데이터 정렬 및 필터링] ---
   const interestMovies = [...movies]
-  .filter(movie => interestIds.includes(movie.id)) // 신설된 ID 리스트 필터링 조건 추가
-  .sort((a, b) => a.remainingDays - b.remainingDays);  
-  const projectListMovies = [...movies].sort((a, b) => {
-    return statusOrder === 'asc' 
-      ? a.progressState.localeCompare(b.progressState) 
-      : b.progressState.localeCompare(a.progressState);
-  });
+    .filter(movie => interestIds.includes(movie.id)) // 신설된 ID 리스트 필터링 조건 추가
+    .sort((a, b) => a.remainingDays - b.remainingDays);  
+
+  const projectListMovies = [...movies]
+    .filter(movie => projectIds.includes(movie.id)) // 이 조건 추가
+    .sort((a, b) => {
+      return statusOrder === 'asc' 
+        ? a.progressState.localeCompare(b.progressState) 
+        : b.progressState.localeCompare(a.progressState);
+    });
 
   // 현재 페이지 데이터 슬라이싱 로직
   const indexOfLastInterest = interestPage * itemsPerPage;
@@ -72,14 +81,15 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   // --- [체크박스 핸들러] ---
-  const handleSelectOne = (movieId: number, e: React.MouseEvent) => {
+  const handleSelectOne = (movieId: number, e: React.SyntheticEvent) => {
     e.stopPropagation();
     setSelectedIds(prev => 
       prev.includes(movieId) ? prev.filter(item => item !== movieId) : [...prev, movieId]
     );
   };
 
-  const handleSelectAll = (visibleMovies: MyProject[]) => {
+  const handleSelectAll = (visibleMovies: MyProject[], e: React.SyntheticEvent) => {
+    e.stopPropagation();
     const visibleIds = visibleMovies.map(m => m.id);
     const isAllSelected = visibleIds.every(id => selectedIds.includes(id));
 
@@ -90,24 +100,42 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
     }
   };
 
+  // 현재 활성화된 탭에 속한 유효한 ID들만 걸러서 카운트 반환 (삭제 동기화 방지 안전장치)
+  const getActiveSelectedIds = () => {
+    const currentValidIds = activeMenu === 'interest' 
+      ? interestMovies.map(m => m.id) 
+      : projectListMovies.map(m => m.id);
+    return selectedIds.filter(id => currentValidIds.includes(id));
+  };
+
+  const activeSelectedCount = getActiveSelectedIds().length;
+
   const handleDeleteSelected = () => {
-    if (selectedIds.length === 0) return;
+    if (activeSelectedCount === 0) return;
     setIsModalOpen(true);
   };
 
   const handleConfirmDelete = () => {
+    const targetsToDelete = getActiveSelectedIds();
+
     if (activeMenu === 'interest') {
     // Interest 탭에서 삭제 시: 원본을 지우지 않고 관심 등록 상태 ID 목록에서만 제외 처리
-    setInterestIds(prev => prev.filter(id => !selectedIds.includes(id)));
-  } else {
-    // Project List 탭에서 삭제 시: 기존 전체 프로젝트 목록에서 완전 제외 처리
-    setMovies(prev => prev.filter(movie => !selectedIds.includes(movie.id)));
+    setInterestIds(prev => prev.filter(id => !targetsToDelete.includes(id)));
+  } else if (activeMenu === 'projectList') {
+      // Project List 탭: 전체 프로젝트 리스트(movies)에서 완전 제외 처리
+      setProjectIds(prev => prev.filter(id => !targetsToDelete.includes(id)));
   }
   
-  setSelectedIds([]);
-  setInterestPage(1);
-  setProjectPage(1);
-  setIsModalOpen(false);
+    setSelectedIds([]);
+    setInterestPage(1);
+    setProjectPage(1);
+    setIsModalOpen(false);
+  };
+
+  // 상세 페이지 이동 핸들러 (절대 경로 보장 및 버블링 방어)
+  const handleRowClick = (movieId: number) => {
+    if (!movieId) return;
+    navigate(`/funding/${movieId}`);
   };
 
   // 페이지네이션 렌더러 함수
@@ -139,9 +167,9 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="my5_container"
         >
-          {selectedIds.length > 0 && (
+          {activeSelectedCount > 0 && (
             <button className="my5_delete_btn" onClick={handleDeleteSelected}>
-              Delete Selected ( {selectedIds.length} )
+              Delete Selected ( {activeSelectedCount} )
             </button>
           )}
 
@@ -178,44 +206,38 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
                   transition={{ duration: 0.3 }}
                   className="my5_table_wrapper"
                 >
-                  <div className="my5_table_header">
-                    <div className="col_title back_trigger" onClick={() => handleMenuChange(null)}>
-                      <img src="/media/etc/arrow_b.svg" alt="Back" className='my5_arrow' /> 
-                      Interest
-                    </div>
-                    
-                    <div className="col_check" onClick={(e) => { e.stopPropagation(); handleSelectAll(currentInterestMovies); }}>
-                      <label className="my5_custom_check_btn" onClick={(e) => e.stopPropagation()}>
+                  <div className="my5_board_title_zone back_trigger" onClick={() => handleMenuChange(null)}>
+                    <img src="/media/etc/arrow_b.svg" alt="Back" className='my5_arrow' /> 
+                    <span>Interest</span>
+                  </div>
+
+                  <div className="my5_table_header mode_interest">
+                    <div className="col_check" onClick={(e) => e.stopPropagation()}>
+                      <label className="my5_custom_check_btn">
                         <input 
                           type="checkbox" 
-                          checked={interestMovies.length > 0 && currentInterestMovies.every(m => selectedIds.includes(m.id))}
-                          onChange={(e) => { e.stopPropagation(); handleSelectAll(currentInterestMovies); }}
+                          checked={currentInterestMovies.length > 0 && currentInterestMovies.every(m => selectedIds.includes(m.id))}
+                          onChange={(e) => handleSelectAll(currentInterestMovies, e)}
                         />
                         <span className="my5_check_box">
                           <img src="/media/etc/check_bold.svg" alt="check" className="my5_check_img" />
                         </span>
                       </label>
                     </div>
-                    
                     <div className="col_name">Title</div>
                     <div className="col_rate">Achieved Rate</div>
                     <div className="col_days sorted">Remained Days</div>
                   </div>
                   
-                  {/* 탭 구분을 위해 전용 클래스(mode_interest) 부여 */}
                   <div className="my5_table_body mode_interest">
                     {currentInterestMovies.map(movie => (
-                      <div key={movie.id} className="my5_table_row" onClick={() => window.location.href = `/funding/${movie.id}`}>
-                        {/* 체크박스 영역 클릭 시 로우 호버 스케일/컬러 깨짐 방지를 위해 클래스 분리 */}
+                      <div key={movie.id} className="my5_table_row" onClick={() => handleRowClick(movie.id)}>
                         <div className="col_check custom_check_zone" onClick={(e) => handleSelectOne(movie.id, e)}>
                           <label className="my5_custom_check_btn" onClick={(e) => e.stopPropagation()}>
                             <input 
                               type="checkbox" 
                               checked={selectedIds.includes(movie.id)}
-                              onChange={(e) => {
-                                e.stopPropagation();
-                                handleSelectOne(movie.id, e as any);
-                              }}
+                              onChange={(e) => handleSelectOne(movie.id, e)}
                             />
                             <span className="my5_check_box">
                               <img src="/media/etc/check_bold.svg" alt="check" className="my5_check_img" />
@@ -228,7 +250,6 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
                       </div>
                     ))}
                   </div>
-                  {/* 페이지네이션 배치 */}
                   {renderPagination(interestMovies.length, interestPage, setInterestPage)}
                 </motion.div>
               )}
@@ -243,26 +264,24 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
                   transition={{ duration: 0.3 }}
                   className="my5_table_wrapper"
                 >
-                  <div className="my5_table_header">
-                    <div className="col_title back_trigger" onClick={() => handleMenuChange(null)}>
-                      <img src="/media/etc/arrow_b.svg" alt="Back" className='my5_arrow' /> 
-                      Project List
-                    </div>
-                    
-                    {/* interestMovies로 오매핑되어 작동 안 하던 인자값을 projectListMovies로 교정 */}
-                    <div className="col_check" onClick={(e) => { e.stopPropagation(); handleSelectAll(currentProjectMovies); }}>
+                  <div className="my5_board_title_zone back_trigger" onClick={() => handleMenuChange(null)}>
+                    <img src="/media/etc/arrow_b.svg" alt="Back" className='my5_arrow' /> 
+                    <span>Project List</span>
+                  </div>
+
+                  <div className="my5_table_header mode_project">
+                    <div className="col_check" onClick={(e) => e.stopPropagation()}>
                       <label className="my5_custom_check_btn" onClick={(e) => e.stopPropagation()}>
                         <input 
                           type="checkbox" 
                           checked={currentProjectMovies.length > 0 && currentProjectMovies.every(m => selectedIds.includes(m.id))}
-                          onChange={(e) => { e.stopPropagation(); handleSelectAll(currentProjectMovies); }}
+                          onChange={(e) => handleSelectAll(currentProjectMovies, e)}
                         />
                         <span className="my5_check_box">
                           <img src="/media/etc/check_bold.svg" alt="check" className="my5_check_img" />
                         </span>
                       </label>
                     </div>
-                    
                     <div className="col_name">Title</div>
                     <div className="col_status sortable_header" onClick={() => setStatusOrder(prev => prev === 'asc' ? 'desc' : 'asc')}>
                       Status <span className="sort_arrow">{statusOrder === 'asc' ? '↓' : '↑'}</span>
@@ -271,19 +290,17 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
                     <div className="col_tier">Tier</div>
                   </div>
                   
-                  {/* 탭 구분을 위해 전용 클래스(mode_project) 부여 */}
                   <div className="my5_table_body mode_project">
                     {currentProjectMovies.map(movie => (
-                      <div key={movie.id} className="my5_table_row" onClick={() => window.location.href = `/funding/${movie.id}`}>
+                      <div key={movie.id} className="my5_table_row" onClick={() => handleRowClick(movie.id)}>
                         <div className="col_check custom_check_zone" onClick={(e) => handleSelectOne(movie.id, e)}>
                           <label className="my5_custom_check_btn" onClick={(e) => e.stopPropagation()}>
                             <input 
                               type="checkbox" 
                               checked={selectedIds.includes(movie.id)}
-                              onChange={(e) => {
-                                e.stopPropagation();
-                                handleSelectOne(movie.id, e as any);
-                              }}
+                              onChange={() => setSelectedIds(prev => 
+                                prev.includes(movie.id) ? prev.filter(item => item !== movie.id) : [...prev, movie.id]
+                              )}
                             />
                             <span className="my5_check_box">
                               <img src="/media/etc/check_bold.svg" alt="check" className="my5_check_img" />
@@ -299,7 +316,6 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
                       </div>
                     ))}
                   </div>
-                  {/* 페이지네이션 배치 */}
                   {renderPagination(projectListMovies.length, projectPage, setProjectPage)}
                 </motion.div>
               )}
@@ -323,7 +339,7 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
             >
               <h3 className="my5_modal_title">프로젝트 삭제</h3>
               <p className="my5_modal_text">
-                선택한 <strong>{selectedIds.length}개</strong>의 프로젝트를 삭제하시겠습니까?
+                선택한 <strong>{activeSelectedCount}개</strong>의 프로젝트를 삭제하시겠습니까?
               </p>
               <div className="my5_modal_btns">
                 <button className="my5_modal_btn cancel" onClick={() => setIsModalOpen(false)}>취소</button>

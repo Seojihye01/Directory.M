@@ -161,7 +161,7 @@
                        margin-top: 0px;}
 
   .my4_tab_menu {width: 100%; flex-direction: row; justify-content: center; align-items: center;       
-                 gap: 20px; padding: 0 0 25px 0; border-bottom: 1px dashed #b5b5b5; 
+                 gap: 25px; padding: 0 0 25px 0; border-bottom: 1px dashed #b5b5b5; 
                  margin: 12px 0 0 0;}
 
   .my4_tab_btn {display: flex; justify-content: center; align-items: center; text-align: center;}
@@ -200,5 +200,12 @@
   .my4_movie_titles {align-items: center; gap: 6px;}
 
   .my4_title_item {text-align: center; width: auto; font-size: 12px; padding: 4px 0;}
+
+}
+
+/* 3. 소형 모바일 (480px 이하) */
+@media screen and (max-width: 480px) {
+    
+  .my4_indicator .dot {font-size: 6px; left: 7.5px; top: 5px;}
 
 }

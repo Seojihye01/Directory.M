@@ -111,12 +111,14 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSelectClick = (name: string, value: string) => {
+  const handleSelectClick = (e: React.MouseEvent, name: string, value: string) => {
+    e.stopPropagation(); // 드롭다운 아이템 클릭 시 오버레이로 퍼지는 것 완전 차단
     setFormData(prev => ({ ...prev, [name]: value }));
     setActiveSelect(null); // 선택 완료 후 닫기
   };
 
-  const toggleSelect = (name: string) => {
+  const toggleSelect = (e: React.MouseEvent, name: string) => {
+    e.stopPropagation(); // 셀렉트 박스 클릭 시 버블링 방지
     setActiveSelect(prev => (prev === name ? null : name));
   };
 
@@ -178,8 +180,10 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
       {/* 모달 오버레이 및 팝업창 마운트 코드 추가 */}
       <AnimatePresence>
         {isModalOpen && (
-          <div className="my2_modal_overlay" id='overlay' onClick={(e) => {
-              if ((e.target as HTMLElement).id === 'overlay') {
+          <div className="my2_modal_overlay" 
+            onClick={(e) => {
+              const target = e.target as HTMLElement;
+              if (target.classList.contains('my2_modal_overlay')) {
                 setIsModalOpen(false);
               }
             }}>
@@ -204,7 +208,7 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
                     <div className="custom_select_wrapper">
                       <div 
                         className={`si2_selected_box ${activeSelect === category ? 'active' : ''}`}
-                        onClick={() => toggleSelect(category)}
+                        onClick={(e) => toggleSelect(e, category)}
                       >
                       {/* formData에 들어있는 선택값 표시 */}
                       <span>
@@ -219,7 +223,7 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
                       {selectOptions[category].map((opt) => (
                         <li 
                           key={opt} 
-                          onClick={() => handleSelectClick(category, opt)}
+                          onClick={(e) => handleSelectClick(e, category, opt)}
                         >
                           {opt}
                         </li>
