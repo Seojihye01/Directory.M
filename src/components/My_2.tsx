@@ -129,14 +129,12 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, setUser }
   };
 
   const handleSelectClick = (e: React.MouseEvent, name: string, value: string) => {
-    e.preventDefault();
     e.stopPropagation(); // 드롭다운 아이템 클릭 시 오버레이로 퍼지는 것 완전 차단
     setFormData(prev => ({ ...prev, [name]: value }));
     setActiveSelect(null); // 선택 완료 후 닫기
   };
 
   const toggleSelect = (e: React.MouseEvent, name: string) => {
-    e.preventDefault();
     e.stopPropagation(); // 셀렉트 박스 클릭 시 버블링 방지
     setActiveSelect(prev => (prev === name ? null : name));
   };
