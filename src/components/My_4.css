@@ -160,18 +160,23 @@
   .my4_bottom_wrapper {flex-direction: column; align-items: center; gap: 40px; padding: 0 20px;
                        margin-top: 0px;}
 
-  .my4_tab_menu {width: 100%; max-width: 340px; flex-direction: row; justify-content: center; 
-                 align-items: center; gap: 25px; padding: 0 0 25px 0; border-bottom: 1px dashed #b5b5b5; 
-                 margin: 12px 0 0 0;}
+  /* max-width를 100%로 풀어서 화면을 더 넓게 쓰고, 양옆 여백을 조절합니다 */
+  .my4_tab_menu {width: 100%; max-width: 100%; flex-direction: row; justify-content: space-between; 
+                 align-items: center; gap: 10px; padding: 0 10px 25px 10px; border-bottom: 1px dashed #b5b5b5; 
+                 margin: 12px 0 0 0; box-sizing: border-box;}
 
-  .my4_tab_btn {display: flex; justify-content: center; align-items: center; text-align: center;}
+  /* 버튼들이 부모 너비를 균등하게 나눠 가지도록 설정 */
+  .my4_tab_btn {flex: 1; display: flex; justify-content: center; align-items: center; text-align: center;
+                white-space: nowrap; min-width: 0;}
 
-  .my4_indicator {font-size: 10px; letter-spacing: 10px; margin-right: 4px; display: inline-flex; 
-                  align-items: center; justify-content: center; width: auto;}
+  /* 인디케이터 간격을 약간 좁혀 텍스트 공간 확보 */
+  .my4_indicator {font-size: 10px; letter-spacing: 6px; margin-right: 2px; display: inline-flex; 
+                  align-items: center; justify-content: center; width: auto; flex-shrink: 0;}
   
   .my4_indicator .dot {font-size: 4.5px; left: 6.5px; top: 4.5px;}
 
-  .my4_label {font-size: 10px;}
+  /* 글자가 절대 아래로 떨어지지 않도록 고정 */
+  .my4_label {font-size: 10px; white-space: nowrap; word-break: keep-all;}
 
   .my4_cinema_calendar {width: 100%; max-width: 340px; margin: 0 auto;}
 
@@ -180,7 +185,7 @@
   .my4_cal_arrow img {width: 8px; height: auto; object-fit: contain; display: block;}
 
   .my4_cal_select {font-size: 11px;}
-                 
+                   
   .my4_cal_weekdays {margin-bottom: 7px; padding-bottom: 7px;}
 
   .my4_cal_week_label {font-size: 9.5px;}
@@ -206,10 +211,16 @@
 /* 3. 소형 모바일 (480px 이하) */
 @media screen and (max-width: 480px) {
   
-  .my4_tab_menu {width: 100%; max-width: 360px;}
+  /* 극단적으로 좁은 화면에서도 탭 메뉴가 안 깨지도록 패딩만 살짝 제거 */
+  .my4_tab_menu {padding: 0 0px 25px 0px; gap: 5px;}
 
-  .my4_indicator .dot {font-size: 6px; left: 6.5px; top: 3.5px;}
+  /* 480px 이하에서는 글자 크기를 9.5px로 살짝 줄여 안정성 확보 */
+  .my4_label {font-size: 9.5px;}
 
-  .my4_cinema_calendar {width: 100%; max-width: 360px; margin: 0 auto;}
+  .my4_indicator {letter-spacing: 4px; margin-right: 0px;}
+
+  .my4_indicator .dot {font-size: 5px; left: 4.5px; top: 3.5px;}
+
+  .my4_cinema_calendar {width: 100%; max-width: 100%; margin: 0 auto;}
 
 }
