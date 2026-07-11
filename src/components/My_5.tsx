@@ -22,7 +22,7 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
   const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = useState<MenuType>(null);
   
-  const [movies, setMovies] = useState<MyProject[]>(() => 
+  const [movies] = useState<MyProject[]>(() => 
     fundingProjects.map((project, index) => {
       const tierNumber = (index % 3) + 1; 
       return { ...project, tier: `0${tierNumber}` };
