@@ -59,12 +59,6 @@ const Signup_2: React.FC<Signup2Props> = ({ onNext, onPrev }) => {
                     </div>
 
                     <div className="input_step2">
-                        {/* 닉네임 입력창 */}
-                        <div className="nick">
-                            <p>Nickname</p>
-                            <input type="text" name="nickname" placeholder="Enter your nickname" />
-                        </div>
-
                         {/* 옵션 기반 커스텀 드롭다운 렌더링 */}
                         {Object.keys(options).map((category) => (
                             <div className={category} key={category}>

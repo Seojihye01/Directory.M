@@ -15,7 +15,7 @@
 
 .input_step2 {width: 100%; display: flex; flex-direction: column; gap: 25px;}
 
-.nick, .gender, .region, .role, .favourite {display: flex; justify-content: space-between; align-items: center;}
+.gender, .region, .role, .favourite {display: flex; justify-content: space-between; align-items: center;}
 
 .input_step2 p {font-size: 18px; font-weight: 300; letter-spacing: 0.05em;}
 

@@ -190,17 +190,17 @@ const MyWrapper: React.FC<MyWrapperProps> = ({ onMovieClick, isSaved, activeTab 
                 {Object.keys(selectOptions).map((category) => (
                   <div className="my2_input_field" key={category}>
                     <label>{category === 'favourite' ? 'Favourite Genre' : category}</label>
-                    <div className="custom_select_wrapper">
+                    <div className="my_select_wrapper">
                       <div 
-                        className={`si2_selected_box ${activeSelect === category ? 'active' : ''}`}
+                        className={`my_selected_box ${activeSelect === category ? 'active' : ''}`}
                         onClick={(e) => { e.stopPropagation(); setActiveSelect(prev => (prev === category ? null : category)); }}
                       >
                         <span>{formData[category as keyof typeof formData] || `Select ${category}`}</span>
-                        <div className={`arrow_icon ${activeSelect === category ? 'up' : ''}`}></div>
+                        <div className={`my_arrow_icon ${activeSelect === category ? 'up' : ''}`}></div>
                       </div>
         
                       {activeSelect === category && (
-                        <ul className="options_list">
+                        <ul className="my_options_list">
                           {selectOptions[category].map((opt) => (
                             <li key={opt} onClick={(e) => { e.stopPropagation(); handleSelectClick(category, opt); }}>
                               {opt}
