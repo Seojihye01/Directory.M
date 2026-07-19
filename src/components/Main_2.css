@@ -99,6 +99,7 @@
   .main2_cont h1 {font-size: 22px; letter-spacing: 0.15em; 
                   text-shadow: 0.5px 0.5px 0.5px rgba(18, 18, 18, 0.05), -0.5px -0.5px 0.5px rgba(18, 18, 18, 0.35);}
 
-  .main2_label, .main2_value {text-shadow: 0.5px 0.5px 0.5px rgba(18, 18, 18, 0.05), -0.5px -0.5px 0.5px rgba(18, 18, 18, 0.55);}
+  .main2_label, .main2_value {text-shadow: 0.5px 0.5px 0.5px rgba(18, 18, 18, 0.05), -0.5px -0.5px 0.5px rgba(18, 18, 18, 0.55);
+                              font-size: 10px;}
 
 }

@@ -29,9 +29,21 @@
 
 .elevator_btn:hover .label, .elevator_btn:active .label {opacity: 1; pointer-events: none !important; cursor: default;} 
 
-.theme_dark .elevator_btn.active .dot {background-color: #f9f9f9; transform: scale(1.1);}
+.theme_dark .elevator_btn.active .dot {background-color: #f9f9f9; transform: scale(1.2);
+                                       animation: nav_dark_glow 1.2s infinite ease-in-out;}
 
-.theme_light .elevator_btn.active .dot {background-color: #121212; transform: scale(1.1);}
+.theme_light .elevator_btn.active .dot {background-color: #121212; transform: scale(1.2);
+                                        animation: nav_light_glow 1.2s infinite ease-in-out;}
+
+@keyframes nav_dark_glow {
+  0%, 100% {box-shadow: 0 0 4px rgba(249, 249, 249, 0.2), 0 0 10px rgba(249, 249, 249, 0.1);}
+  50% {box-shadow: 0 0 12px rgba(249, 249, 249, 0.8), 0 0 20px rgba(249, 249, 249, 0.4);}
+}
+
+@keyframes nav_light_glow {
+  0%, 100% {box-shadow: 0 0 4px rgba(18, 18, 18, 0.15), 0 0 10px rgba(18, 18, 18, 0.05);}
+  50% {box-shadow: 0 0 10px rgba(18, 18, 18, 0.8), 0 0 18px rgba(18, 18, 18, 0.4);}
+}
 
 /* Responsive Design */
 /* 1. 태블릿 (1024px 이하) */
