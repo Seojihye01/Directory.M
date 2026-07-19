@@ -17,11 +17,7 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
     const [searchValue, setSearchValue] = useState(""); // 검색어 텍스트를 제어 상태
     const { i18n } = useTranslation();
 
-    const toggleLanguage = () => {
-        // 현재 언어가 ko면 en으로, en이면 ko로 스위칭
-        const nextLang = i18n.language.includes('ko') ? 'en' : 'ko';
-        i18n.changeLanguage(nextLang);
-    };
+    
     
     useEffect(() => {
         const observer = new IntersectionObserver(
