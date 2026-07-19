@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Header.css';
 
 interface HeaderProps {
@@ -14,6 +15,13 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // 모바일 메뉴 상태
     const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
     const [searchValue, setSearchValue] = useState(""); // 검색어 텍스트를 제어 상태
+    const { i18n } = useTranslation();
+
+    const toggleLanguage = () => {
+        // 현재 언어가 ko면 en으로, en이면 ko로 스위칭
+        const nextLang = i18n.language.includes('ko') ? 'en' : 'ko';
+        i18n.changeLanguage(nextLang);
+    };
     
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -99,6 +107,24 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
                 </ul>
 
                 <ul className='gnb2'>
+                    <li className='menu_item'>
+                        <div className="lang_toggle_wrap">
+                            <button 
+                                onClick={() => i18n.changeLanguage('ko')} 
+                                className={`lang_toggle_btn ${i18n.language.includes('ko') ? 'active' : ''}`}
+                            >
+                                KOR
+                            </button>
+                            <span className="lang_divider">/</span>
+                            <button 
+                                onClick={() => i18n.changeLanguage('en')} 
+                                className={`lang_toggle_btn ${i18n.language.includes('en') ? 'active' : ''}`}
+                            >
+                                ENG
+                            </button>
+                        </div>
+                    </li>
+
                     <li className={`menu_item ${openSubMenu === 'user' ? 'active' : ''}`} onClick={() => toggleSubMenu('user')}>
                         <Link to='#' onClick={(e) => window.innerWidth <= 768 && e.preventDefault()}>
                             <img src="/media/etc/userL_b.svg" alt="user" />

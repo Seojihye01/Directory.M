@@ -219,7 +219,7 @@ const Funding_2 = () => {
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (step === 6 && !isResponsive) {
+    if (!isResponsive) {
       setXY({ x: e.clientX, y: e.clientY });
     }
   };
@@ -235,14 +235,25 @@ const Funding_2 = () => {
       style={{ cursor: step === 6 && !isVideoActive && !isResponsive ? 'none' : 'default' }}
     >
       {/* PC 전용 커스텀 커서 */}
-      {step === 6 && !isVideoActive && !isResponsive && (
+      {!isVideoActive && !isResponsive && (
         <div 
-          className="fu2_custom_cursor" 
+          className={`fu2_custom_cursor ${step < 6 ? 'is_scroll_mode' : ''}`}
           style={{ left: xy.x, top: xy.y, position: 'fixed', pointerEvents: 'none', zIndex: 9999 }}
         >
-          <div className="fu2_cursor_circle">
-            <span key={count} className="fu2_cursor_text">
-              {count > 0 ? count : "ACTION"}
+          <div className={`fu2_cursor_circle ${step === 6 && count === 0 ? 'action_ready' : ''}`}>
+            <span key={step < 6 ? 'scroll' : count} className="fu2_cursor_text">
+              {step < 6 ? (
+                <>
+                  <em className="fu2_scroll_lbl">Scroll</em>
+                </>
+              ) : count > 0 ? (
+                count
+              ) : (
+                <span className="fu2_action_wrap">
+                  <span>CLICK TO</span>
+                  <em className="fu2_click_blink">ACTION</em>
+                </span>
+              )}
             </span>
           </div>
         </div>
@@ -251,7 +262,11 @@ const Funding_2 = () => {
       {/* 모바일/태블릿 전용 액션 힌트 (이제 터치 클릭 유도 레이어로 작동) */}
       {isResponsive && step === 6 && !isVideoActive && (
         <div className="responsive_action_hint">
-          <span key={count} className='hint_text'>{count > 0 ? `${count}` : 'ACTION'}</span>
+          {step < 6 ? (
+            <span key="m-scroll" className="hint_text m_scroll_lbl">Scroll</span>
+          ) : (
+            <span key={count} className="hint_text">{count > 0 ? `${count}` : 'ACTION'}</span>
+          )}
         </div>
       )}
 

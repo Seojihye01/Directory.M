@@ -1,9 +1,11 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import './Main_3.css';
 
 const Main_3 = () => {
+  const { t } = useTranslation();
   const [isMatched, setIsMatched] = useState(false);
   const [isDragging, setIsDragging] = useState(false); // 드래그 상태 추가
   const constraintsRef = useRef<HTMLDivElement>(null);
@@ -67,7 +69,7 @@ const Main_3 = () => {
             }}
           >
             <Link to='/curation' className="title_box">
-              <h1>A curator's view<br /> of cinema</h1>
+              <h1 style={{ whiteSpace: 'pre-line' }}>{t('main3.title')}</h1>
               <img src='/media/etc/arrow_w.svg' alt="arrow" />
             </Link>
           </motion.div>

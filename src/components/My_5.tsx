@@ -224,9 +224,9 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
                         </span>
                       </label>
                     </div>
-                    <div className="col_name">Title</div>
-                    <div className="col_rate">Achieved Rate</div>
-                    <div className="col_days sorted">Remained Days</div>
+                    <div className="col_name">Project</div>
+                    <div className="col_rate">Progress</div>
+                    <div className="col_days sorted">Deadline</div>
                   </div>
                   
                   <div className="my5_table_body mode_interest">
@@ -282,7 +282,7 @@ export const My_5: React.FC<ProjectSectionProps> = ({ id, setActiveSection }) =>
                         </span>
                       </label>
                     </div>
-                    <div className="col_name">Title</div>
+                    <div className="col_name">Project</div>
                     <div className="col_status sortable_header" onClick={() => setStatusOrder(prev => prev === 'asc' ? 'desc' : 'asc')}>
                       Status <span className="sort_arrow">{statusOrder === 'asc' ? '↓' : '↑'}</span>
                     </div>

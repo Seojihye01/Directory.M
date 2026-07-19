@@ -72,17 +72,17 @@
 
 .indicator_line {width: 3px; height: 20px; transition: 0.4s;}
 
-.custom_cursor_wrapper {position: fixed; width: 50px; height: 50px; z-index: 9999; pointer-events: none;
+#funding_4_section .custom_cursor_wrapper {position: fixed; width: 50px; height: 50px; z-index: 9999; pointer-events: none;
                         transform: translate(-50%, -50%) scale(0); transition: transform 0.2s;}
 
-.custom_cursor_wrapper.active {transform: translate(-50%, -50%) scale(1);}
+#funding_4_section .custom_cursor_wrapper.active {transform: translate(-50%, -50%) scale(1);}
 
-.custom_cursor_visual {width: 100%; height: 100%; background: rgba(249, 249, 249, 0.4); backdrop-filter: blur(1px); 
-                       border-radius: 8px; display: flex; align-items: center; justify-content: center;
-                       box-shadow: inset 1px 2px 5px rgba(18, 18, 18, 0.1);}
+#funding_4_section .custom_cursor_visual {width: auto; height: auto; padding: 8px 12px; backdrop-filter: blur(2px); border-radius: 4px; 
+                       display: flex; justify-content: center; align-items: center; 
+                       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);}
 
-.custom_cursor_visual img {width: 40%; opacity: 0.7;}
-
+.fu4_scroll_lbl {font-size: 9px; letter-spacing: 0.15em; font-weight: 600; font-style: normal;
+                 color: #121212; line-height: 1;}
 
 /* Responsive Design */
 /* 1. 태블릿 (1024px 이하) */

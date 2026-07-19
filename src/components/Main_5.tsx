@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import './Main_5.css';
 
 const Main_5: React.FC = () => {
@@ -22,6 +23,8 @@ const Main_5: React.FC = () => {
         };
         requestAnimationFrame(step);
     };
+
+    const { t } = useTranslation(); // t 함수 가져오기
 
     useEffect(() => {
         const timer = setInterval(() => setTime(new Date()), 1000);
@@ -79,16 +82,16 @@ const Main_5: React.FC = () => {
                 <div className="main5_content_area">
                     <div className="main5_status_list">
                         <div className="main5_status_item">
-                            <span className="main5_label">Funding Amount</span>
+                            <span className="main5_label">{t('main5.title1')}</span>
                             <span className="main5_value">₩{displayFunded.toLocaleString()}+</span>
                         </div>
                         <div className="main5_status_item">
-                            <span className="main5_label">Active Supporters</span>
+                            <span className="main5_label">{t('main5.title2')}</span>
                             <span className="main5_value"> {displaySupporters.toLocaleString()}+ </span>
                         </div>
                     </div>                    
                        
-                    <p className="main5_question">Want to be part of the scene?</p>
+                    <p className="main5_question">{t('main5.text')}</p>
 
                     <div className="main5_cta_group">
                         <label className="main5_custom_check_btn">

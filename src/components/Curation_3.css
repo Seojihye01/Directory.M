@@ -12,7 +12,7 @@
 
 .cu3_top.bg_black {background-color: #000 !important;}
 
-.room_entry_overlay {position: absolute; inset: 0; width: 100%; height: 100%; background: #e9e9e9; display: flex; 
+.room_entry_overlay {position: absolute; inset: 0; width: 100%; height: 100%; background: #000; display: flex; 
                      justify-content: center; align-items: center; z-index: 5; transform-style: preserve-3d;
                      backface-visibility: hidden;}
 
@@ -26,7 +26,7 @@
 .room_entry_btn::before {content: ''; position: absolute; top: -150%; left: -150%; width: 400%; height: 400%;
                          background: conic-gradient(from 0deg, rgba(249, 249, 249, 0.1) 0deg, rgba(249, 249, 249, 0.8) 15deg, 
                                      transparent 30deg, transparent 360deg); transform-origin: center center;
-                         animation: rotateGlow 3.2s linear infinite; z-index: 1; pointer-events: none;}
+                         animation: rotateGlow 2.7s linear infinite; z-index: 1; pointer-events: none;}
 
 .room_entry_btn::after {content: ''; position: absolute; top: 1.5px; left: 1.5px; right: 1.5px; bottom: 1.5px; border-radius: 2px; 
                         z-index: 2; background: url('/media/etc/panel.jpg') no-repeat center center; background-size: cover; 

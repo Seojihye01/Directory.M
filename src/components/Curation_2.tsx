@@ -181,9 +181,9 @@ const Curation_2 = () => {
                 </div>
                 <div className="cu2_divider" />
                 <div className="cu2_right_col">
-                  <ListItem n={1} curr={step} title="01 시각적 정점의 기록" desc="Dune의 웅장함부터 Whiplash의 날카로운 긴장감까지 영화적 미학이 가장 밀도 있게 응축된 순간을 기록한다" />
-                  <ListItem n={2} curr={step} title="02 시간의 공간화" desc="순간의 장면 구도와 빛, 공간감을 마치 전시된 작품처럼 깊이 있게 관찰하는 경험을 제안한다" />
-                  <ListItem n={3} curr={step} title="03 경외감의 본질 탐구" desc="인간이 스크린 앞에서 느끼는 압도적인 경외감은 감독이 설계한 단 한 프레임에서 시작된다 우리는 그 시작점이 되는 순간을 따라간다" />
+                  <ListItem n={1} curr={step} title="01 시각적 정점의 기록" desc="Dune의 웅장함부터 Whiplash의 날카로운 긴장감까지 영화적 미학이 가장 밀도 있게 응축된 순간을 기록한다" onClick={() => setStep(1)}/>
+                  <ListItem n={2} curr={step} title="02 시간의 공간화" desc="순간의 장면 구도와 빛, 공간감을 마치 전시된 작품처럼 깊이 있게 관찰하는 경험을 제안한다" onClick={() => setStep(2)}/>
+                  <ListItem n={3} curr={step} title="03 경외감의 본질 탐구" desc="인간이 스크린 앞에서 느끼는 압도적인 경외감은 감독이 설계한 단 한 프레임에서 시작된다 우리는 그 시작점이 되는 순간을 따라간다" onClick={() => setStep(3)}/>
                 </div>
               </div>
               <div className="cu2_bottom_bar">
@@ -197,9 +197,9 @@ const Curation_2 = () => {
   );
 };
 
-const ListItem = ({ n, curr, title, desc }: any) => (
+const ListItem = ({ n, curr, title, desc, onClick }: any) => (
   <div className="cu2_list_item">
-    <h3 className="cu2_item_title">{title}</h3>
+    <h3 className="cu2_item_title" onClick={onClick}>{title}</h3>
     <div className="cu2_item_desc_box">
       <motion.p 
         initial={{ opacity: 0 }} 

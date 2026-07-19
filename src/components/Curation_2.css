@@ -41,7 +41,7 @@
 
 .cu2_list_item {margin-bottom: 40px;}
 
-.cu2_item_title {font-size: 16px; font-weight: 500; margin: 0;}
+.cu2_item_title {font-size: 16px; font-weight: 500; margin: 0; cursor: pointer;}
 
 .cu2_item_desc_box {height: 70px; margin-top: 10px; overflow: hidden; font-size: 14px;}
 
