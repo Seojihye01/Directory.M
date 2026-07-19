@@ -29,9 +29,9 @@ export interface UserProfile {
 
 const MyWrapper: React.FC<MyWrapperProps> = ({ onMovieClick, isSaved, activeTab }) => {
   const [user, setUser] = useState<UserProfile>({
-    name: "James",
-    sirname : "dean",
-    email: "jamesdeann@gmail.com",
+    name: "JIHE",
+    sirname : "SEO",
+    email: "jihyeseo0801@gmail.com",
     role: "Creator",
     tier: "PLATINUM",
     cardNumber: "000 001 2025 1201",

@@ -1,0 +1,196 @@
+/* 전체 컨테이너 및 템플릿 특유의 깔끔한 배경색 */
+.pricing_container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+/* 타이틀 헤더 */
+.pricing_header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.pricing_header h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #111111;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.02em;
+}
+
+.pricing_header p {
+  font-size: 15px;
+  color: #666666;
+  margin: 0;
+}
+
+/* 카드 배치 그리드 */
+.pricing_cards_wrapper {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 70px;
+}
+
+/* 개별 가격 카드 공통 스타일 (템플릿 입체감 구현) */
+.pricing_card {
+  width: 340px;
+  background: #ffffff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05); /* 부드럽게 붕 뜬 듯한 템플릿 그림자 */
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 템플릿 상단의 라운드된 인포 박스 영역 (Silver 기본: 연한 회색) */
+.pricing_card .card_top_section {
+  background-color: #f0f0f2;
+  margin: 12px;
+  padding: 32px 24px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Platinum 하이라이트 카드 (템플릿의 Professional 블루 톤 구현) */
+.pricing_card.featured .card_top_section {
+  background-color: #e3e8f8; /* 은은한 푸른빛 톤 */
+}
+
+/* 플랜 텍스트 배지 */
+.pricing_card .badge {
+  align-self: flex-start;
+  background: #ffffff;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #444444;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* 가격 레이아웃 */
+.pricing_card .price_title {
+  margin-top: 24px;
+  display: flex;
+  align-items: baseline;
+}
+
+.pricing_card .amount {
+  font-size: 40px;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: -0.01em;
+}
+
+.pricing_card .period {
+  font-size: 14px;
+  color: #666666;
+  font-weight: 500;
+  margin-left: 2px;
+}
+
+.pricing_card .card_desc {
+  font-size: 13px;
+  color: #555555;
+  margin: 12px 0 24px 0;
+  font-weight: 500;
+}
+
+/* 검정색 메인 CTA 결제하기 버튼 */
+.pricing_card .pricing_cta_btn {
+  width: 100%;
+  height: 48px;
+  background-color: #111111;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.pricing_card .pricing_cta_btn:hover {
+  background-color: #2a2a2a;
+}
+
+.pricing_card .pricing_cta_btn:active {
+  transform: scale(0.98);
+}
+
+/* 카드 하단 흰색 서비스 제공 리스트 영역 */
+.pricing_card .card_bottom_section {
+  padding: 24px 28px 36px 28px;
+}
+
+.pricing_card .feature_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pricing_card .feature_list li {
+  font-size: 13px;
+  color: #555555;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* 하단 정책 가이드 영역 */
+.pricing_policy_section {
+  width: 100%;
+  max-width: 712px; /* 카드 2개 정렬 넓이에 맞춰 중앙 정렬 */
+  margin-top: 30px;
+  padding: 32px;
+  border-top: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pricing_policy_section .policy_item h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: #333333;
+  margin: 0 0 6px 0;
+}
+
+.pricing_policy_section .policy_item p {
+  font-size: 12px;
+  color: #777777;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 모바일 반응형 처리 */
+@media (max-width: 768px) {
+  .pricing_cards_wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .pricing_card {
+    width: 100%;
+    max-width: 340px;
+  }
+  .pricing_policy_section {
+    padding: 24px 16px;
+  }
+}

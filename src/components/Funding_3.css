@@ -66,6 +66,22 @@
 .category_select {padding: 8px 15px; font-size: 13px; letter-spacing: 10%; font-weight: 500; outline: none; border: none;
                   color: #444; outline: none; cursor: pointer;}
 
+.funding_board_header {display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 40px;
+                       max-width: 840px; padding: 0 10px 12px 10px; border-bottom: 2px solid rgba(18, 18, 18, 0.15);
+                       margin: 0 auto; box-sizing: border-box;}
+
+.header_label {font-size: 11px; letter-spacing: 0.08em; font-weight: 600; color: #888; text-align: center;}
+
+.lbl_name {flex: 0 0 180px; text-align: left; padding-left: 8px;}
+
+.lbl_gauge {flex: 1; min-width: 300px; text-align: left; padding-left: 10px;}
+
+.header_stats_group {flex: 0 0 250px; display: flex; justify-content: flex-end; gap: 30px;}
+
+.lbl_funded {min-width: 165px; padding-left: 77px;}
+
+.lbl_deadline {min-width: 50px; text-align: right; padding-left: 15px;}
+
 .funding_list_board {display: flex; flex-direction: column; gap: 25px; width: 100%; max-width: 800px;}
 
 .funding_list_item_link {text-decoration: none; color: inherit;}
@@ -106,8 +122,7 @@
 
 .stat_deadline {min-width: 50px; text-align: right;}
 
-.empty_list_placeholder {padding: 180px; text-align: center; border: 2px dashed #ccc; border-radius: 20px;
-                         color: #999;}
+.empty_list_placeholder {padding: 180px; text-align: center; border: 2px dashed #ccc; border-radius: 20px; color: #999;}
 
 /* Responsive Design */
 /* 1. 태블릿 (1024px 이하) */
@@ -116,6 +131,17 @@
     .funding_container {padding: 0 30px;}
 
     .status_tab_header, .funding_list_board {width: 100%; max-width: 800px; margin-left: auto; margin-right: auto;}
+
+    .funding_board_header {width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; gap: 20px;
+                           padding: 0 10px 12px 10px;}
+
+    .lbl_name {flex: 0 0 140px;}
+
+    .lbl_gauge {min-width: 150px;}
+
+    .header_stats_group {flex: 0 0 200px; gap: 20px;}
+
+    .lbl_funded {min-width: 100px;}
 
     .funding_list_item {gap: 20px;}
 

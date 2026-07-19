@@ -126,9 +126,18 @@ const Main_3 = () => {
                 <img src='/media/etc/arrow_b.svg' alt="scroll down guide" />
               </div>
 
-              <div className={`target_dropzone ${isDragging ? 'active_target' : ''}`}>
-                <p className="drop_text">{isDragging ? "TARGETING" : "Target"}</p>
-              </div> 
+              <div className="dropzone_wrapper">
+                {isDragging && (
+                  <div className={`drag_indicator_arrow ${isDragging ? 'show' : ''}`}>
+                    <img src='/media/etc/arrow_b.svg' alt="guide arrow" />
+                    <img src='/media/etc/arrow_b.svg' alt="guide arrow" />
+                    <img src='/media/etc/arrow_b.svg' alt="guide arrow" />
+                  </div>
+                )}
+                <div className={`target_dropzone ${isDragging ? 'active_target' : ''}`}>
+                  <p className="drop_text">{isDragging ? "TARGETING" : "Target"}</p>
+                </div> 
+              </div>
             </>
           )}
         </div>

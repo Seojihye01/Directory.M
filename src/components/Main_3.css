@@ -54,6 +54,21 @@
 
 .mobile_guide_arrow {display: none;}
 
+.dropzone_wrapper {display: flex; align-items: center; gap: 15px; margin: 0 0 0 auto;
+                   position: relative;}
+
+.drag_indicator_arrow {display: flex; align-items: center; position: absolute; left: -150px; top: 40%;
+                       opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease;}
+
+.drag_indicator_arrow.show {opacity: 1; visibility: visible; animation: arrow_pulse 1s infinite ease-in-out;}
+
+.drag_indicator_arrow img {width: 34px; height: 34px; transform: rotate(0deg); filter: invert(0.4);}
+
+@keyframes arrow_pulse {
+  0%, 100% { transform: translateX(0); opacity: 0.4; }
+  50% { transform: translateX(8px); opacity: 1; }
+}
+
 .target_dropzone {width: 235px; height: 200px; border: 0.1px solid rgba(18, 18, 18, 0.05); display: flex;
                   justify-content: center; align-items: center; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
                   margin-left: auto; margin-bottom: 0; background: #f3f3f3; 
@@ -117,6 +132,8 @@
     .target_dropzone, .logo_box.matched {width: 100%; height: 120px; position: relative; left: auto;
                                          top: auto; margin-left: 0;}
 
+    .drag_indicator_arrow {display: none;}
+
     .title_box h1 {font-size: 24px;}
 
     .title_box img {width: 30px; top: -55px; right: 10px;}
@@ -145,7 +162,17 @@
 
     .mobile_guide_arrow img {width: 18px; height: 30px; filter: invert(0.8);}
 
+    .dropzone_wrapper {width: 100%; flex-direction: column; align-items: center; margin-left: 0;}
+
+    .drag_indicator_arrow {position: absolute; left: 50%; top: -45px; transform: translateX(-50%) rotate(90deg);}
+
+    .drag_indicator_arrow.show {animation: mobile_arrow_pulse 1s infinite ease-in-out;}
 
     .target_dropzone {order: 1; width: 100%; height: 120px;  margin: 0 auto; position: relative;}
+    
+    @keyframes mobile_arrow_pulse {
+    0%, 100% { transform: translate(-50%, 0) rotate(90deg); opacity: 0.4; }
+    50% { transform: translate(-50%, 8px) rotate(90deg); opacity: 1; }
+    }
     
 }

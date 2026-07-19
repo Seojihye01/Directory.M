@@ -14,7 +14,7 @@ export interface Movie {
     videoUrl?: string;
     relatedMovies: number[]; // 관련 영화 ID 배열
     category?: string[];
-    genre: "Sci-Fi" | "Drama" | "Action" | "Thriller" | "Fantasy" | "History" | "Animation" | "Comedy" | "Documentary" | "Romance" | "Noir" | "Arthouse" | "Classic" | "Independent";
+    genre: "Sci-Fi" | "Drama" | "Action" | "Thriller" | "Fantasy" | "History" | "Animation" | "Comedy" | "Documentary" | "Romance" | "Noir" | "Arthouse" | "Classic" | "Independent" | "Etc";
     age: string;
     symbol?: string;
 }

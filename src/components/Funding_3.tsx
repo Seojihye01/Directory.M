@@ -55,7 +55,7 @@ const Funding_3 = () => {
           </div>
 
           <div className="filter_group">
-            <span className="filter_label">GENRE</span>
+            <span className="filter_label">Genre</span>
             <div className="fu_custom_select_wrapper">
               <div 
                 className={`selected_box ${isSelectOpen ? 'active' : ''}`}
@@ -78,6 +78,15 @@ const Funding_3 = () => {
                 </ul>
               )}
             </div>
+          </div>
+        </div>
+
+        <div className="funding_board_header">
+          <span className="header_label lbl_name">Project</span>
+          <span className="header_label lbl_gauge">Progress</span>
+          <div className="header_stats_group">
+            <span className="header_label lbl_funded">Total Funded</span>
+            <span className="header_label lbl_deadline">Deadline</span>
           </div>
         </div>
 

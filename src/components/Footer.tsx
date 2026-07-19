@@ -19,7 +19,7 @@ const Footer = () => {
                             <Link to="/explore"><li>Explore</li></Link>
                             <Link to="/funding"><li>Funding</li></Link>
                             <Link to="/about"><li>About</li></Link>
-                            <a href="/"><li>Membership</li></a>
+                            <a href="/membership"><li>Membership</li></a>
                         </ul>
                         <ul className="sec_2">
                             <li className="sec_title">SUPPORT</li>
