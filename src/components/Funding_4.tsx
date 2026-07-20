@@ -179,6 +179,7 @@ const Funding_4 = () => {
       onMouseLeave={() => setIsInside(false)}
       onMouseMove={handleMouseMove}
     >
+      <div className="fu4_responsive_scroll_lbl">Scroll</div>
       <div className={`custom_cursor_wrapper ${isInside ? 'active' : ''}`} style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}>
         <div className="custom_cursor_visual"><span className="fu4_scroll_lbl">Scroll</span></div>
       </div>

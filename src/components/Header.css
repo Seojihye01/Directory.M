@@ -24,9 +24,11 @@
 #header.theme-dark .gnb2 img, #header.theme-dark .search_btn {filter: invert(1) brightness(2);}
 
 .header_inner {width: 100%; max-width: 1200px; margin: 0 auto; display: flex; transition: height 0.4s; padding: 0 20px;
-               justify-content: space-between; align-items: center; height: 70px; box-sizing: border-box;}
+               justify-content: space-between; align-items: center; height: 70px; box-sizing: border-box; position: relative;}
 
 .header_inner .logo {width: 140px;}
+
+.header_left_fixed {display: flex; align-items: center; gap: 15px; margin-left: auto; margin-right: 15px; z-index: 101;}
 
 .nav_container {display: flex; align-items: center; gap: 60px;}
 
@@ -128,6 +130,10 @@ html {scroll-behavior: smooth;}
 @media screen and (max-width: 768px) {
 
     #header.menu-open {z-index: 2000 !important;}
+
+    .header_left_fixed {margin: 0; justify-content: flex-start; width: 100%;}
+
+    .pc_only_search {display: none;}
     
     .mobile_menu_btn {display: flex; position: fixed; right: 10px; top: 8px; gap: 5px; cursor: pointer; background: none;
                       border: none; z-index: 10002;}

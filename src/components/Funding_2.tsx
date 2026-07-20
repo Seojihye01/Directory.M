@@ -264,7 +264,7 @@ const Funding_2 = () => {
       )}
 
       {/* 모바일/태블릿 전용 액션 힌트 (이제 터치 클릭 유도 레이어로 작동) */}
-      {isResponsive && step === 6 && !isVideoActive && (
+      {isResponsive && !isVideoActive && (
         <div className="responsive_action_hint">
           {step < 6 ? (
             <span key="m-scroll" className="hint_text m_scroll_lbl">Scroll</span>

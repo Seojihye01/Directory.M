@@ -72,6 +72,8 @@
 
 .indicator_line {width: 3px; height: 20px; transition: 0.4s;}
 
+.fu4_responsive_scroll_lbl {display: none;}
+
 #funding_4_section .custom_cursor_wrapper {position: fixed; width: 50px; height: 50px; z-index: 9999; pointer-events: none;
                         transform: translate(-50%, -50%) scale(0); transition: transform 0.2s;}
 
@@ -94,6 +96,10 @@
 
   .funding_section.funding_full_page.index_4 {touch-action: auto !important;}
 
+  .fu4_responsive_scroll_lbl {display: block; position: absolute; top: 30%; left: 50%; transform: translateX(-50%);
+                              font-size: 11px; letter-spacing: 0.15em; font-weight: 600; color: #999;
+                              z-index: 10; pointer-events: none;}
+
   .funding_container {padding: 0 40px;}
 
   .static_title {font-size: 34px; left: 50%; top: 15%; transform: translateX(-50%); margin-top: 0; width: 100%;
@@ -115,6 +121,8 @@
 
 /* 2. 모바일 (768px 이하) */
 @media (max-width: 768px) {
+
+  .fu4_responsive_scroll_lbl {top: 24%; font-size: 9px;}
 
   .custom_cursor_wrapper {display: none !important;}
   

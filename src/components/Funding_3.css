@@ -132,8 +132,7 @@
 
     .status_tab_header, .funding_list_board {width: 100%; max-width: 800px; margin-left: auto; margin-right: auto;}
 
-    .funding_board_header {width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; gap: 20px;
-                           padding: 0 10px 12px 10px;}
+    .funding_board_header {display: none;}
 
     .lbl_name {flex: 0 0 140px;}
 
