@@ -37,7 +37,6 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, openAccou
   const rotateY = useTransform(mouseX, [-0.5, 0.5], [-15, 15]);
   const bgPositionX = useTransform(mouseX, [-0.5, 0.5], ["0%", "100%"]);
   const bgPositionY = useTransform(mouseY, [-0.5, 0.5], ["0%", "100%"]);
-  const shimmerPosition = useTransform([bgPositionX, bgPositionY], ([x, y]) => `${x} ${y}`);
 
   // 마우스 위치에 따른 오로라 그래디언트 이동
   const shimmerStyle = {
