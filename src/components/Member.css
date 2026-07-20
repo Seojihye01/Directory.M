@@ -4,9 +4,12 @@
 
 .pricing_title {font-size: 16px; letter-spacing: -0.02em; font-weight: 700; margin-bottom: 36px;}
 
-.cards_container {display: flex; gap: 24px; margin-bottom: 24px;}
+.pricing_content_wrapper {width: 100%; max-width: 798px; display: flex; flex-direction: column; align-items: center;
+                          box-sizing: border-box;}
 
-.price_card {background: #f4f4f4; border-radius: 12px; width: 250px; min-height: 330px; padding: 28px 20px 20px;
+.cards_container {display: flex; gap: 24px; margin-bottom: 24px; width: 100%; box-sizing: border-box;}
+
+.price_card {background: #f4f4f4; border-radius: 12px; flex: 1; width: 100%; min-height: 330px; padding: 28px 20px 20px;
              display: flex; flex-direction: column; border: 1.5px solid transparent; box-sizing: border-box;
              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02); transition: all 0.2s ease;}
 
@@ -41,7 +44,7 @@
 
 .card_btn.active_btn:hover {background-color: #2b2b2b;}
 
-.bottom_banner {width: 798px; background-color: #111; border-radius: 12px; padding: 20px 28px;
+.bottom_banner {width: 100%; background-color: #111; border-radius: 12px; padding: 20px 28px;
                 color: #f4f4f4; box-sizing: border-box; transition: all 0.2s ease-in-out;}
 
 .bottom_banner:active {transform: scale(0.98);}
@@ -60,7 +63,7 @@
 
 .modal_content {position: relative; background: rgba(255, 255, 255, 0.75); padding: 32px 24px 24px;
                 backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); text-align: center;
-                border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 20px; width: 380px; max-width: 88%;
+                border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 20px; width: 380px; max-width: 85%;
                 height: 40%; animation: modalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box;
                 box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(255, 255, 255, 0.4) inset;}
 
@@ -79,7 +82,7 @@
 .modal_header h3 {margin: 0 0 10px 0; font-size: 17px; letter-spacing: -0.02em; font-weight: 700; 
                   color: #111; text-align: center;}
 
-.modal_body p {font-size: 13.5px; letter-spacing: -0.01em; color: #444; line-height: 1.5;
+.modal_body p {font-size: 13.5px; letter-spacing: -0.01em; color: #444; line-height: 1.5; 
                margin: 0 0 20px 0; word-break: keep-all; text-align: center;}
 
 .modal_actions {display: flex; justify-content: center;}
@@ -94,7 +97,9 @@
 /* 1. 태블릿 (최대 1024px) */
 @media (max-width: 1024px) {
 
-  .cards_container {gap: 16px; padding: 0 20px;}
+  .pricing_content_wrapper {padding: 0 20px;}
+
+  .cards_container {gap: 16px;}
 
   .price_card {padding: 24px 20px;}
 
@@ -103,13 +108,15 @@
 /* 2. 모바일(최대 768px) */
 @media (max-width: 768px) {
 
-  .pricing_page {padding: 100px 16px 60px; justify-content: flex-start;}
+  .pricing_page {padding: 100px 16px 60px;}
 
   .pricing_title {font-size: 24px; margin-bottom: 32px;}
-
+  
+  .pricing_content_wrapper {width: 100%; max-width: 400px; padding: 0;}
+  
   .cards_container {flex-direction: column; align-items: center; gap: 20px; width: 100%;}
 
-  .price_card {width: 100%; max-width: 400px; min-height: auto; padding: 20px;}
+  .price_card {width: 100%; min-height: auto; padding: 20px;}
 
   .card_header {margin-bottom: 8px;}
 
@@ -132,11 +139,11 @@
 
   .card_btn {margin-top: 12px;}
 
-  .bottom_banner {width: 100%; max-width: 400px; margin: 24px auto 0; padding: 16px 20px;}
+  .bottom_banner {width: 100%; margin: 24px 0 0 0; padding: 16px 20px;}
 
   .banner_content.between {flex-direction: column; gap: 6px; text-align: center; font-size: 13px;}
 
-  .modal_content {width: 90%; padding: 24px 20px 18px; border-radius: 16px;}
+  .modal_content {width: 340px; max-width: 90%; padding: 24px 20px 20px; border-radius: 16px;}
 
   .modal_header h3 {font-size: 16px;}
 
@@ -151,12 +158,16 @@
 
   .pricing_title {font-size: 18px;}
 
-  .price_card {max-width: 380px;}
+  .pricing_content_wrapper {max-width: 100%;}
+
+  .cards_container {max-width: 100%;}
+
+  .price_card {max-width: 100%;}
 
   .card_header {flex-direction: column; align-items: flex-start; gap: 4px;}
 
   .plan_price {font-size: 18px;}
 
-  .bottom_banner {max-width: 380px;}
+  .bottom_banner {max-width: 100%;}
 
 }

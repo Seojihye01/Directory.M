@@ -120,7 +120,7 @@
 
   .my2_metal_card {width: 100%; max-width: 320px; height: 400px; padding: 25px;}
 
-  .my2_edit_btn {width: 100%; max-width: 320px; height: 48px;}
+  .my2_edit_btn {width: 100%; max-width: 320px; height: 48px; border-radius: 16px;}
 
   .my2_card_number {font-size: 20px; margin-top: 25px;}
 
