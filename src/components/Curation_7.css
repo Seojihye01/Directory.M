@@ -69,10 +69,11 @@
 
 .movie_list li {font-size: 12px; letter-spacing: 5%; font-weight: 300; color: #777;}
 
-.locked_view {flex: 1; display: flex; justify-content: flex-end; align-items: flex-end; 
-              background: inherit; position: absolute; bottom: 150px; right: -80px;}
+.locked_view {flex: 1; display: flex; justify-content: flex-end; align-items: flex-end; background: inherit; 
+              position: absolute; bottom: 150px; right: 10px;}
 
-.locked_msg {color: #bbb;}
+.locked_msg {color: #bbb; transform: rotate(90deg); transform-origin: right bottom; white-space: nowrap; 
+             font-size: 13px; letter-spacing: 0.05em; font-weight: 400;}
 
 .cu7_curator {margin-top: auto; display: flex; justify-content: flex-start; align-items: end;}
 
@@ -142,6 +143,8 @@
 
     .cu7_team_mem {font-size: 10px;}
 
+    .locked_view {bottom: 80px; right: 9px;}
+
 }
 
 /* 3. 소형 모바일 (480px 이하) */
@@ -167,7 +170,7 @@
 
     .page_03 .index_tab {top: 120px;}
 
-    .locked_view {bottom: 100px; right: -80px;}
+    .locked_view {bottom: 100px; right: 4px;}
 
     .locked_msg {font-size: 10px;}
 

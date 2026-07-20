@@ -24,11 +24,9 @@
 #header.theme-dark .gnb2 img, #header.theme-dark .search_btn {filter: invert(1) brightness(2);}
 
 .header_inner {width: 100%; max-width: 1200px; margin: 0 auto; display: flex; transition: height 0.4s; padding: 0 20px;
-               justify-content: space-between; align-items: center; height: 70px; box-sizing: border-box; position: relative;}
+               justify-content: space-between; align-items: center; height: 70px; box-sizing: border-box;}
 
 .header_inner .logo {width: 140px;}
-
-.header_left_fixed {display: flex; align-items: center; gap: 15px; margin-left: auto; margin-right: 15px; z-index: 101;}
 
 .nav_container {display: flex; align-items: center; gap: 60px;}
 
@@ -52,10 +50,10 @@
 @keyframes fadeInDown { from {opacity: 0; transform: translate(-50%, -10px);}
                         to { opacity: 1; transform: translate(-50%, 0);}}
 
-.gnb2 {display: flex; justify-content: space-between; font-size: 14px;
-       letter-spacing: 5%; color: #121212; font-weight: 400; gap: 20px;}
+.gnb2 {display: flex; justify-content: space-between; gap: 20px; font-size: 14px; letter-spacing: 5%; 
+       font-weight: 400; color: #121212;}
 
-.lang_toggle_wrap {display: flex; align-items: center; gap: 2px;}
+.lang_toggle_wrap {display: flex; align-items: center; gap: 2px; visibility: visible; opacity: 1;}
 
 .lang_toggle_btn {background: none; border: none; font-size: 13px; letter-spacing: 0.05em; font-weight: 400; 
                   cursor: pointer; padding: 4px 2px; transition: all 0.3s ease; opacity: 0.4;}
@@ -130,17 +128,18 @@ html {scroll-behavior: smooth;}
 @media screen and (max-width: 768px) {
 
     #header.menu-open {z-index: 2000 !important;}
-
-    .header_left_fixed {margin: 0; justify-content: flex-start; width: 100%;}
-
-    .pc_only_search {display: none;}
     
     .mobile_menu_btn {display: flex; position: fixed; right: 10px; top: 8px; gap: 5px; cursor: pointer; background: none;
                       border: none; z-index: 10002;}
 
     .mobile_menu_btn img {width: 16px; height: auto; background: none; transition: 0.3s; transform: rotate(90deg);}
 
+    .gnb1{order: 2;}
+
     .gnb2 .menu_item:last-child {display: none;}
+
+    .gnb2 .lang_item {order: 2; display: block !important; visibility: visible !important; width: 100%;
+                      padding: 0 0 10px 0 !important;}
 
     .menu-open .mobile_menu_btn img {filter: invert(0) !important; transform: rotate(-90deg) !important;}
 
@@ -150,14 +149,20 @@ html {scroll-behavior: smooth;}
                     transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-sizing: border-box;}
 
     .nav_container.active {top: 0; right: 0;}
+    
+    .nav_container .lang_toggle_btn {color: #121212 !important; font-size: 14px; padding: 6px 4px; opacity: 0.5;}
+
+    .nav_container .lang_toggle_btn.active {opacity: 1 !important; font-weight: 700; color: #121212 !important;}
+
+    .nav_container .lang_divider {color: rgba(18, 18, 18, 0.4) !important;}
 
     .mobile_logo_text, .mobile_search_bar {display: block !important;}
 
     .mobile_logo_text {font-size: 24px; font-weight: 400; margin-bottom: 30px; color: #121212;
-                       text-align: left; padding-left: 0; margin: 0 0 30px 0;}
+                       text-align: left; padding-left: 0; margin: 0 0 30px 0; order: 1;}
 
     .mobile_search_bar {display: flex; align-items: center; border-bottom: 1px solid #121212; margin-bottom: 30px;
-                        width: 100%;}
+                        width: 100%; order: 4;}
 
     .mobile_search_bar input {width: 100%; padding: 10px 0; background: transparent; border: none; outline: none;
                               font-size: 18px;}
@@ -195,9 +200,11 @@ html {scroll-behavior: smooth;}
 
     .search_modal_content {height: 80vh; border-radius: 20px;}
     
-    .gnb2 {flex-direction: column; justify-content: flex-start; width: 100%; gap: 20px;}
+    .gnb2 {flex-direction: column; justify-content: flex-start; width: 100%; gap: 20px; order: 3;}
 
     .gnb2 .menu_item {padding: 10px 0; width: 100%;}
+
+    .lang_toggle_wrap {display: flex; align-items: center; visibility: visible; opacity: 1;}
 
     .lang_toggle_btn {font-size: 14px; padding: 8px 4px;}
 

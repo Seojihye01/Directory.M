@@ -124,6 +124,7 @@
 
 }
 
+/* 2. 모바일 (768px 이하) */
 @media screen and (max-width: 768px) {
     
   .my5_project_section {padding: 60px 0;}
@@ -135,29 +136,51 @@
   .my5_delete_btn {position: fixed; bottom: 20px; top: auto; left: 20px; font-size: 12px; 
                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);}
 
-  /* 모바일에서 타이틀이 위로 빠지므로 헤더 영역 전체를 감싸는 구조로 변경 */
   .my5_table_header {position: relative; padding: 50px 0 16px 0; font-size: 11px;}
   
-  /* 절대위치로 상단 배치 */
   .back_trigger {position: absolute; top: 0; left: 0; margin-right: 0; font-size: 15px;}
 
-  /* 💡 핵심: 모바일에서는 헤더와 바디의 왼쪽 여백을 없애고 100% 일치시킵니다 */
-  .my5_table_header.mode_interest, 
-  .my5_table_header.mode_project {padding-left: 0; justify-content: flex-start;}
+  .my5_table_header.mode_interest, .my5_table_header.mode_project {padding-left: 0; justify-content: flex-start;}
 
-  .my5_table_body.mode_interest,
-  .my5_table_body.mode_project {margin-left: 0; border-top: 1px solid #c1c1c1;} 
+  .my5_table_body.mode_interest, .my5_table_body.mode_project {margin-left: 0; border-top: 1px solid #c1c1c1;} 
 
-  /* 체크박스 정렬 맞춤 */
   .col_check {width: 50px; justify-content: center; flex-shrink: 0;}
 
   .my5_check_box {border: 1px solid #121212;}
-  /* 각 컬럼 너비 비율을 헤더와 바디 동일하게 고정 */
+
   .col_name {flex: 2; font-size: 10px; padding-left: 10px;}
 
   .col_rate, .col_days, .col_status, .col_tier {flex: 1; font-size: 10px; text-align: center;}
 
-  /* 테이블 행 내부 여백 조절 */
   .my5_table_row {padding: 14px 0;}
 
+}
+
+/* 3. 초소형 모바일 (480px 이하) */
+@media screen and (max-width: 480px) {
+
+  .my5_table_header {position: relative; padding: 36px 0 12px 0; font-size: 10px; width: 100%;}
+
+  .back_trigger {position: absolute; top: 0; left: 0; margin-right: 0; font-size: 13px; gap: 6px;}
+
+  .my5_arrow {width: 8px;}
+
+  .my5_table_body.mode_interest, .my5_table_body.mode_project {margin-left: 0; width: 100%;}
+
+  .my5_table_row {padding: 10px 0;}
+
+  .col_check {width: 32px; flex-shrink: 0;}
+
+  .my5_custom_check_btn {width: 14px; height: 14px;}
+
+  .my5_check_img {width: 10px;}
+
+  .col_name {flex: 1.8; font-size: 9.5px; padding-left: 4px; padding-right: 4px; white-space: nowrap;
+             overflow: hidden; text-overflow: ellipsis;}
+
+  .col_rate, .col_days, .col_status, .col_tier {flex: 1; font-size: 9px; text-align: center; white-space: nowrap;
+                                                overflow: hidden; text-overflow: ellipsis;}
+
+  .my5_container { padding: 0 12px; }
+  
 }
