@@ -21,7 +21,7 @@ export interface UserProfile {
   sirname: string;
   email: string;
   role: string;
-  tier: string;
+  mem: string;
   cardNumber: string;
   sinceDate: string;
   favourite: string;
@@ -33,7 +33,7 @@ const MyWrapper: React.FC<MyWrapperProps> = ({ onMovieClick, isSaved, activeTab 
     sirname : "SEO",
     email: "jihyeseo0801@gmail.com",
     role: "Creator",
-    tier: "PLATINUM",
+    mem: "Pro",
     cardNumber: "000 001 2025 1201",
     sinceDate: "01 / 12 / 2025",
     favourite: "Fantasy"

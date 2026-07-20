@@ -151,8 +151,12 @@
 
   .pricing_title {font-size: 18px;}
 
+  .price_card {max-width: 380px;}
+
   .card_header {flex-direction: column; align-items: flex-start; gap: 4px;}
 
   .plan_price {font-size: 18px;}
+
+  .bottom_banner {max-width: 380px;}
 
 }

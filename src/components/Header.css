@@ -148,9 +148,10 @@ html {scroll-behavior: smooth;}
     .nav_container {position: fixed; top: -100vh; right: 0; width: 80%; height: auto; max-height: 100vh; gap: 40px;
                     background: #f9f9f9; display: flex; flex-direction: column; padding: 80px 40px 40px; 
                     z-index: 10000; box-shadow: -5px 0 15px rgba(18, 18, 18, 0.1); justify-content: flex-start; 
-                    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-sizing: border-box;}
+                    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-sizing: border-box; overflow-y: auto;
+                    visibility: hidden;}
 
-    .nav_container.active {top: 0; right: 0;}
+    .nav_container.active {top: 0; right: 0; visibility: visible;}
     
     .nav_container .lang_toggle_btn {color: #121212 !important; font-size: 14px; padding: 6px 4px; opacity: 0.5;}
 
@@ -202,7 +203,7 @@ html {scroll-behavior: smooth;}
 
     .search_modal_content {height: 80vh; border-radius: 20px;}
     
-    .gnb2 {flex-direction: column; justify-content: flex-start; width: 100%; gap: 20px; order: 3;}
+    .gnb2 {flex-direction: column; justify-content: flex-start; width: 100%; gap: 20px; order: 3; opacity: 1;}
 
     .gnb2 .menu_item {padding: 10px 0; width: 100%;}
 

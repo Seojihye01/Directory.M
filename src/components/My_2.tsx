@@ -39,6 +39,15 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, openAccou
   const bgPositionY = useTransform(mouseY, [-0.5, 0.5], ["0%", "100%"]);
   const shimmerPosition = useTransform([bgPositionX, bgPositionY], ([x, y]) => `${x} ${y}`);
 
+  // 마우스 위치에 따른 오로라 그래디언트 이동
+  const shimmerStyle = {
+    backgroundPosition: useTransform(
+      [bgPositionX, bgPositionY],
+      ([x, y]) => `${x} ${y}`
+    ),
+    filter: 'blur(10px)', // 오로라처럼 경계선이 은은하게 퍼지도록 처리
+  };
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isTouchDevice) return;
     const rect = e.currentTarget.getBoundingClientRect();
@@ -78,12 +87,12 @@ const My_2: React.FC<SubSectionProps> = ({ id, setActiveSection, user, openAccou
           onTouchEnd={handleMouseLeave}  
           style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         >
-          <motion.div className="my2_shimmer_layer" style={{ backgroundPosition: shimmerPosition }} />
+          <motion.div className="my2_shimmer_layer" style={shimmerStyle} />
 
           <div className="my2_card_contents">
             <div className="my2_card_header">DIRECTORY.M</div>
             <hr className="my2_card_divider" />
-            <div className="my2_user_name">{user.name} {user.sirname} | {user.tier}</div>
+            <div className="my2_user_name">{user.name} {user.sirname} | {user.mem}</div>
             <div className="my2_card_number">{user.cardNumber}</div>
             <div className="my2_card_date">SINCE {user.sinceDate}</div>
             
