@@ -75,13 +75,13 @@
 .fu4_responsive_scroll_lbl {display: none;}
 
 #funding_4_section .custom_cursor_wrapper {position: fixed; width: 50px; height: 50px; z-index: 9999; pointer-events: none;
-                        transform: translate(-50%, -50%) scale(0); transition: transform 0.2s;}
+                                           transform: translate(-50%, -50%) scale(0); transition: transform 0.2s;}
 
 #funding_4_section .custom_cursor_wrapper.active {transform: translate(-50%, -50%) scale(1);}
 
 #funding_4_section .custom_cursor_visual {width: auto; height: auto; padding: 8px 12px; backdrop-filter: blur(2px); border-radius: 4px; 
-                       display: flex; justify-content: center; align-items: center; 
-                       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);}
+                                          display: flex; justify-content: center; align-items: center; 
+                                          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);}
 
 .fu4_scroll_lbl {font-size: 9px; letter-spacing: 0.15em; font-weight: 600; font-style: normal;
                  color: #121212; line-height: 1;}

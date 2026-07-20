@@ -17,7 +17,13 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
     const [searchValue, setSearchValue] = useState(""); // 검색어 텍스트를 제어 상태
     const { i18n } = useTranslation();
 
-    
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const sectionIndex = queryParams.get('section');
+        if (sectionIndex !== null) {
+            // 해당 섹션으로 스크롤 이동 로직
+        }
+    }, [location.search]);
     
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -67,37 +73,37 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
 
                     <ul className='gnb1'>
                         <li className={`gnbH ${openSubMenu === 'curation' ? 'active' : ''}`} onClick={() => toggleSubMenu('curation')}>
-                        <Link to='/curation' onClick={(e) => window.innerWidth > 768 ? null : e.preventDefault()}>CURATION</Link>
+                        <Link to='/curation' onClick={(e) => {if (window.innerWidth <= 768) {e.preventDefault();}}}>CURATION</Link>
                         <div className='sub_gnb'>
                             <Link to='/curation' className="go_page_link" onClick={() => setIsMenuOpen(false)}>To Curation Space</Link>
-                            <div className='sub'><Link to='/curation?section=0'>Entrance</Link></div>
-                            <div className='sub'><Link to='/curation?section=1'>Prologue</Link></div>
-                            <div className='sub'><Link to='/curation?section=2'>Room No.01</Link></div>
-                            <div className='sub'><Link to='/curation?section=3'>Collection</Link></div>
-                            <div className='sub'><Link to='/curation?section=4'>Emblems</Link></div>
-                            <div className='sub'><Link to='/curation?section=5'>Observatory</Link></div>
-                            <div className='sub'><Link to='/curation?section=6'>Index</Link></div>
+                            <div className='sub'><Link to='/curation?section=0' onClick={(e) => e.stopPropagation()}>Entrance</Link></div>
+                            <div className='sub'><Link to='/curation?section=1' onClick={(e) => e.stopPropagation()}>Prologue</Link></div>
+                            <div className='sub'><Link to='/curation?section=2' onClick={(e) => e.stopPropagation()}>Room No.01</Link></div>
+                            <div className='sub'><Link to='/curation?section=3' onClick={(e) => e.stopPropagation()}>Collection</Link></div>
+                            <div className='sub'><Link to='/curation?section=4' onClick={(e) => e.stopPropagation()}>Emblems</Link></div>
+                            <div className='sub'><Link to='/curation?section=5' onClick={(e) => e.stopPropagation()}>Observatory</Link></div>
+                            <div className='sub'><Link to='/curation?section=6' onClick={(e) => e.stopPropagation()}>Index</Link></div>
                         </div>
                     </li>
                     <li className={`gnbH ${openSubMenu === 'explore' ? 'active' : ''}`} onClick={() => toggleSubMenu('explore')}>
-                        <Link to='/explore' onClick={(e) => window.innerWidth > 768 ? null : e.preventDefault()}>EXPLORE</Link>
+                        <Link to='/explore' onClick={(e) => {if (window.innerWidth <= 768) {e.preventDefault();}}}>EXPLORE</Link>
                         <div className='sub_gnb'>
                             <Link to='/explore' className="go_page_link" onClick={() => setIsMenuOpen(false)}>To Explore Space</Link>
-                            <div className='sub'><Link to='/explore?section=0'>Intro</Link></div>
-                            <div className='sub'><Link to='/explore?section=1'>Exhibition</Link></div>
-                            <div className='sub'><Link to='/explore?section=3'>All Kinds of Cinema</Link></div>
-                            <div className='sub'><Link to='/explore?section=4'>Discovery</Link></div>
+                            <div className='sub'><Link to='/explore?section=0' onClick={(e) => e.stopPropagation()}>Intro</Link></div>
+                            <div className='sub'><Link to='/explore?section=1'onClick={(e) => e.stopPropagation()}>Exhibition</Link></div>
+                            <div className='sub'><Link to='/explore?section=3' onClick={(e) => e.stopPropagation()}>All Kinds of Cinema</Link></div>
+                            <div className='sub'><Link to='/explore?section=4' onClick={(e) => e.stopPropagation()}>Discovery</Link></div>
                         </div>
                     </li>
                     <li className={`gnbH ${openSubMenu === 'funding' ? 'active' : ''}`} onClick={() => toggleSubMenu('funding')}>
-                        <Link to='/funding' onClick={(e) => window.innerWidth > 768 ? null : e.preventDefault()}>FUNDING</Link>
+                        <Link to='/funding' onClick={(e) => {if (window.innerWidth <= 768) {e.preventDefault();}}}>FUNDING</Link>
                         <div className='sub_gnb'>
                             <Link to='/funding' className="go_page_link" onClick={() => setIsMenuOpen(false)}>To Funding Space</Link>
-                            <div className='sub'><Link to='/funding?section=0'>Final Piece</Link></div>
-                            <div className='sub'><Link to='/funding?section=1'>Take #01</Link></div>
-                            <div className='sub'><Link to='/funding?section=2'>Live Projects</Link></div>
-                            <div className='sub'><Link to='/funding?section=3'>Values</Link></div>
-                            <div className='sub'><Link to='/funding?section=4'>Funding Report</Link></div>
+                            <div className='sub'><Link to='/funding?section=0' onClick={(e) => e.stopPropagation()}>Final Piece</Link></div>
+                            <div className='sub'><Link to='/funding?section=1' onClick={(e) => e.stopPropagation()}>Take #01</Link></div>
+                            <div className='sub'><Link to='/funding?section=2' onClick={(e) => e.stopPropagation()}>Live Projects</Link></div>
+                            <div className='sub'><Link to='/funding?section=3' onClick={(e) => e.stopPropagation()}>Values</Link></div>
+                            <div className='sub'><Link to='/funding?section=4' onClick={(e) => e.stopPropagation()}>Funding Report</Link></div>
                         </div>
                     </li>
                 </ul>

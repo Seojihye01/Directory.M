@@ -103,7 +103,7 @@ const Funding_4 = () => {
       touchStartY.current = e.touches[0].clientY;
     };
 
-    // 3. 모바일 터치 무브 (★핵심 락킹 알고리즘)
+    // 3. 모바일 터치 무브 (핵심 락킹 알고리즘)
     const handleTouchMove = (e: TouchEvent) => {
       const rect = targetSection.getBoundingClientRect();
       // 섹션이 모바일 화면을 덮고 있는 상태인지 확인
@@ -118,7 +118,7 @@ const Funding_4 = () => {
       const scrollingUp = diffY < 0;
 
       // 첫 단계에서 위로 스크롤하거나, 마지막 단계에서 완전히 아래로 탈출할 때가 아니라면
-      // '모든 터치 무브'를 완전 차단하여 모바일 고무줄 스크롤(Bounce)을 원천 봉쇄합니다.
+      // '모든 터치 무브'를 완전 차단하여 모바일 고무줄 스크롤(Bounce)을 원천 봉쇄
       const isFirstStepExit = currentIdx === -3 && scrollingUp;
       const isLastStepExit = currentIdx === 4 && scrollingDown && !isAnimating.current;
 
@@ -131,7 +131,7 @@ const Funding_4 = () => {
         return;
       }
 
-      // 너무 예민한 스크롤 방지를 위한 픽셀 임계값 (30px 이상 움직였을 때만 판정)
+      // 스크롤 방지를 위한 픽셀 임계값 (30px 이상 움직였을 때만 판정)
       if (Math.abs(diffY) < 30) return;
 
       // 내부 스텝 유지 관리용 강제 센터링
@@ -144,7 +144,7 @@ const Funding_4 = () => {
       changeStepFlow(scrollingDown);
     };
 
-    // ⭐️ 전역 window와 타겟 섹션에 { passive: false }로 리스너를 직접 주입하여 브라우저 가로채기 방지
+    // 전역 window와 타겟 섹션에 { passive: false }로 리스너를 직접 주입하여 브라우저 가로채기 방지
     window.addEventListener('wheel', handleGlobalWheel, { passive: false });
     targetSection.addEventListener('touchstart', handleTouchStart, { passive: true });
     targetSection.addEventListener('touchmove', handleTouchMove, { passive: false });
@@ -179,7 +179,7 @@ const Funding_4 = () => {
       onMouseLeave={() => setIsInside(false)}
       onMouseMove={handleMouseMove}
     >
-      <div className="fu4_responsive_scroll_lbl">Scroll</div>
+      {index < 0 && <div className="fu4_responsive_scroll_lbl">Scroll</div>}
       <div className={`custom_cursor_wrapper ${isInside ? 'active' : ''}`} style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}>
         <div className="custom_cursor_visual"><span className="fu4_scroll_lbl">Scroll</span></div>
       </div>

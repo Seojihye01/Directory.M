@@ -18,6 +18,12 @@ const FundingEx_3 = () => {
 
   const MAX_DELAY_COUNT = 5;
 
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    setCursorPos({ x: e.clientX, y: e.clientY });
+  };
+
   // 1. 데이터 로드
   useEffect(() => {
     const found = fundingProjects.find((p) => p.id === Number(id));
@@ -103,16 +109,25 @@ const FundingEx_3 = () => {
       className={`fex3_section step_${step} ${isMobile ? "mobile_mode" : ""}`}
       onMouseEnter={() => setIsInside(true)}
       onMouseLeave={() => setIsInside(false)}
+      onMouseMove={handleMouseMove}
     >
+      <div
+        className={`fex3_cursor_wrapper ${isInside ? 'active' : ''}`}
+        style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px` }}
+      >
+        <div className="fex3_cursor_visual">
+          <span className="fex3_scroll_lbl">Scroll</span>
+        </div>
+      </div>
       <div className="fex3_viewport">
         {/* 시놉시스: 데스크톱은 Step 0일 때만, 모바일은 항상 상단 표시 */}
         <AnimatePresence>
-          {(step === 0 || isMobile) && (
+          {((step >= 0 && step <= 1) || isMobile) && (
             <motion.div
               className="fex3_synopsis_container"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              exit={{ opacity: 0, transition: { duration: 0.6 } }}
             >
               <p className="fex3_synopsis">{project.synopsis}</p>
             </motion.div>
@@ -130,7 +145,7 @@ const FundingEx_3 = () => {
                   ? { x: 0, opacity: 1 }
                   : {
                       x: step >= 2 ? 0 : "35vw",
-                      opacity: step === 0 ? 0 : 1,
+                      opacity: step < 2 ? 0 : 1,
                     }
               }
               transition={{ duration: 1, ease: [0.19, 1, 0.22, 1] }}
