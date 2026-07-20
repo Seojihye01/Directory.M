@@ -20,7 +20,6 @@ import ScrollToTop from "./components/ScrollToTop";
 import TopButton from "./components/TopBtn";
 import Navigation from "./components/Nav"; // 엘리베이터 버튼
 import My from "./components/My"; 
-import Membership from "./components/Member"; 
 import Member from './components/Member';
 
 function App() {
