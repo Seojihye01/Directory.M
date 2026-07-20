@@ -114,7 +114,7 @@ const Funding_2 = () => {
       touchStartY.current = e.touches[0].clientY;
     };
 
-    // 3. 모바일 터치 무브 알고리즘 (★완전 교정)
+    // 3. 모바일 터치 무브 알고리즘 
     const handleTouchMove = (e: TouchEvent) => {
       if (isVideoActiveRef.current) return;
       const rect = target.getBoundingClientRect();
@@ -122,6 +122,7 @@ const Funding_2 = () => {
       if (!inView) return;
 
       const currentStep = stepRef.current;
+      const currentY = e.touches[0].clientY;
       const deltaY = touchStartY.current - e.touches[0].clientY; 
       const scrollingDown = deltaY > 0;
       const scrollingUp = deltaY < 0;
@@ -135,13 +136,16 @@ const Funding_2 = () => {
         return; // 탈출
       }
 
-      if (Math.abs(deltaY) < 40) return; // 감도 조절
+      // 섹션 중앙 고정
+      target.scrollIntoView({ behavior: 'auto', block: 'center' });
+
+      if (Math.abs(deltaY) < 25 || isAnimating.current) return; // 감도 조절
 
       if (currentStep === 6 && !isVideoActiveRef.current) {
         target.scrollIntoView({ behavior: 'auto', block: 'center' });
         if (scrollingUp && !isAnimating.current) {
           changeStep('prev');
-          touchStartY.current = e.touches[0].clientY;
+          touchStartY.current = currentY;
         }
         return;
       }
@@ -264,8 +268,10 @@ const Funding_2 = () => {
         <div className="responsive_action_hint">
           {step < 6 ? (
             <span key="m-scroll" className="hint_text m_scroll_lbl">Scroll</span>
+          ) : count > 0 ? (
+            <span key={`count-${count}`} className="hint_text">{count}</span>
           ) : (
-            <span key={count} className="hint_text">{count > 0 ? `${count}` : 'ACTION'}</span>
+            <span key="action" className="hint_text action_lbl">TOUCH TO ACTION</span>
           )}
         </div>
       )}

@@ -6,5 +6,42 @@
     "title1": "Funding Amount",
     "title2": "Active Supporters",
     "text": "Want to be part of the scene?"
+  },
+  "curation1": {
+    "title1": "Enter the Curator's Space"
+  },
+  "curation7": {
+    "text1": "Archive in Library",
+    "text2": "CURATION   02   IS   BEING   PREPARED",
+    "text3": "CURATION   03   IS   BEING   PREPARED"
+  },
+  "explore5": {
+    "title1": "TOP",
+    "title2": "NEW",
+    "title3": "WATCHING",
+    "title4": "MY PALATE"
+  },
+  "funding5": {
+    "text1": "Films Funded",
+    "text2": "Festival Selections",
+    "text3": "Completion Rate"
+  },
+  "login": {
+    "text1": "EMAIL",
+    "text2": "PASSWORD",
+    "text3": "LOGIN",
+    "text4": "Remember me",
+    "text5": "Forgot password?",
+    "text6": "Not a member?",
+    "text7": "Continue with Google",
+    "text8": "Continue with Naver"
+  },
+  "my4": {
+    "title1": "WATCHING",
+    "title2": "MY PALATE",
+    "title3": "SAVED",
+    "text1": "Remember the moment you discovered?",
+    "text2": "Ready to explore your taste?",
+    "text3": "What stories are you waiting for?"
   }
 }

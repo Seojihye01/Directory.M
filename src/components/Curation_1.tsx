@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import './Curation_1.css';
 
 const Curation_1 = () => {
+    const { t } = useTranslation();
     const [isEntering, setIsEntering] = useState(false);
 
     // 1. 중복 제거 및 모든 장르 추출
@@ -93,7 +95,7 @@ const Curation_1 = () => {
                         >
                             <button className="editor_entry_btn" onClick={handleEnterClick}>
                                 <motion.span exit={{ opacity: 0, transition: { duration: 0.3 } }}>
-                                    Enter the Curator's Space
+                                    {t('curation1.title1')}
                                 </motion.span>
                             </button>
                         </motion.div>

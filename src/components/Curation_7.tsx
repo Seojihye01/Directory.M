@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { allMovies, type Movie } from "./MovieData"; 
+import { useTranslation } from 'react-i18next';
 import './Curation_7.css';
 
 // 부모로부터 받아올 인터페이스 명시
@@ -9,6 +10,7 @@ interface Curation7Props {
 }
 
 const Curation_7: React.FC<Curation7Props> = ({ isSaved, setIsSaved }) => {
+    const { t } = useTranslation();
     const [activePage, setActivePage] = useState<number | null>(null);
 
     const handlePageClick = (num: number) => {
@@ -46,7 +48,7 @@ const Curation_7: React.FC<Curation7Props> = ({ isSaved, setIsSaved }) => {
                                 <div className="header_row">
                                     <div className={`archive_btn ${isSaved ? "saved" : ""}`} 
                                         onMouseDown={handleToggleSave}>
-                                        <span>Archive in Library</span>
+                                        <span>{t('curation7.text1')}</span>
                                         <div className="icon_img_wrap">
                                             <img 
                                                 src={isSaved ? "/media/etc/check.svg" : "/media/etc/save.svg"} 
@@ -70,7 +72,7 @@ const Curation_7: React.FC<Curation7Props> = ({ isSaved, setIsSaved }) => {
                                     ) : (
                                         <div className="locked_view">
                                             <p className="locked_msg">
-                                                CURATION &nbsp; 0{num} &nbsp; IS &nbsp; BEING &nbsp; PREPARED</p>
+                                                {t(`curation7.text${num}`)}</p>
                                         </div>
                                     )}
                                 </div>

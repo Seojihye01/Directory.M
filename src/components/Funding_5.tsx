@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom"; // 상세 이동을 위한 훅
 import { motion, useInView } from "framer-motion";
 import { fundingProjects } from "./FundingData";
+import { useTranslation } from 'react-i18next';
 import "./Funding_5.css";
 
 const useCountUp = (end: number, duration: number = 2000, startAnim: boolean, delay: number = 0) => {
@@ -41,6 +42,7 @@ const useCountUp = (end: number, duration: number = 2000, startAnim: boolean, de
 };
 
 const Funding_5 = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const sectionRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
@@ -100,15 +102,15 @@ const Funding_5 = () => {
       <div className="stats_container" ref={statsRef}>
         <div className="stat_item">
           <span className="stat_num">{filmsFunded}</span>
-          <p className="stat_label">Films Funded</p>
+          <p className="stat_label">{t('funding5.text1')}</p>
         </div>
         <div className="stat_item">
           <span className="stat_num">{festivalSelections}</span>
-          <p className="stat_label">Festival Selections</p>
+          <p className="stat_label">{t('funding5.text2')}</p>
         </div>
         <div className="stat_item">
           <span className="stat_num">{completionRate}%</span>
-          <p className="stat_label">Completion Rate</p>
+          <p className="stat_label">{t('funding5.text3')}</p>
         </div>
       </div>
     </section>

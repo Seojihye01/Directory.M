@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { allMovies, type Movie } from "./MovieData";
+import { useTranslation } from 'react-i18next';
 import './Explore_5.css';
 
 interface ExploreProps {
@@ -10,6 +11,14 @@ interface ExploreProps {
 }
 
 const Explore_5 = ({ onMovieClick, isModalOpen, activeTab, setActiveTab }: ExploreProps) => {
+    const { t } = useTranslation();
+    const TAB_KEYS: { [key: string]: string } = {
+        "TOP": "explore5.title1",
+        "NEW": "explore5.title2",
+        "WATCHING": "explore5.title3",
+        "MY PALATE": "explore5.title4"
+    };
+    
     const categoryData: { [key: string]: Movie[] } = {
         "TOP": [allMovies[15], allMovies[10], allMovies[3], allMovies[0], allMovies[8]], 
         "NEW": [allMovies[10], allMovies[0], allMovies[2], allMovies[5], allMovies[12]],
@@ -143,7 +152,7 @@ const Explore_5 = ({ onMovieClick, isModalOpen, activeTab, setActiveTab }: Explo
                             }}
                         >
                             {Object.keys(categoryData).map((tab) => (
-                                <h2 key={tab} className={activeTab === tab ? "active" : ""} onClick={() => setActiveTab(tab)}>{tab}</h2>
+                                <h2 key={tab} className={activeTab === tab ? "active" : ""} onClick={() => setActiveTab(tab)}>{t(TAB_KEYS[tab])}</h2>
                             ))}
                         </nav>
                         <div className={`ex5_date ${step === 1 ? 'visible' : ''}`}>{currentDate}</div>

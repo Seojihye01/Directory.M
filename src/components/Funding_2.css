@@ -178,12 +178,15 @@
                            text-align: center; pointer-events: none; font-size: 12px; letter-spacing: 0.2em; font-weight: 600; 
                            animation: pulse 1.3s infinite; z-index: 30;}
 
-  .hint_text {animation: hint_pop 0.7s ease-out forwards;}
+  .responsive_action_hint .hint_text {display: inline-block; animation: hint_pop 0.7s ease-out forwards;}
 
-  .responsive_action_hint .hint_text.m_scroll_lbl {font-size: 11px; letter-spacing: 0.15em;
-                                                   color: rgba(249, 249, 249, 0.6);}
+  .responsive_action_hint .hint_text.m_scroll_lbl {font-size: 11px; letter-spacing: 0.15em; color: rgba(249, 249, 249, 0.6);
+                                                   animation: pulse 1.3s infinite;}
 
   .step_5 .responsive_action_hint .hint_text.m_scroll_lbl {color: rgba(249, 249, 249, 0.9);}
+
+  .responsive_action_hint .hint_text.action_lbl {font-size: 11px; letter-spacing: 0.15em; color: #f9f9f9;  
+                                                 animation: pulse 1s infinite;}
 
 }
 

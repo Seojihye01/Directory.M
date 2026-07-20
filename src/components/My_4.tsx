@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { allMovies, type Movie } from './MovieData';
+import { useTranslation } from 'react-i18next';
 import './My_4.css';
 
 interface TimelineSectionProps {
@@ -18,6 +19,7 @@ interface TimelineMovie extends Movie {
 type TabType = 'watching' | 'myPalate' | 'saved';
 
 export const My_4: React.FC<TimelineSectionProps> = ({ id, setActiveSection, onMovieClick }) => {
+  const { t } = useTranslation();
   const { ref, inView } = useInView({ threshold: 0.2 });
   const [currentTab, setCurrentTab] = useState<TabType>('watching');
 
@@ -71,9 +73,9 @@ export const My_4: React.FC<TimelineSectionProps> = ({ id, setActiveSection, onM
   };
 
   const emptyMessages: Record<TabType, string> = {
-  watching: "Remember the moment you discovered?",
-  myPalate: "Ready to explore your taste?",
-  saved: "What stories are you waiting for?" 
+  watching: t('my4.text1'),
+  myPalate: t('my4.text2'),
+  saved: t('my4.text3') 
   };
 
   const trackRef = useRef<HTMLDivElement>(null);
@@ -357,7 +359,7 @@ export const My_4: React.FC<TimelineSectionProps> = ({ id, setActiveSection, onM
                 onClick={() => handleTabChange('watching')}
               >
                 <span className="my4_indicator">[ <span className="dot">●</span> ]</span>
-                <span className="my4_label">WATCHING</span>
+                <span className="my4_label">{t('my4.title1')}</span>
               </button>
 
               <button 
@@ -365,7 +367,7 @@ export const My_4: React.FC<TimelineSectionProps> = ({ id, setActiveSection, onM
                 onClick={() => handleTabChange('myPalate')}
               >
                 <span className="my4_indicator">[ <span className="dot">●</span> ]</span>
-                <span className="my4_label">MY PALATE</span>
+                <span className="my4_label">{t('my4.title2')}</span>
               </button>
 
               <button 
@@ -373,7 +375,7 @@ export const My_4: React.FC<TimelineSectionProps> = ({ id, setActiveSection, onM
                 onClick={() => handleTabChange('saved')}
               >
                 <span className="my4_indicator">[ <span className="dot">●</span> ]</span>
-                <span className="my4_label">SAVED</span>
+                <span className="my4_label">{t('my4.title3')}</span>
               </button>
             </div>
 

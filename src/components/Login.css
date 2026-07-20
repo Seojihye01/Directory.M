@@ -51,8 +51,8 @@
 
 .floor_2_right {text-align: right; gap: 15px;}
 
-.forgot, .not {font-size: 14px; letter-spacing: 5%; font-weight: 400; 
-               text-decoration: underline; padding-bottom: 10px;}
+.forgot, .not {font-size: 14px; letter-spacing: 5%; font-weight: 400; border-bottom: 1px solid #555;
+               padding-bottom: 2px; margin-bottom: 10px;}
 
 .social_media {display: flex; justify-content: space-between; gap: 15px;}
 
