@@ -1,4 +1,47 @@
+
 {
+  "pricing": {
+    "title": "Membership Plan",
+    "loginToPay": "Log in to Subscribe",
+    "myMembership": "My Membership Plan",
+    "nextPayDate": "Next Payment Date",
+    "month": "mo",
+    "btn": {
+      "select": "Select Plan",
+      "change": "Change Plan",
+      "extension": "Renew Now",
+      "confirm": "Confirm"
+    },
+    "plans": {
+      "basic": {
+        "name": "Basic",
+        "f1": "FHD Quality",
+        "f2": "Watch on 1 device",
+        "f3": "Curation service"
+      },
+      "pro": {
+        "name": "Pro",
+        "f1": "4K UHD Quality",
+        "f2": "Watch on 2 devices",
+        "f3": "Curation service"
+      },
+      "premium": {
+        "name": "Premium",
+        "f1": "4K UHD + HDR Quality",
+        "f2": "Watch on 4 devices",
+        "f3": "Curation service",
+        "f4": "Funding VIP access"
+      }
+    },
+    "modal": {
+      "selectTitle": "Select Plan",
+      "changeTitle": "Change Plan",
+      "extendTitle": "Renew Subscription",
+      "selectDesc": "Would you like to select the {{plan}} plan?",
+      "changeDesc": "Would you like to change your current plan to {{plan}}?",
+      "extendDesc": "Would you like to renew your current {{plan}} plan?"
+    }
+  },
   "main3": {
     "title": "A curator's view\nof cinema"
   },

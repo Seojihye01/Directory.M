@@ -21,6 +21,7 @@ import TopButton from "./components/TopBtn";
 import Navigation from "./components/Nav"; // 엘리베이터 버튼
 import My from "./components/My"; 
 import Membership from "./components/Member"; 
+import Member from './components/Member';
 
 function App() {
   const location = useLocation(); // 현재 경로 파악을 위해 추가
@@ -87,7 +88,7 @@ function App() {
         <Route path="/about/" element={<About />} />
         <Route path="/mypage/" element={<My isSaved={isSaved} activeTab={activeTab} 
                                             onMovieClick={openModal}  />} />
-        <Route path="/membership/" element={<Membership />} />
+        <Route path="/membership/" element={<Member isLoggedIn={isLoggedIn} />} />
       </Routes>
 
       <Footer />

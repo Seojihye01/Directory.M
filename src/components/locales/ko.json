@@ -1,4 +1,46 @@
 {
+  "pricing": {
+    "title": "멤버십 플랜",
+    "loginToPay": "로그인하여 결제하기",
+    "myMembership": "내 멤버십 플랜",
+    "nextPayDate": "다음 결제일",
+    "month": "월",
+    "btn": {
+      "select": "플랜 선택",
+      "change": "플랜 변경",
+      "extension": "연장하기",
+      "confirm": "확인"
+    },
+    "plans": {
+      "basic": {
+        "name": "Basic",
+        "f1": "FHD 화질",
+        "f2": "1대 기기 동시 시청",
+        "f3": "큐레이션 서비스"
+      },
+      "pro": {
+        "name": "Pro",
+        "f1": "4K UHD 화질",
+        "f2": "2대 기기 동시 시청",
+        "f3": "큐레이션 서비스"
+      },
+      "premium": {
+        "name": "Premium",
+        "f1": "4K UHD + HDR 화질",
+        "f2": "4대 기기 동시 시청",
+        "f3": "큐레이션 서비스",
+        "f4": "펀딩 VIP 참여권"
+      }
+    },
+    "modal": {
+      "selectTitle": "플랜 선택 안내",
+      "changeTitle": "플랜 변경 안내",
+      "extendTitle": "구독 연장 안내",
+      "selectDesc": "{{plan}} 플랜을 선택하시겠습니까?",
+      "changeDesc": "현재 이용 중인 플랜에서 {{plan}} 플랜으로 변경하시겠습니까?",
+      "extendDesc": "현재 이용 중인 {{plan}} 플랜을 연장하시겠습니까?"
+    }
+  },
   "main3": {
     "title": "영화를 바라보는\n큐레이터의 시선"
   },

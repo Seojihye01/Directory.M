@@ -1,196 +1,158 @@
-/* 전체 컨테이너 및 템플릿 특유의 깔끔한 배경색 */
-.pricing_container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  box-sizing: border-box;
+.pricing_page {background-color: #e8e8e8; min-height: 100vh; display: flex; flex-direction: column;
+               justify-content: center; align-items: center; padding: 80px 20px 60px; box-sizing: border-box;
+               color: #121212;}
+
+.pricing_title {font-size: 16px; letter-spacing: -0.02em; font-weight: 700; margin-bottom: 36px;}
+
+.cards_container {display: flex; gap: 24px; margin-bottom: 24px;}
+
+.price_card {background: #f4f4f4; border-radius: 12px; width: 250px; min-height: 330px; padding: 28px 20px 20px;
+             display: flex; flex-direction: column; border: 1.5px solid transparent; box-sizing: border-box;
+             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02); transition: all 0.2s ease;}
+
+.price_card.selected {border: 2px solid #777;}
+
+.card_header {display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;}
+
+.plan_name {font-size: 15px; font-weight: 500;}
+
+.plan_price {font-size: 12px; font-weight: 700;}
+
+.toggle_features_btn {display: none;}
+
+.card_divider {width: 100%; height: 1px; border-top: 1px dashed #e0e0e0; margin-bottom: 24px;}
+
+.features_wrapper {flex: 1; display: flex; flex-direction: column;}
+
+.feature_list {list-style: none; padding: 0; margin: 0 0 auto 0; display: flex; flex-direction: column;
+               gap: 14px;}
+
+.feature_list li {font-size: 12px; font-weight: 400; color: #555; line-height: 1.3;}
+
+.card_btn {width: 100%; padding: 12px 0; border-radius: 8px; border: none; background-color: #949494;
+           color: #f4f4f4; font-size: 12px; font-weight: 600; cursor: pointer; margin-top: 24px;
+           transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);}
+
+.card_btn:hover {background-color: #888;}
+
+.card_btn:active {transform: scale(0.98);}
+
+.card_btn.active_btn {background-color: #111;}
+
+.card_btn.active_btn:hover {background-color: #2b2b2b;}
+
+.bottom_banner {width: 798px; background-color: #111; border-radius: 12px; padding: 20px 28px;
+                color: #f4f4f4; box-sizing: border-box; transition: all 0.2s ease-in-out;}
+
+.bottom_banner:active {transform: scale(0.98);}
+
+.banner_content {display: flex; font-size: 15px; font-weight: 500;}
+
+.banner_content.center {justify-content: center; font-size: 16px; letter-spacing: -0.01em;}
+
+.banner_content.between {justify-content: space-between; align-items: center;}
+
+.date_text {font-size: 12px; font-weight: 400; color: #a1a1a6;}
+
+.modal_overlay {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1000;
+                background-color: rgba(0, 0, 0, 0.3); display: flex; justify-content: center;
+                align-items: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);}
+
+.modal_content {position: relative; background: rgba(255, 255, 255, 0.75); padding: 32px 24px 24px;
+                backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); text-align: center;
+                border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 20px; width: 380px; max-width: 88%;
+                height: 40%; animation: modalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box;
+                box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(255, 255, 255, 0.4) inset;}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* 타이틀 헤더 */
-.pricing_header {
-  text-align: center;
-  margin-bottom: 50px;
+.modal_x_btn {position: absolute; top: 16px; right: 18px; background: transparent; border: none; color: #888;
+              font-size: 22px; line-height: 1; cursor: pointer; padding: 4px; transition: color 0.15s ease;}
+
+.modal_x_btn:hover {color: #111;}
+
+.modal_header {display: flex; justify-content: center; align-items: center; width: 100%;}
+
+.modal_header h3 {margin: 0 0 10px 0; font-size: 17px; letter-spacing: -0.02em; font-weight: 700; 
+                  color: #111; text-align: center;}
+
+.modal_body p {font-size: 13.5px; letter-spacing: -0.01em; color: #444; line-height: 1.5;
+               margin: 0 0 20px 0; word-break: keep-all; text-align: center;}
+
+.modal_actions {display: flex; justify-content: center;}
+
+.modal_confirm_btn {width: 100%; padding: 11px 0; border-radius: 10px; border: none; background: #111;
+                    color: #f4f4f4; font-size: 13px; font-weight: 600; cursor: pointer;
+                    transition: background-color 0.2s ease;}
+
+.modal_confirm_btn:hover {background: #2c2c2c;}
+
+/* Responsive Design */
+/* 1. 태블릿 (최대 1024px) */
+@media (max-width: 1024px) {
+
+  .cards_container {gap: 16px; padding: 0 20px;}
+
+  .price_card {padding: 24px 20px;}
+
 }
 
-.pricing_header h2 {
-  font-size: 32px;
-  font-weight: 800;
-  color: #111111;
-  margin: 0 0 12px 0;
-  letter-spacing: -0.02em;
-}
-
-.pricing_header p {
-  font-size: 15px;
-  color: #666666;
-  margin: 0;
-}
-
-/* 카드 배치 그리드 */
-.pricing_cards_wrapper {
-  display: flex;
-  gap: 32px;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
-  margin-bottom: 70px;
-}
-
-/* 개별 가격 카드 공통 스타일 (템플릿 입체감 구현) */
-.pricing_card {
-  width: 340px;
-  background: #ffffff;
-  border-radius: 28px;
-  overflow: hidden;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05); /* 부드럽게 붕 뜬 듯한 템플릿 그림자 */
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  display: flex;
-  flex-direction: column;
-}
-
-/* 템플릿 상단의 라운드된 인포 박스 영역 (Silver 기본: 연한 회색) */
-.pricing_card .card_top_section {
-  background-color: #f0f0f2;
-  margin: 12px;
-  padding: 32px 24px;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-/* Platinum 하이라이트 카드 (템플릿의 Professional 블루 톤 구현) */
-.pricing_card.featured .card_top_section {
-  background-color: #e3e8f8; /* 은은한 푸른빛 톤 */
-}
-
-/* 플랜 텍스트 배지 */
-.pricing_card .badge {
-  align-self: flex-start;
-  background: #ffffff;
-  padding: 6px 16px;
-  border-radius: 30px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #444444;
-  letter-spacing: 0.04em;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-}
-
-/* 가격 레이아웃 */
-.pricing_card .price_title {
-  margin-top: 24px;
-  display: flex;
-  align-items: baseline;
-}
-
-.pricing_card .amount {
-  font-size: 40px;
-  font-weight: 800;
-  color: #111111;
-  letter-spacing: -0.01em;
-}
-
-.pricing_card .period {
-  font-size: 14px;
-  color: #666666;
-  font-weight: 500;
-  margin-left: 2px;
-}
-
-.pricing_card .card_desc {
-  font-size: 13px;
-  color: #555555;
-  margin: 12px 0 24px 0;
-  font-weight: 500;
-}
-
-/* 검정색 메인 CTA 결제하기 버튼 */
-.pricing_card .pricing_cta_btn {
-  width: 100%;
-  height: 48px;
-  background-color: #111111;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-.pricing_card .pricing_cta_btn:hover {
-  background-color: #2a2a2a;
-}
-
-.pricing_card .pricing_cta_btn:active {
-  transform: scale(0.98);
-}
-
-/* 카드 하단 흰색 서비스 제공 리스트 영역 */
-.pricing_card .card_bottom_section {
-  padding: 24px 28px 36px 28px;
-}
-
-.pricing_card .feature_list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.pricing_card .feature_list li {
-  font-size: 13px;
-  color: #555555;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-/* 하단 정책 가이드 영역 */
-.pricing_policy_section {
-  width: 100%;
-  max-width: 712px; /* 카드 2개 정렬 넓이에 맞춰 중앙 정렬 */
-  margin-top: 30px;
-  padding: 32px;
-  border-top: 1px solid #e5e5e5;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.pricing_policy_section .policy_item h4 {
-  font-size: 13px;
-  font-weight: 700;
-  color: #333333;
-  margin: 0 0 6px 0;
-}
-
-.pricing_policy_section .policy_item p {
-  font-size: 12px;
-  color: #777777;
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* 모바일 반응형 처리 */
+/* 2. 모바일(최대 768px) */
 @media (max-width: 768px) {
-  .pricing_cards_wrapper {
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-  }
-  .pricing_card {
-    width: 100%;
-    max-width: 340px;
-  }
-  .pricing_policy_section {
-    padding: 24px 16px;
-  }
+
+  .pricing_page {padding: 100px 16px 60px; justify-content: flex-start;}
+
+  .pricing_title {font-size: 24px; margin-bottom: 32px;}
+
+  .cards_container {flex-direction: column; align-items: center; gap: 20px; width: 100%;}
+
+  .price_card {width: 100%; max-width: 400px; min-height: auto; padding: 20px;}
+
+  .card_header {margin-bottom: 8px;}
+
+  .toggle_features_btn {display: flex; justify-content: space-between; align-items: center; background: transparent;
+                        border: none; padding: 6px 0; font-size: 11px; font-weight: 600; color: #666; cursor: pointer;
+                        width: 100%;}
+
+  .mem_arrow_icon {width: 20px; height: 20px; display: inline-block; transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+               transform-origin: center center; transform: rotate(90deg);}
+
+  .mem_arrow_icon.open {transform: rotate(270deg);}
+
+  .card_divider {margin: 8px 0 16px 0;}
+
+  .features_wrapper {max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);}
+
+  .features_wrapper.expanded {max-height: 500px; transition: max-height 0.3s ease-in-out;}
+
+  .feature_list {padding-bottom: 16px;}
+
+  .card_btn {margin-top: 12px;}
+
+  .bottom_banner {width: 100%; max-width: 400px; margin: 24px auto 0; padding: 16px 20px;}
+
+  .banner_content.between {flex-direction: column; gap: 6px; text-align: center; font-size: 13px;}
+
+  .modal_content {width: 90%; padding: 24px 20px 18px; border-radius: 16px;}
+
+  .modal_header h3 {font-size: 16px;}
+
+  .modal_body p {font-size: 13px; margin-bottom: 16px;}
+
+  .modal_x_btn {top: 12px; right: 14px; font-size: 20px;}
+
+}
+
+/* 3. 소형 모바일 (최대 480px) */
+@media (max-width: 480px) {
+
+  .pricing_title {font-size: 18px;}
+
+  .card_header {flex-direction: column; align-items: flex-start; gap: 4px;}
+
+  .plan_price {font-size: 18px;}
+
 }

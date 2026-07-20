@@ -1,74 +1,208 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import './Member.css';
 
-const Membership: React.FC = () => {
+interface PricingProps {
+  isLoggedIn: boolean;
+}
+
+interface PlanItem {
+  id: string;
+  name: string;
+  price: string;
+  features: string[];
+}
+
+const Member: React.FC<PricingProps> = ({ isLoggedIn }) => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const [currentPlan] = useState<string>('pro');
+  const nextBillingDate = '26.08.21';
+
+  // 모바일 아코디언 개폐 상태 (기본적으로 접힌 상태)
+  const [expandedPlans, setExpandedPlans] = useState<{ [key: string]: boolean }>({});
+
+  // 모달 상태
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [modalData, setModalData] = useState<{ title: string; desc: string }>({ title: '', desc: '' });
+
+  // 모바일 아코디언 토글 함수
+  const togglePlanFeatures = (planId: string) => {
+    setExpandedPlans((prev) => ({
+      ...prev,
+      [planId]: !prev[planId]
+    }));
+  };
+
+  // 요금제 데이터
+  const plansData: PlanItem[] = [
+    {
+      id: 'basic',
+      name: t('pricing.plans.basic.name'),
+      price: '₩9,900',
+      features: [
+        t('pricing.plans.basic.f1'),
+        t('pricing.plans.basic.f2'),
+        t('pricing.plans.basic.f3')
+      ]
+    },
+    {
+      id: 'pro',
+      name: t('pricing.plans.pro.name'),
+      price: '₩12,900',
+      features: [
+        t('pricing.plans.pro.f1'),
+        t('pricing.plans.pro.f2'),
+        t('pricing.plans.pro.f3')
+      ]
+    },
+    {
+      id: 'premium',
+      name: t('pricing.plans.premium.name'),
+      price: '₩19,900',
+      features: [
+        t('pricing.plans.premium.f1'),
+        t('pricing.plans.premium.f2'),
+        t('pricing.plans.premium.f3'),
+        t('pricing.plans.premium.f4')
+      ]
+    }
+  ];
+
+  // 카드 클릭 시 모달 열기
+  const handleCardButtonClick = (plan: PlanItem) => {
+    let title = '';
+    let desc = '';
+
+    if (!isLoggedIn) {
+      title = t('pricing.modal.selectTitle');
+      desc = t('pricing.modal.selectDesc', { plan: plan.name });
+    } else {
+      if (plan.id === currentPlan) {
+        title = t('pricing.modal.extendTitle');
+        desc = t('pricing.modal.extendDesc', { plan: plan.name });
+      } else {
+        title = t('pricing.modal.changeTitle');
+        desc = t('pricing.modal.changeDesc', { plan: plan.name });
+      }
+    }
+
+    setModalData({ title, desc });
+    setModalOpen(true);
+  };
+
+  // 하단 배너 클릭 핸들러
+  const handleBannerClick = () => {
+    if (!isLoggedIn) {
+      navigate('/login');
+    } else {
+      navigate('/mypage');
+    }
+  };
+
   return (
-    <div className="pricing_container">
-      <div className="pricing_header">
-        <h2>Pricing Plans</h2>
-        <p>Choose the right plan for your cinema life.</p>
-      </div>
+    <div className="pricing_page" data-theme="light">
+      <h1 className="pricing_title">{t('pricing.title')}</h1>
 
-      {/* 카드 래퍼 - 템플릿처럼 2개의 카드를 배치 */}
-      <div className="pricing_cards_wrapper">
-        
-        {/* SILVER CARD (Monthly) */}
-        <div className="pricing_card">
-          <div className="card_top_section">
-            <span className="badge">SILVER</span>
-            <div className="price_title">
-              <span className="amount">$9</span>
-              <span className="period">/month</span>
+      {/* 요금제 카드 리스트 */}
+      <div className="cards_container">
+        {plansData.map((plan) => {
+          const isSelected = isLoggedIn && plan.id === currentPlan;
+          const isExpanded = !!expandedPlans[plan.id];
+
+          let btnText = t('pricing.btn.select');
+          if (isLoggedIn) {
+            btnText = isSelected ? t('pricing.btn.extension') : t('pricing.btn.change');
+          }
+
+          return (
+            <div
+              key={plan.id}
+              className={`price_card ${isSelected ? 'selected' : ''}`}
+            >
+              <div className="card_header">
+                <span className="plan_name">{plan.name}</span>
+                <span className="plan_price">{plan.price}/{t('pricing.month')}</span>
+              </div>
+
+              {/* 모바일 전용 토글 화살표 버튼 */}
+              <button 
+                className="toggle_features_btn" 
+                onClick={() => togglePlanFeatures(plan.id)}
+                aria-label="Toggle Details"
+              >
+                <span>Details</span>
+                <img src="/media/etc/arrow_b.svg" alt="" className={`mem_arrow_icon ${isExpanded ? 'open' : ''}`} />
+              </button>
+
+              <div className="card_divider" />
+
+              {/* 모바일에서는 isExpanded 상태에 따라 토글됨 */}
+              <div className={`features_wrapper ${isExpanded ? 'expanded' : ''}`}>
+                <ul className="feature_list">
+                  {plan.features.map((feature, idx) => (
+                    <li key={idx}>{feature}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <button
+                className={`card_btn ${isSelected ? 'active_btn' : ''}`}
+                onClick={() => handleCardButtonClick(plan)}
+              >
+                {btnText}
+              </button>
             </div>
-            <p className="card_desc">Perfect for monthly cinephiles</p>
-            <button className="pricing_cta_btn">Get Started</button>
-          </div>
-          <div className="card_bottom_section">
-            <ul className="feature_list">
-              <li>✓ Unlimited Archiving for 1 Month</li>
-              <li>✓ Stage 3 Custom Ticket Prints</li>
-              <li>✓ Access to Exclusive Creator Fonts</li>
-              <li>✓ High-Resolution Downloads</li>
-            </ul>
-          </div>
-        </div>
+          );
+        })}
+      </div>
 
-        {/* PLATINUM CARD (Yearly) - 템플릿의 PROFESSIONAL처럼 연한 블루 하이라이트 배경 적용 */}
-        <div className="pricing_card featured">
-          <div className="card_top_section">
-            <span className="badge">PLATINUM</span>
-            <div className="price_title">
-              <span className="amount">$89</span>
-              <span className="period">/year</span>
+      {/* 하단 대시보드 배너 */}
+      <div className="bottom_banner" onClick={handleBannerClick} style={{ cursor: 'pointer' }}>
+        {!isLoggedIn ? (
+          <div className="banner_content center">{t('pricing.loginToPay')}</div>
+        ) : (
+          <div className="banner_content between">
+            <span>
+              {t('pricing.myMembership')} : <strong>{plansData.find(p => p.id === currentPlan)?.name}</strong>
+            </span>
+            <span className="date_text">
+              {t('pricing.nextPayDate')} : {nextBillingDate}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* 모달 창 */}
+      {modalOpen && (
+        <div className="modal_overlay" onClick={() => setModalOpen(false)}>
+          <div className="modal_content" onClick={(e) => e.stopPropagation()}>
+            
+            <button className="modal_x_btn" onClick={() => setModalOpen(false)} aria-label="Close">
+              &times;
+            </button>
+
+            <div className="modal_header">
+              <h3>{modalData.title}</h3>
             </div>
-            <p className="card_desc">Best value for full-year creators</p>
-            <button className="pricing_cta_btn">Get Started</button>
-          </div>
-          <div className="card_bottom_section">
-            <ul className="feature_list">
-              <li>✓ Unlimited Archiving for 1 Year</li>
-              <li>✓ Stage 3 Custom Ticket Prints</li>
-              <li>✓ Access to Exclusive Creator Fonts</li>
-              <li>✓ High-Resolution Downloads</li>
-            </ul>
-          </div>
-        </div>
+            
+            <div className="modal_body">
+              <p>{modalData.desc}</p>
+            </div>
 
-      </div>
+            <div className="modal_actions">
+              <button className="modal_confirm_btn" onClick={() => setModalOpen(false)}>
+                {t('pricing.btn.confirm')}
+              </button>
+            </div>
 
-      {/* 하단 정책 안내 영역 */}
-      <div className="pricing_policy_section">
-        <div className="policy_item">
-          <h4>결제 및 자동 갱신</h4>
-          <p>모든 멤버십은 선택하신 주기(월간/연간)에 따라 자동 결제되며, 마이페이지 계정 설정에서 언제든지 해지하실 수 있습니다.</p>
+          </div>
         </div>
-        <div className="policy_item">
-          <h4>취소 및 환불 정책</h4>
-          <p>결제 후 7일 이내에 컨텐츠 시청, 티켓 이미지 다운로드 등의 이용 이력이 없는 경우 100% 환불이 가능합니다. 기간 경과 후 해지 시에는 다음 결제일부터 청구되지 않습니다.</p>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
 
-export default Membership;
+export default Member;
