@@ -89,16 +89,16 @@
                                            text-shadow: 0 0 8px rgba(16, 144, 191, 0.3), 0 0 20px rgba(16, 144, 191, 0.15);}
 
 .logo_box.draggable {position: absolute; top: 40px; left: 40px; width: 231px; height: 196px; background: #121212;
-                     z-index: 500; cursor: url("/media/etc/target_w.svg"), grabbing; touch-action: none;
-                     border: 1px solid rgba(18, 18, 18, 0.1); animation: logo_pulse_glow 1.4s infinite ease-in-out;
-                     transition: box-shadow 0.3s ease, border-color 0.3s ease;}
+                     z-index: 500; touch-action: none; cursor: crosshair; border: 1px solid rgba(18, 18, 18, 0.1); 
+                     animation: logo_pulse_glow 1.4s infinite ease-in-out; transition: box-shadow 0.3s ease, border-color 0.3s ease;}
 
 @keyframes logo_pulse_glow {
   0%, 100% { box-shadow: 0 0 10px rgba(16, 144, 191, 0.25); border-color: rgba(18, 18, 18, 0.1); }
   50% { box-shadow: 0 0 50px rgba(16, 144, 191, 0.55); border-color: rgba(18, 18, 18, 0.5); }
 }
 
-.logo_box.draggable.is_dragging {animation: none; box-shadow: none; border: 1px solid #121212;}
+.logo_box.draggable.is_dragging {animation: none; box-shadow: none; border: 1px solid #121212; 
+                                 cursor: url("/media/etc/target_w.svg") 16 16, grabbing;}
 
 .main_container:has(.logo_box.matched) {cursor: default;}
 

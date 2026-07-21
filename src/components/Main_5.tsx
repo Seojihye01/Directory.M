@@ -91,11 +91,11 @@ const Main_5: React.FC = () => {
                         </div>
                     </div>                    
                        
-                    <p className="main5_question">{t('main5.text')}</p>
+                    <p className="main5_question">{t('main5.text1')}</p>
 
                     <div className="main5_cta_group">
                         <label className="main5_custom_check_btn">
-                            <span className="main5_check_label">VIEW OUR LINEUP</span>
+                            <span className="main5_check_label">{t('main5.text2')}</span>
                             <div className="checkbox_wrapper">
                                 <input type="checkbox" onChange={handleCtaClick} />
                                 <span className="main5_check_box">

@@ -1,21 +1,23 @@
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './About_2.css';
 
 const About_2 = () => {
+  const [isLit, setIsLit] = useState(false);
+  const { t } = useTranslation();
+
   return (
     <div className="about2_container" data-theme="light">
       <div className="about2_bg_wrapper">
-        <img 
-          src="/media/etc/about.png" 
-          alt="Cinematic Background" 
-          className="about2_bg_image"
-        />
+        <img src="/media/etc/about.png" alt="Cinematic Background" className="about2_bg_image" />
       </div>
 
       <div className="about2_mask_overlay"></div>
       <div className="about2_content_wrapper">
         <div className="about2_horizontal_band">
           <div className="about2_center_box">
-            <p className="about2_slug_text">Where the Moment Never Ends</p>
+            <p className={`about2_slug_text ${isLit ? 'lit' : ''}`} onClick={() => setIsLit(!isLit)}>
+                {t('about2.title')}</p>
           </div>
         </div>
 

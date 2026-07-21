@@ -48,7 +48,8 @@
   "main5": {
     "title1": "Funding Amount",
     "title2": "Active Supporters",
-    "text": "Want to be part of the scene?"
+    "text1": "Want to be part of the scene?",
+    "text2": "VIEW OUR LINEUP"
   },
   "curation1": {
     "title1": "Enter the Curator's Space"
@@ -86,5 +87,12 @@
     "text1": "Remember the moment you discovered?",
     "text2": "Ready to explore your taste?",
     "text3": "What stories are you waiting for?"
+  },
+  "about2": {
+    "title": "Where the Moment Never Ends"
+  },
+  "about3": {
+    "title": "Identity",
+    "text": "People often spend more time choosing a movie than actually watching one. To solve this fatigue from endless options—the Paradox of Choice—Directory.M was created.\n\nOur name, Directory.M, perfectly embodies this philosophy and structure. A 'Directory' is a filing system that groups and locates related data, serving as a clear roadmap for systematically categorising content. The 'M' stands for 'Moment'—the foundational building block of a movie.\n\nBy using AI technology to precisely analyse what you might overlook, we guide you to the perfect page of curation tailored to your taste."
   }
 }
