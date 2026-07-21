@@ -113,14 +113,14 @@ const Header = ({ isLoggedIn, onLogout }: HeaderProps) => {
                         <div className="lang_toggle_wrap">
                             <button 
                                 onClick={() => i18n.changeLanguage('ko')} 
-                                className={`lang_toggle_btn ${i18n.language.includes('ko') ? 'active' : ''}`}
+                                className={`lang_toggle_btn ${i18n.language?.startsWith('ko') ? 'active' : ''}`}
                             >
                                 KOR
                             </button>
                             <span className="lang_divider">/</span>
                             <button 
                                 onClick={() => i18n.changeLanguage('en')} 
-                                className={`lang_toggle_btn ${i18n.language.includes('en') ? 'active' : ''}`}
+                                className={`lang_toggle_btn ${i18n.language?.startsWith('en') ? 'active' : ''}`}
                             >
                                 ENG
                             </button>
