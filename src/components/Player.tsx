@@ -29,7 +29,7 @@ const Player = () => {
     const [currentLanguage, setCurrentLanguage] = useState("English");
     
     const [isFullscreen, setIsFullscreen] = useState(false);
-    // ⭐️ 모바일 회전 유도 가이드 상태 추가
+    // 모바일 회전 유도 가이드 상태 추가
     const [showRotateGuide, setShowRotateGuide] = useState(false);
 
     const movieData = allMovies.find((m) => String(m.id) === movieId);
@@ -107,7 +107,7 @@ const Player = () => {
         setIsPlaying(!isPlaying);
     };
 
-    // ⭐️ 실제 모바일 환경 대응 고도화 크로스 브라우징 전체화면 함수
+    // 실제 모바일 환경 대응 고도화 크로스 브라우징 전체화면 함수
     const toggleFullscreen = async () => {
         const container = document.querySelector(".player_container") as any;
         if (!container) return;

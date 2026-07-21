@@ -177,23 +177,23 @@ const Member: React.FC<PricingProps> = ({ isLoggedIn }) => {
 
       {/* 모달 창 */}
       {modalOpen && (
-        <div className="modal_overlay" onClick={() => setModalOpen(false)}>
-          <div className="modal_content" onClick={(e) => e.stopPropagation()}>
+        <div className="mem_modal_overlay" onClick={() => setModalOpen(false)}>
+          <div className="mem_modal_content" onClick={(e) => e.stopPropagation()}>
             
-            <button className="modal_x_btn" onClick={() => setModalOpen(false)} aria-label="Close">
+            <button className="mem_modal_x_btn" onClick={() => setModalOpen(false)} aria-label="Close">
               &times;
             </button>
 
-            <div className="modal_header">
+            <div className="mem_modal_header">
               <h3>{modalData.title}</h3>
             </div>
             
-            <div className="modal_body">
+            <div className="mem_modal_body">
               <p>{modalData.desc}</p>
             </div>
 
-            <div className="modal_actions">
-              <button className="modal_confirm_btn" onClick={() => setModalOpen(false)}>
+            <div className="mem_modal_actions">
+              <button className="mem_modal_confirm_btn" onClick={() => setModalOpen(false)}>
                 {t('pricing.btn.confirm')}
               </button>
             </div>
