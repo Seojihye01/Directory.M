@@ -51,7 +51,7 @@ const Funding_1 = () => {
     });
   }, []);
 
-  // ⭐️ [핵심 교정] PC 휠 스크롤 및 모바일 터치 무브 스크롤 통합 락 로직
+  // PC 휠 스크롤 및 모바일 터치 무브 스크롤 통합 락 로직
   useEffect(() => {
     const target = containerRef.current;
     if (!target) return;
@@ -144,7 +144,7 @@ const Funding_1 = () => {
       target.removeEventListener('touchstart', handleTouchStart);
       target.removeEventListener('touchmove', handleTouchMove);
     };
-  }, []); // 의존성 배열을 비워 리스너가 중복 중첩 생성되는 현상을 차단합니다.
+  }, []); // 의존성 배열을 비워 리스너가 중복 중첩 생성되는 현상을 차단
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -200,7 +200,7 @@ const Funding_1 = () => {
         <h1 
           className="center_supporter"
           style={{
-            transform: `scale(${1 + scaleProgress * (window.innerWidth < 768 ? 3 : 8)})`, // ⭐️ 모바일 scale 배율 최적화 (터짐 방지)
+            transform: `scale(${1 + scaleProgress * (window.innerWidth < 768 ? 3 : 8)})`, // 모바일 scale 배율 최적화 (터짐 방지)
             fontWeight: 300 + Math.floor(scaleProgress * 500),
             letterSpacing: `${scaleProgress * 10}%`,
           }}

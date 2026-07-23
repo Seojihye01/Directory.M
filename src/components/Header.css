@@ -49,6 +49,8 @@
                      background: transparent; text-align: center; border-radius: 0 0 8px 8px; z-index: 10; 
                      box-shadow: 0 4px 15px rgba(18, 18, 18, 0.1);}
 
+.sub_menu {top: 60px;}
+
 .sub_gnb::after, .sub_menu::after {content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(249, 249, 249, 0.65);
                                    backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px); z-index: -1;}
 
