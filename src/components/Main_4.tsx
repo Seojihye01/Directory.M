@@ -90,17 +90,17 @@ const Main_4 = () => {
                onTouchMove={handleTouchMove} onTouchStart={handleTouchMove} data-theme="dark">
           <div className="hud_overlay">
             <div className="hud_item top_left">
-                <span className="blink_icon">●</span> SYSTEM: SCANNING DATA // SOURCE: MOVIEDATA.TS
+                <span className="blink_icon">●</span> SYSTEM : SCANNING DATA // SOURCE : MOVIEDATA.TS
             </div>
             
             <div className="hud_item bottom_left">
-              <div className="loc_data" ref={locRef}>LOC: [ 150, 300 ]</div>
+              <div className="loc_data" ref={locRef}>LOC : [ 150, 300 ]</div>
               <div className="time_data">{currentTime}</div>
               <div className="hud_title">PROJECT_DIRECTORY.M</div>
             </div>
             
             <div className="hud_item bottom_right clickable" onClick={() => navigate('/explore')} onTouchEnd={(e) => { e.stopPropagation(); navigate('/explore'); }}>
-                <div className="hud_main_cta">MISSION: EXPLORE</div>
+                <div className="hud_main_cta">MISSION : EXPLORE</div>
             </div>
           </div>
           

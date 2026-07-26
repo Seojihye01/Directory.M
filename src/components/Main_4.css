@@ -56,7 +56,7 @@
     
     .top_left {font-size: 0.9rem;}
 
-    .bottom_left {bottom: 80px;}
+    .bottom_left, .bottom_right {bottom: 80px;}
 
     .loc_data {font-size: 0.85rem;}
 

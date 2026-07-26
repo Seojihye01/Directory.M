@@ -68,7 +68,7 @@ function App() {
 
       <ScrollToTop />
       
-      {/* [수정 포인트] 메인 페이지일 때만 엘리베이터 네비게이션 노출 */}
+      {/* 메인 페이지일 때만 엘리베이터 네비게이션 노출 */}
       {isMainPage && <Navigation />}
       
       <TopButton />
