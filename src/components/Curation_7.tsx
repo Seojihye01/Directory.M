@@ -62,7 +62,7 @@ const Curation_7: React.FC<Curation7Props> = ({ isSaved, setIsSaved }) => {
                                     {num === 1 ? (
                                         <div className="c7_view">
                                             <div className="c7_issue">
-                                                <p className="issue_no">ISSUE NO. 01</p>
+                                                <p className="issue_no">ISSUE NO.01</p>
                                                 <h1 className="issue_title">INSIDE THE MOMENT</h1>
                                             </div>
                                             <ul className="movie_list">

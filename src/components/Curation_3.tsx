@@ -190,7 +190,7 @@ const Curation_3 = () => {
                     {/* 하단 메타데이터 영역 */}
                     <div className="cu3_bot">
                         <div className="cu3_title_row">
-                            <p className="issue">ISSUE NO. 01</p>
+                            <p className="issue">ISSUE NO.01</p>
                             <h1 className="key_phrase">INSIDE THE MOMENT</h1>
                         </div>
                         <div className="cu3_info_row bold">

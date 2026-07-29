@@ -165,7 +165,7 @@ const Curation_2 = () => {
           <div className="cu2_inner">
             <motion.div key="content" className="cu2_contents" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               <div className="cu2_top_bar">
-                <span>ISSUE NO. 01</span>
+                <span>ISSUE NO.01</span>
                 <span>April, 2026</span>
               </div>
               <div className='cu2_top2_bar'>
