@@ -64,7 +64,7 @@
 .mem_modal_content {position: relative; background: rgba(255, 255, 255, 0.75); padding: 32px 24px 24px;
                     backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); text-align: center;
                     border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 20px; width: 380px; max-width: 85%;
-                    height: 40%; animation: modalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box;
+                    height: auto; animation: modalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box;
                     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(255, 255, 255, 0.4) inset;}
 
 @keyframes modalPop {

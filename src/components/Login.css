@@ -49,6 +49,8 @@
 
 .rm_box {width: 22px; height: 22px; background: #d9d9d9; border-radius: 5px;}
 
+.remember input, .remember label {cursor: pointer;}
+
 .floor_2_right {text-align: right; gap: 15px;}
 
 .forgot, .not {font-size: 14px; letter-spacing: 5%; font-weight: 400; border-bottom: 1px solid #555;
