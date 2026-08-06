@@ -50,11 +50,11 @@ export const My_4: React.FC<TimelineSectionProps> = ({ id, setActiveSection, onM
 
   const dataset: Record<TabType, TimelineMovie[]> = {
     watching: [
-      { ...allMovies[1], date: "26.07.03" }, { ...allMovies[4], date: "26.07.03" },
+      { ...allMovies[1], date: "26.07.03" }, { ...allMovies[10], date: "26.07.03" },
       { ...allMovies[12], date: "26.05.15" }, { ...allMovies[15], date: "26.04.02" },
       { ...allMovies[0], date: "26.02.11" }, { ...allMovies[7], date: "26.02.11" },
       { ...allMovies[8], date: "26.02.11" }, { ...allMovies[3], date: "25.12.22" },
-      { ...allMovies[6], date: "25.12.14" }, { ...allMovies[10], date: "25.12.01" }
+      { ...allMovies[6], date: "25.12.14" }, { ...allMovies[4], date: "25.12.01" }
     ],
     myPalate: [
       { ...allMovies[13], date: "26.07.03" }, { ...allMovies[14], date: "26.06.20" },

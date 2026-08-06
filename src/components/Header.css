@@ -56,7 +56,6 @@
                                    backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px); z-index: -1;}
 
 #header.theme-dark .sub_gnb,
-
 #header.theme-dark .sub_menu {background: rgba(249, 249, 249, 0.2); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px);
                               box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);}
 
@@ -83,8 +82,6 @@
 
 .lang_toggle_btn.active {opacity: 1; font-weight: 600;}
 
-.lang_toggle_btn:hover {opacity: 0.8;}
-
 .gnb2 img {width: 30px; height: 30px; display: inline-block; position: relative; z-index: 9999; cursor: pointer;}
 
 .menu_item {position: relative; padding: 10px 0;}
@@ -97,7 +94,7 @@
 
 .sub Link {display: block; width: 100%; padding: 8px;}
 
-.sub:hover {background: rgba(18, 18, 18, 0.13); border-radius: 8px;}
+.sub:hover {background: rgba(18, 18, 18, 0.13);}
 
 .search_modal_overlay {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(18, 18, 18, 0.6);
                        display: flex; align-items: center; justify-content: center; z-index: 9999; pointer-events: none;
@@ -202,8 +199,7 @@ html {scroll-behavior: smooth;}
                                                         backdrop-filter: none !important; padding: 15px 0 15px 15px !important;
                                                         animation: none !important;}
 
-    .sub {font-size: 14px; padding: 8px 0; color: #121212; border-radius: 8px; 
-          transition: background 0.2s ease;}
+    .sub {font-size: 14px; padding: 8px 0; color: #121212; border-radius: 8px; transition: background 0.2s ease;}
 
     .go_page_link {font-size: 14px; font-weight: 500; color: #121212; margin: 10px 0; display: block;}
 

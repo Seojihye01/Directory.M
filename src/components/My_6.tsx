@@ -41,11 +41,11 @@ export const My_6: React.FC<TimelineSectionProps> = ({ id, setActiveSection, onM
 
   // My_4 watching 데이터셋 바인딩
   const watchingDataset: TimelineMovie[] = [
-    { ...allMovies[1], date: "26.07.03" }, { ...allMovies[4], date: "26.07.03" },
+    { ...allMovies[1], date: "26.07.03" }, { ...allMovies[4], date: "25.12.01" },
     { ...allMovies[12], date: "26.05.15" }, { ...allMovies[15], date: "26.04.02" },
     { ...allMovies[0], date: "26.02.11" }, { ...allMovies[7], date: "26.02.11" },
     { ...allMovies[8], date: "26.02.11" }, { ...allMovies[3], date: "25.12.22" },
-    { ...allMovies[6], date: "25.12.14" }, { ...allMovies[10], date: "25.12.01" }
+    { ...allMovies[6], date: "25.12.14" }, { ...allMovies[10], date: "26.07.03" }
   ];
 
   // 데이터셋에서 유일한 연도 리스트 자동 추출하여 내림차순 정렬

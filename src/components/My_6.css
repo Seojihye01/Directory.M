@@ -112,9 +112,8 @@
 
 .my6_poster_img_wrap {width: 100%; height: 100%; position: relative;}
 
-.my6_poster_placeholder_filter {position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-                                background: linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent);
-                                z-index: 2; pointer-events: none;}
+.my6_poster_placeholder_filter {position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+                                background: linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent); z-index: 2;}
 
 .my6_poster_img_wrap img {width: 100%; height: 100%; object-fit: cover; display: block;}
 
@@ -146,7 +145,7 @@
 
 .my6_movie_no {font-size: 10px; font-weight: 400; color: #757575; display: block; margin-bottom: 5px;}
 
-.my6_movie_main_title {font-size: 24px; letter-spacing: 2px; font-weight: 800; color: #222; margin: 0;}
+.my6_movie_main_title {font-size: 18px; letter-spacing: 2px; font-weight: 800; color: #222; margin: 0;}
 
 .my6_ticket_branding {font-size: 10px; letter-spacing: 0.08em; font-weight: 400; color: #878686; 
                       margin: 14px 0 0 10px;}
