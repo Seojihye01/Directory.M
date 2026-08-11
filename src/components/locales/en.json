@@ -71,9 +71,9 @@
     "text3": "Completion Rate"
   },
   "login": {
-    "text1": "EMAIL",
-    "text2": "PASSWORD",
-    "text3": "LOGIN",
+    "text1": "Email",
+    "text2": "Password",
+    "text3": "Login",
     "text4": "Remember me",
     "text5": "Forgot password?",
     "text6": "Not a member?",
