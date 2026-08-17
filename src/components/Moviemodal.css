@@ -6,9 +6,7 @@
                 transform: scale(1.1);}
 
 .modal_close_btn {position: absolute; top: 0px; right: -10px; background: none; border: none; font-size: 20px; 
-                  cursor: pointer; z-index: 10; color: #121212; transition: transform 0.1s ease;}
-
-.modal_close_btn:active {transform: scale(0.85);}
+                  cursor: pointer; z-index: 10; color: #121212;}
 
 .movie_modal_content {width: 563px; max-height: 95vh; background: rgba(249, 249, 249, 0.8); 
                       position: relative; overflow-y: auto; overflow-x: hidden; border-radius: 8px; 
@@ -35,8 +33,7 @@
                    white-space: nowrap; word-break: keep-all; flex-shrink: 1; max-width: 100%;}
 
 .age_badge {color: #f9f9f9; font-size: 13px; padding: 4px 2px 4px 4px; border-radius: 4px; width: 28px; height: 28px;
-            font-weight: 600; display: flex; justify-content: center; align-items: center; margin-top: 0px;
-            flex-shrink: 0;}
+            font-weight: 600; display: flex; justify-content: center; align-items: center; margin-top: 0px; flex-shrink: 0;}
 
 .age_All {background-color: #207746;} 
 
@@ -66,9 +63,8 @@
 
 .modal_actions {display: flex; gap: 10px; margin: 25px 0;}
 
-.btn_play, .btn_save {flex: 1; height: 44px; border: 2px solid rgba(18, 18, 18, 0.8); font-weight: 600; 
-                      font-size: 13px; letter-spacing: 1px; cursor: pointer; color: #121212;
-                      transition: transform 0.1s ease;}
+.btn_play, .btn_save {flex: 1; height: 44px; border: 2px solid rgba(18, 18, 18, 0.8); font-weight: 600; cursor: pointer; 
+                      font-size: 13px; letter-spacing: 1px; color: #121212; transition: transform 0.1s ease;}
 
 .btn_play:hover, .btn_save:hover {background: #121212; color: #f9f9f9;}
 
@@ -82,8 +78,7 @@
 
 .detail_item .modal_label {color: #888; margin-right: 11px; align-items: left; width: 80px;}
 
-.synopsis_text {margin-top: 20px; font-size: 14px; line-height: 2.5; text-align: justify; margin-top: 50px; 
-                word-break: keep-all;}
+.synopsis_text {font-size: 14px; line-height: 2.5; text-align: justify; margin-top: 50px; word-break: keep-all;}
 
 .section_tab {margin: 40px 0 20px; display: flex; gap: 20px;}
 
@@ -97,7 +92,7 @@
 
 .related_card {position: relative; overflow: hidden; cursor: pointer; border-radius: 6px;}
 
-.related_card img {width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 6px;}
+.related_card img {width: 100%; aspect-ratio: 1 / 1; object-fit: cover;}
 
 .card_overlay {position: absolute; inset: 0; background: rgba(18, 18, 18, 0.7); display: flex;
                align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;
@@ -114,7 +109,7 @@
 .trailer_item video, .trailer_item iframe {width: 100%; aspect-ratio: 16 / 9; background: #121212; margin-bottom: 10px;
                                            border-radius: 8px; border: none; object-fit: cover; display: block;}
 
-.trailer_item span {display: block; font-size: 14px; font-weight: 300; letter-spacing: 0.5px; text-align: center;}
+.trailer_item span {display: block; font-size: 14px; letter-spacing: 0.5px; font-weight: 300; text-align: center;}
 
 video::-internal-media-controls-download-button {display:none;}
 

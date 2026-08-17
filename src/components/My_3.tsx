@@ -112,7 +112,7 @@ const My_3: React.FC<LibrarySectionProps> = ({ id, setActiveSection }) => {
             </AnimatePresence>
           </div>
 
-          {/* 3. 하단 화살표 무브먼트 (< , >) */}
+          {/* 3. 하단 화살표 */}
           <div className="my3_nav_pagination">
             <button 
               className={`my3_nav_arrow arrow_left ${pageGroup === 0 ? 'disabled' : ''}`}

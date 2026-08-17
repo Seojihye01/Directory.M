@@ -53,18 +53,15 @@
 .my4_tab_btn {background: none; border: none; padding: 0; margin: 0; cursor: pointer; display: flex;
               align-items: center; font-family: inherit; outline: none; text-align: left;}
 
-.my4_indicator {font-size: 14px; letter-spacing: 5px; font-weight: 600; color: #333;
+.my4_indicator {font-size: 14px; letter-spacing: 5px; font-weight: 600; color: #121212;
                 margin-right: 15px; display: inline-block; width: 32px; position: relative;}
 
 .my4_indicator .dot {visibility: hidden; font-size: 6px; vertical-align: middle;
                      position: absolute; left: 50%; top: 50%; transform: translate(-90%, -30%);}
 
-.my4_label {font-size: 13px; letter-spacing: 0.08em; font-weight: 600; color: #333;
-            transition: color 0.2s ease;}
+.my4_label {font-size: 13px; letter-spacing: 0.08em; font-weight: 600; color: #121212;}
 
-.my4_tab_btn.active .my4_indicator .dot {visibility: visible; color: #000;}
-
-.my4_tab_btn.active .my4_label {color: #000;}
+.my4_tab_btn.active .my4_indicator .dot {visibility: visible; color: #121212;}
 
 .my4_cinema_calendar {width: 240px; user-select: none; flex-shrink: 0;}
 
@@ -82,7 +79,7 @@
 
 .my4_cal_arrow.is_prev img {transform: scaleX(-1) rotate(0deg);}
 
-.my4_cal_selectors {display: flex; align-items: center; gap: 8px; }
+.my4_cal_selectors {display: flex; align-items: center; gap: 8px;}
 
 .my4_cal_select {appearance: none; -webkit-appearance: none; -moz-appearance: none; cursor: pointer;
                  color: inherit; font-size: 12px; font-weight: 600; border: none; outline: none; 
@@ -160,22 +157,18 @@
   .my4_bottom_wrapper {flex-direction: column; align-items: center; gap: 40px; padding: 0 20px;
                        margin-top: 0px;}
 
-  /* max-width를 100%로 풀어서 화면을 더 넓게 쓰고, 양옆 여백을 조절합니다 */
   .my4_tab_menu {width: 100%; max-width: 100%; flex-direction: row; justify-content: space-between; 
                  align-items: center; gap: 10px; padding: 0 10px 25px 10px; border-bottom: 1px dashed #b5b5b5; 
                  margin: 12px 0 0 0; box-sizing: border-box;}
 
-  /* 버튼들이 부모 너비를 균등하게 나눠 가지도록 설정 */
   .my4_tab_btn {flex: 1; display: flex; justify-content: center; align-items: center; text-align: center;
                 white-space: nowrap; min-width: 0;}
 
-  /* 인디케이터 간격을 약간 좁혀 텍스트 공간 확보 */
   .my4_indicator {font-size: 10px; letter-spacing: 10px; margin-right: 2px; display: inline-flex; 
                   align-items: center; justify-content: center; width: auto; flex-shrink: 0;}
   
   .my4_indicator .dot {font-size: 4.5px; left: 50%; top: 50%; transform: translate(-90%, -30%);}
 
-  /* 글자가 절대 아래로 떨어지지 않도록 고정 */
   .my4_label {font-size: 10px; white-space: nowrap; word-break: keep-all;}
 
   .my4_cinema_calendar {width: 100%; max-width: 340px; margin: 0 auto;}
@@ -194,9 +187,8 @@
 
   .my4_cal_day {font-size: 10px;}
 
-  .my4_cal_movie_list {width: 100%; max-width: 340px; padding-left: 0; min-height: 115px; 
-                       padding-top: 0px; border: none; display: flex; flex-direction: column;
-                       align-items: center;}
+  .my4_cal_movie_list {width: 100%; max-width: 340px; padding-left: 0; min-height: 115px; align-items: center;
+                       padding-top: 0px; border: none; display: flex; flex-direction: column;}
 
   .my4_list_header {font-size: 11px; margin-bottom: 10px;}
 
@@ -211,10 +203,8 @@
 /* 3. 소형 모바일 (480px 이하) */
 @media screen and (max-width: 480px) {
   
-  /* 극단적으로 좁은 화면에서도 탭 메뉴가 안 깨지도록 패딩만 살짝 제거 */
   .my4_tab_menu {padding: 0 0px 25px 0px; gap: 5px;}
 
-  /* 480px 이하에서는 글자 크기를 9.5px로 살짝 줄여 안정성 확보 */
   .my4_label {font-size: 9.5px;}
 
   .my4_indicator {letter-spacing: 8px; margin-right: 0px;}

@@ -46,17 +46,6 @@
 
 .my3_nav_arrow.disabled, .my3_nav_arrow.disabled {opacity: 0.2; cursor: default; pointer-events: none;}
 
-.my3_empty_state {width: 100%; display: flex; justify-content: center;}
-
-.my3_empty_container {display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 500px;}
-
-.my3_empty_msg {font-size: 14px; letter-spacing: 0.15em; font-weight: 600; color: #a0a0a0; margin-bottom: 8px;}
-
-.my3_empty_sub {font-size: 11px; letter-spacing: 0.05em; color: #bbb; line-height: 1.6;}
-
-.my3_empty_slot_dash {width: 240px; height: 320px; border: 1px dashed #dcdcdc; border-radius: 12px;
-                      margin-top: 40px; background: rgba(255, 255, 255, 0.2);}
-
 /* Responsive Design */
 /* 1. 모바일 (768px 이하) */
 @media screen and (max-width: 768px) {

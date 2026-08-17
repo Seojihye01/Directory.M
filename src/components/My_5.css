@@ -18,15 +18,13 @@
 .my5_root_indicator {width: 8px; height: 8px; background: transparent; border-radius: 1px; 
                      border: 2px solid #121212; transition: background 0.2s ease; flex-shrink: 0;}
 
-.my5_root_row:hover .my5_root_indicator, .my5_root_row:active .my5_root_indicator {background: #121212;}
+.my5_root_row:active .my5_root_indicator {background: #121212;}
 
 .my5_table_wrapper {width: 100%; display: flex; flex-direction: column;}
 
 .my5_table_header {display: flex; align-items: center; padding: 20px 0; color: #121212; font-size: 17px; 
                    letter-spacing: 0.02em; font-weight: 500;}
 
-.col_title {font-weight: 600;}
-                   
 .back_trigger {cursor: pointer; display: inline-flex; align-items: center; gap: 15px; margin-right: 50px;}
 
 .my5_arrow {width: 10px; transform: rotate(180deg); transition: transform 0.2s cubic-bezier(0.185, 0.885, 0.32, 1.275);}
@@ -48,7 +46,7 @@
 
 .my5_custom_check_btn:hover .my5_check_box {background: #c5c5c5;}
 
-.my5_custom_check_btn input:checked + .my5_check_box {background: #1a1a1a;}
+.my5_custom_check_btn input:checked + .my5_check_box {background: #121212;}
 
 .my5_custom_check_btn input:checked + .my5_check_box .my5_check_img {opacity: 1; transform: scale(1); filter: invert(1);}
 
@@ -97,12 +95,11 @@
 
 .my5_modal_btn.cancel {background-color: #e7e7e7; color: #555555;}
 
-.my5_modal_btn.cancel:hover, .my5_modal_btn.cancel:active {background-color: #dfdfdf; color: #121212; 
-                                                           transform: scale(0.98);}
+.my5_modal_btn.cancel:hover, .my5_modal_btn.cancel:active {background-color: #dfdfdf; color: #121212;}
 
 .my5_modal_btn.confirm {background-color: #121212; color: #f4f4f4;}
 
-.my5_modal_btn.confirm:hover, .my5_modal_btn.confirm:active {background-color: #323131; transform: scale(0.98);}
+.my5_modal_btn.confirm:hover, .my5_modal_btn.confirm:active {background-color: #3b3b3b;}
 
 /* Responsive Design */
 /* 1. 태블릿 (1024px 이하) */
