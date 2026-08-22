@@ -17,30 +17,12 @@ const Curation_4: React.FC = () => {
     const navMovies = allMovies.slice(0, 10);
     const renderMovies = navMovies.filter(m => m.id !== 1);
 
-    const navigateMovie = (direction: 'prev' | 'next') => {
-            const baseMovie = selectedMovie || currentMovie;
-            const currentIndex = allMovies.findIndex(m => m.id === baseMovie.id);
-            const limitedData = allMovies.filter(movie => Number(movie.id) >= 1 && Number(movie.id) <= 10);
-            
-            let nextIndex = direction === 'prev' 
-                ? (currentIndex - 1 + limitedData.length) % limitedData.length 
-                : (currentIndex + 1) % limitedData.length;
-        
-            setSelectedMovie(allMovies[nextIndex]);
-        };
-
     const handleOpenModal = (e: React.MouseEvent, movie: Movie) => {
         // Swiper 드래그 엔진의 터치 가로채기 방지 핵심
         e.preventDefault();
         e.stopPropagation();
         setSelectedMovie(movie);
-        setIsDetailOpen(false); // 처음엔 1차 요약창 상태
-    };
-
-    const handleMoreClick = (e: React.MouseEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setIsDetailOpen(true); // 2차 상세 모달 open
+        setIsDetailOpen(true); 
     };
 
     return (
@@ -98,51 +80,14 @@ const Curation_4: React.FC = () => {
                 </Swiper>
             </div>
 
-            {/* 1차 요약 모달창 (상세 페이지 열릴 땐 조건부 렌더링으로 확실히 분리해 터치 간섭 해제) */}
-            {selectedMovie && !isDetailOpen && createPortal(
-                <div className="movie_modal">
-                    <div className="modal_bg" style={{ backgroundImage: `url(${selectedMovie.img})` }}></div>
-                    <div className="modal_content">                            
-                        <div className="modal_header_top">
-                            <h1 className="m_title">{selectedMovie.title}</h1>
-                        </div>
-                        <div className="modal_header_bot">
-                            <div className="m_info_right">
-                                <p className="m_direc_name">{selectedMovie.direc}</p>
-                                <p>Running Time : {selectedMovie.runtime}</p>
-                                <p>Release : {selectedMovie.rel}</p>
-                                <p>Genre : {selectedMovie.genre}</p>
-                            </div>
-                        </div>
-                        <div className="modal_body_row">
-                            <div className="m_description">
-                                <h3>{selectedMovie.subTitle}</h3>
-                                <p>{selectedMovie.desc}</p>
-                            </div>
-                        </div>
-                        <div className="m_video_preview">
-                            <img src={selectedMovie.img} alt="preview" />
-                            <div className="m_control_bar">
-                                <div className="m_arrow">
-                                        <img src="/media/etc/arrow_b.svg" className="m_left" onClick={() => navigateMovie('prev')} alt="prev" />
-                                        <img src="/media/etc/arrow_b.svg" className="m_right" onClick={() => navigateMovie('next')} alt="next" />
-                                    </div>
-                                <button className="m_more_btn" onClick={handleMoreClick}>MORE</button>
-                                <span className="m_cancel" onClick={() => setSelectedMovie(null)}>✕</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>,
-                document.body 
-            )}
-
-            {/* 2차 상세 모달창 */}
+            {/* 영화 상세 모달창 */}
             {isDetailOpen && selectedMovie && createPortal(
                 <div className="detail_modal_wrapper">
                     <MovieModal 
                         movie={selectedMovie} 
                         onClose={() => {
                             setIsDetailOpen(false);
+                            setSelectedMovie(null);
                         }} 
                         onMovieClick={(next) => setSelectedMovie(next)} 
                     />
