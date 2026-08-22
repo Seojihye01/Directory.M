@@ -10,7 +10,6 @@ import { allMovies, type Movie } from "./MovieData";
 import MovieModal from "./Moviemodal"; 
 
 const Curation_4: React.FC = () => {
-    const [currentMovie] = useState<Movie>(allMovies[0]);
     const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
     const [isDetailOpen, setIsDetailOpen] = useState(false);
 
