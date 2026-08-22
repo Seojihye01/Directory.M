@@ -178,6 +178,6 @@
   .col_rate, .col_days, .col_status, .col_tier {flex: 1; font-size: 9px; text-align: center; white-space: nowrap;
                                                 overflow: hidden; text-overflow: ellipsis;}
 
-  .my5_container { padding: 0 12px; }
+  .my5_container {padding: 0 12px;}
   
 }

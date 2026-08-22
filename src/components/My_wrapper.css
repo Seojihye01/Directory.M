@@ -38,17 +38,10 @@
 .my_options_list li:hover {background: rgba(18, 18, 18, 0.13);}
 
 /* Responsive Design */
-/* 1. 태블릿 (1024px 이하) */
-@media (max-width: 1024px) {
-
-  .sticky_nav .my_menu_item {font-size: 16px;}
-
-}
-
-/* 2. 모바일 (768px 이하) */
+/* 1. 모바일 (768px 이하) */
 @media (max-width: 768px) {
 
-  .sticky_nav.visible {top: -30px;}
+  .sticky_nav.visible {top: 0px;}
 
   .sticky_nav .my_menu_item {font-size: 8.5px;}
 

@@ -140,10 +140,10 @@
   .my4_tab_menu {width: 100%; flex-direction: row; gap: 80px; padding: 0 0 20px 0;
                  border-bottom: 1px solid #e5e5e5; margin: 12px 0 0 0;}
 
-  .my4_cinema_calendar {width: 240px; flex-shrink: 0;}
+  .my4_cinema_calendar {flex-shrink: 0;}
 
   .my4_cal_movie_list {flex-grow: 1; max-width: calc(100% - 280px); padding: 0 0 0 40px; 
-                       border-left: 1px dashed #b5b5b5; border-top: none; min-height: 215px;}
+                       border-top: none; min-height: 215px;}
 
 }
 
