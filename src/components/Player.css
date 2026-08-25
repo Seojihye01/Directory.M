@@ -188,8 +188,6 @@
 
     .center_controls {gap: 30px; width: 100%; justify-content: center;}
 
-    .main_play_btn {background: rgba(249, 249, 249, 0.1); padding: 15px; border-radius: 50%;}
-
     .skip_icon {width: 28px;}
 
     .progress_area {gap: 10px; margin-bottom: 15px;}
@@ -199,6 +197,8 @@
     .bottom_controls {flex-direction: column; align-items: flex-start; gap: 20px;}
 
     .ctrl_left {width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;}
+
+    .speed_btn {justify-self: start; text-align: left; padding-left: 0;}
 
     .volume_wrapper {grid-column: span 2; margin-left: 0; width: 100%; max-width: 160px; display: flex;
                      align-items: center; gap: 10px;}
