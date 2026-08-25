@@ -75,8 +75,8 @@
   .fex3_tag_list {display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 12px; align-items: center;
                   padding: 0; margin: 0; max-width: 90%;}
 
-  .fex3_tag_list li {font-size: 14px; padding: 6px 16px; border: 1px solid #d2d2d7; border-radius: 20px; min-width: auto;
-                     padding: 8px 16px; text-align: center; white-space: nowrap; box-shadow: 0 2px 5px rgba(18, 18, 18, 0.03);}
+  .fex3_tag_list li {font-size: 14px; border: 1px solid #d2d2d7; border-radius: 20px; min-width: auto; padding: 8px 16px; 
+                     text-align: center; white-space: nowrap; box-shadow: 0 2px 5px rgba(18, 18, 18, 0.03);}
 
   .fex3_slider_boundary {width: 100%; height: auto; padding: 0 20px; overflow: visible; display: block;}
 

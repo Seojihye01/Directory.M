@@ -1,5 +1,5 @@
-.funding_timer_bar {background-color: #121212; padding: 25px 160px; display: flex; color: #f9f9f9;
-                    justify-content: space-between; align-items: center; width: 100%; box-sizing: border-box;}
+.funding_timer_bar {background-color: #121212; padding: 25px 160px; color: #f9f9f9; width: 100%; 
+                    display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;}
 
 .timer_label {font-size: 40px; font-weight: 800; letter-spacing: 0.05em;}
 

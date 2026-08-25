@@ -152,8 +152,8 @@ const Explore_4 = ({ onMovieClick }: ExploreProps) => {
 const filterOptions: { [key: string]: string[] } = {
     GENRE: ["All", "Sci-Fi", "Drama", "Action", "Documentary", "Romance", "Noir", "Arthouse", "Classic", "Independent", "Short Film"],
     YEAR: ["All", "2026", "2025", "2024", "2023", "2022", "2021", "2020", "2010s", "2000s", "Before 2000"],
-    COUNTRY: ["All", "Korea", "USA", "UK", "Europe", "Asia", "Africa", "ETC"],
-    "SORT BY": ["-", "Latest", "Most viewed", "Rising"]
+    COUNTRY: ["All", "Korea", "USA", "UK", "Europe", "Asia", "Africa", "etc"],
+    "SORT BY": ["Latest", "Most Viewed", "Rising"]
 };
 
 export default Explore_4;

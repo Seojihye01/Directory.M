@@ -112,12 +112,12 @@ const FundingEx_1 = () => {
                         {/* 임시 데이터 맵핑 (실제 데이터는 project.tiers 등에서 가져올 수 있음) */}
                         {[
                           { id: 1, name: "Tier 01", price: "₩5,000", benefit: "엔드 크레딧 기재" },
-                          { id: 2, name: "Tier 02", price: "₩30,000", benefit: "온라인 시사권, 디지털아트북" },
+                          { id: 2, name: "Tier 02", price: "₩30,000", benefit: "온라인 시사권, 디지털 아트북" },
                           { id: 3, name: "Tier 03", price: "₩100,000", benefit: "분석 리포트, 프라이빗 상영 초대권" }
                         ].map((tier) => (
                           <li key={tier.id} onClick={() => handleSelectTier(tier)}>
                             <div className="tier_info">
-                              <strong>{tier.name} (Minimal : {tier.price})</strong>
+                              <strong>{tier.name} ({tier.price})</strong>
                               <span>{tier.benefit}</span>
                             </div>
                           </li>

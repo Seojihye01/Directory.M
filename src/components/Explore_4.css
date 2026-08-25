@@ -45,7 +45,7 @@
 
 .page_indicator_box {display: flex; align-items: center; gap: 20px; cursor: text;}
 
-.txt_page {font-size: 12px; color: rgba(18, 18, 18, 0.8); letter-spacing: 2px;}
+.txt_page {font-size: 12px; letter-spacing: 2px; color: rgba(18, 18, 18, 0.8);}
 
 .page_direct_input {width: 40px; background: transparent; border: none; font-size: 12px;
                     border-bottom: 1px solid rgba(18, 18, 18, 0.3); outline: none;
@@ -55,7 +55,7 @@
 .page_direct_input::-webkit-outer-spin-button,
 .page_direct_input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;}
                 
-.txt_num {font-size: 12px; color: rgba(18, 18, 18, 0.8); font-weight: 400;}
+.txt_num {font-size: 12px; font-weight: 400; color: rgba(18, 18, 18, 0.8);}
 
 .arrow_btn {border: none; background: none; color: #ddd; cursor: pointer; font-size: 18px;
             display: block; align-items: center; justify-content: center; transition: transform 0.1s ease;}
@@ -71,7 +71,6 @@
 .total_page {font-size: 10px; letter-spacing: 10%; font-weight: 300; color: rgba(18, 18, 18, 0.4);
              padding-top: 5px;}
 
-/* 우측 그리드 & 호버 효과 */
 .ex4_content_area {flex: 1; display: flex; justify-content: center; align-items: center; overflow: hidden; 
                    transform: translateY(-29px); opacity: 1; will-change: transform, opacity;
                    backface-visibility: hidden;
@@ -80,8 +79,7 @@
 
 .ex4_content_area.switching {opacity: 0; transform: translateY(-20px);}
 
-.masonry_layout {display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
-                 grid-auto-rows: 170px;}
+.masonry_layout {display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; grid-auto-rows: 170px;}
 
 .ex4_movie_item {position: relative; border-radius: 8px; overflow: hidden; background: #f0f0f0; cursor: pointer;
                  transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -93,10 +91,9 @@
 
 .ex4_movie_item img {width: 100%; height: 100%; object-fit: cover; transition: 0.4s;}
 
-.movie_hover_overlay {position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-                      background: rgba(18, 18, 18, 0.6); display: flex; padding: 20px;
-                      justify-content: center; align-items: center; opacity: 0; 
-                      transition: 0.3s ease; text-align: center;}
+.movie_hover_overlay {position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 20px;
+                      background: rgba(18, 18, 18, 0.6); display: flex; justify-content: center; 
+                      align-items: center; opacity: 0; transition: 0.3s ease; text-align: center;}
 
 .ex4_movie_item:hover .movie_hover_overlay {opacity: 1;}
 

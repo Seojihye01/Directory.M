@@ -22,13 +22,8 @@
 
 .fex4_right_content {display: flex; justify-content: flex-end; align-items: center; gap: 15px;}
 
-.fex4_multi_wrapper {display: flex; align-items: center; gap: 0; background: rgba(18, 18, 18, 0.22); 
-                     padding: 0 20px; border-radius: 20px; box-shadow: inset 0 2px 5px rgba(18, 18, 18, 0.45); 
-                     min-width: 180px; justify-content: center;}
-
-.fex4_slot_text_window {height: 30px; overflow: hidden; background: transparent; padding: 0 ;
-                        border-radius: 20px; min-width: fit-content; display: flex; justify-content: flex-end;
-                        box-shadow: none;}
+.fex4_slot_text_window {height: 30px; overflow: hidden; background: transparent; padding: 0; box-shadow: none;
+                        border-radius: 20px; min-width: fit-content; display: flex; justify-content: flex-end;}
 
 .fex4_slot_unit {height: 30px; line-height: 30px; font-size: 12px; letter-spacing: 10%; font-weight: 400; 
                  width: 100%; text-align: right;}

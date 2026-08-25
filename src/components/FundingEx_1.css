@@ -13,8 +13,8 @@
 
 .fex1_meta {display: flex; flex-direction: column; justify-content: space-between; padding: 20px 0;}
 
-.fex1_genre {font-size: 12px; color: #86868b; font-weight: 500; text-transform: uppercase; 
-             letter-spacing: 0.05em;}
+.fex1_genre {font-size: 12px; color: #86868b; letter-spacing: 0.05em; font-weight: 500; 
+             text-transform: uppercase;}
 
 .fex1_title {font-size: 40px; font-weight: 700; margin: 10px 0 20px; letter-spacing: -0.02em;}
 

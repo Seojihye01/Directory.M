@@ -26,10 +26,9 @@
 
 .main_video {width: 100%; height: 100%; object-fit: cover; transition: filter 0.2s ease;}
 
-.player_overlay {position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 40px;
+.player_overlay {position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 40px; z-index: 10;
                  background: rgba(18, 18, 18, 0.9); transition: opacity 0.5s ease-in-out, visibility 0.5s; 
-                 display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box;
-                 z-index: 10;}
+                 display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box;}
 
 .player_overlay.hidden {opacity: 0; visibility: hidden;}
 
@@ -41,8 +40,7 @@
                      display: flex; justify-content: center; align-items: center; z-index: 10; color: #f9f9f9;
                      font-size: 1.2rem; letter-spacing: 1px;}
 
-.top_bar {display: flex; justify-content: space-between; align-items: center; position: relative; 
-          width: 100%;} 
+.top_bar {display: flex; justify-content: space-between; align-items: center; position: relative; width: 100%;} 
 
 .top_left {display: flex; align-items: center; gap: 20px;}
 
@@ -56,10 +54,10 @@
 
 .cc_container {position: relative; padding-bottom: 10px;}
 
-.cc_label {font-weight: 500; cursor: pointer; opacity: 0.7; padding: 10px; border-radius: 4px;}
+.cc_label {font-weight: 500; cursor: pointer; opacity: 0.7; padding: 10px;}
 
-.cc_list {position: absolute; top: 100%; right: 0; list-style: none; border-radius: 8px; transition: 0.3s;
-          padding: 15px; text-align: right; min-width: 100px; opacity: 0; visibility: hidden;}
+.cc_list {position: absolute; top: 100%; right: 0; list-style: none; transition: 0.3s; padding: 15px; 
+          text-align: right; min-width: 100px; opacity: 0; visibility: hidden;}
 
 .cc_container:hover .cc_list {opacity: 1; visibility: visible;}
 
@@ -69,7 +67,6 @@
 
 .cc_list li.active {opacity: 1; font-weight: 800;}
 
-/* 밝기 조절 슬라이더 (세로형) */
 .brightness_control {position: absolute; left: 50px; top: 50%; transform: translateY(-50%); display: flex;
                      flex-direction: column; align-items: center; gap: 20px; z-index: 20; touch-action: none;}
 
@@ -101,24 +98,15 @@
 
 .ctrl_left {display: flex; align-items: center; gap: 40px; font-size: 14px;}
 
-.icon_group {display: flex; align-items: center; gap: 10px; cursor: pointer;}
+.icon_group {display: flex; align-items: center; gap: 10px; cursor: pointer; transition: transform 0.3s ease-in-out}
 
 .icon_group img {width: 20px;}
 
 .icon_group:active {transform: scale(0.95);}
 
-.ctrl_right img {width: 20px; cursor: pointer;}
-
-.speed {font-weight: 400; min-width: 40px; text-align: center; padding: 4px 8px; transition: 0.2s;}
-
-.speed:hover {background: rgba(249, 249, 249, 0.2); border-radius: 4px;}
-
-.center_play {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); cursor: pointer;
-              background: rgba(249, 249, 249, 0.1); border-radius: 50%; padding: 20px; backdrop-filter: blur(10px);}
+.speed_btn {font-weight: 400; min-width: 40px; text-align: center; padding: 4px 8px; transition: 0.2s; cursor: pointer;}
 
 .volume_wrapper {display: flex; align-items: center; gap: 12px; margin-left: 10px;}
-
-.volume_control {display: flex; align-items: center; gap: 10px; margin-left: 10px;}
 
 .volume_icon {width: 20px; opacity: 0.8; object-fit: contain;}
 
@@ -129,6 +117,8 @@
                                       border-radius: 50%; cursor: pointer;}
 
 .ctrl_right {display: flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px;}
+
+.ctrl_right img {width: 20px; cursor: pointer;}
 
 .episode_modal_overlay {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
                         background: rgba(18, 18, 18, 0.85); display: flex; align-items: center; 

@@ -87,7 +87,7 @@ export const allMovies: Movie[] = [
     symbol: "/media/Curation/swan2_symbol.mp4"
     },
     { 
-        id: 6, title: "2001: A Space Odyssey", subTitle: "인류의 기원과 우주적 경외의 시각적 서사시",
+        id: 6, title: "2001 : A Space Odyssey", subTitle: "인류의 기원과 우주적 경외의 시각적 서사시",
         direc: "Stanley Kubrick", rel: "1968", runtime: "2h 29m",
         img: "/media/etc/2001.jpg", className: "cu3_set6",
         desc: "컴퓨터 그래픽이 없던 시대에 오직 정교한 세트와 구도만으로 우주적 숭고미를 완성했다.",

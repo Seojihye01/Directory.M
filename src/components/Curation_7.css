@@ -27,7 +27,7 @@
 
 .page_03 {left: 110px; box-shadow: 5px 0 15px rgba(18, 18, 18, 0.05);}
 
-.index_label, .locked_msg {transform: rotate(90deg); white-space: nowrap; font-size: 13px; letter-spacing: 5%; 
+.index_label, .locked_msg {transform: rotate(90deg); white-space: nowrap; font-size: 13px; letter-spacing: 10%; 
                            font-weight: 400;}
 
 .paper_inner {width: 100%; height: 100%; padding: 60px 60px; display: flex; flex-direction: column;
@@ -73,7 +73,7 @@
               position: absolute; bottom: 150px; right: 10px;}
 
 .locked_msg {color: #bbb; transform: rotate(90deg); transform-origin: right bottom; white-space: nowrap; 
-             font-size: 13px; letter-spacing: 0.05em; font-weight: 400;}
+             font-size: 13px; letter-spacing: 15%; font-weight: 400;}
 
 .cu7_curator {margin-top: auto; display: flex; justify-content: flex-start; align-items: end;}
 
