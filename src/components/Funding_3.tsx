@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { fundingProjects, type FundingProject } from './FundingData'; 
 import './Funding_3.css';
 
-const CATEGORIES = ["All", "Drama", "Romance", "Experimental", "Sci-Fi / Fantasy", "Documentary", "ETC"];
+const CATEGORIES = ["All", "Drama", "Romance", "Experimental", "Sci-Fi / Fantasy", "Documentary", "etc"];
 const STATUS_TABS: { label: string; value: FundingProject['progressState'] }[] = [
   { label: "Dev", value: "Dev" },
   { label: "Prod", value: "Prod" },
@@ -61,7 +61,7 @@ const Funding_3 = () => {
                 className={`selected_box ${isSelectOpen ? 'active' : ''}`}
                 onClick={() => setIsSelectOpen(!isSelectOpen)}
               >
-                <span>{activeCategory.toUpperCase()}</span>
+                <span>{activeCategory}</span>
                 <div className={`arrow_icon ${isSelectOpen ? 'up' : ''}`}></div>
               </div>
               
@@ -72,7 +72,7 @@ const Funding_3 = () => {
                       setActiveCategory(cat);
                       setIsSelectOpen(false);
                     }}>
-                      {cat.toUpperCase()}
+                      {cat}
                     </li>
                   ))}
                 </ul>

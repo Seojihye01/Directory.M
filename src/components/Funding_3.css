@@ -64,7 +64,7 @@
 .options_list::-webkit-scrollbar-thumb {background: rgba(18, 18, 18, 0.2); border-radius: 10px;}
 
 .category_select {padding: 8px 15px; font-size: 13px; letter-spacing: 10%; font-weight: 500; outline: none; border: none;
-                  color: #444; outline: none; cursor: pointer;}
+                  color: #444; cursor: pointer;}
 
 .funding_board_header {display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 40px;
                        max-width: 840px; padding: 0 10px 12px 10px; border-bottom: 2px solid rgba(18, 18, 18, 0.15);
